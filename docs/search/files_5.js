@@ -1,0 +1,4 @@
+var searchData=
+[
+  ['parallelize_2ehpp_0',['parallelize.hpp',['https://ltla.github.io/CppKmeans/parallelize_8hpp.html',1,'']]]
+];
