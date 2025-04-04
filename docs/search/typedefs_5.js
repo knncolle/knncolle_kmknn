@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['options_0',['Options',['../classknncolle__kmknn_1_1KmknnBuilder.html#a11b086d90c33777274fa48c0657238e2',1,'knncolle_kmknn::KmknnBuilder']]]
+  ['manhattandistance_0',['ManhattanDistance',['../namespaceknncolle__kmknn.html#a11476f42c27e84a8053827c3386714f7',1,'knncolle_kmknn']]]
 ];

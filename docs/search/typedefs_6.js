@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['refine_0',['Refine',['../namespaceknncolle__kmknn.html#aa406fc698a8543c13d2081467099000e',1,'knncolle_kmknn']]],
-  ['refinehartiganwong_1',['RefineHartiganWong',['../namespaceknncolle__kmknn.html#a82947272781cd9cc6040f859cf99a3f7',1,'knncolle_kmknn']]],
-  ['refinelloyd_2',['RefineLloyd',['../namespaceknncolle__kmknn.html#ad19250ce8179359cd6118cdf2e9b3936',1,'knncolle_kmknn']]]
+  ['neighborlist_0',['NeighborList',['https://knncolle.github.io/knncolle/namespaceknncolle.html#a97693d779b6041859ffa0ef2d9c1500b',1,'knncolle']]],
+  ['normalizedmatrix_1',['NormalizedMatrix',['https://knncolle.github.io/knncolle/classknncolle_1_1L2NormalizedBuilder.html#a1098d7699574f9d509508b6a1fe23a32',1,'knncolle::L2NormalizedBuilder']]]
 ];

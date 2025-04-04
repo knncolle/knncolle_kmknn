@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['common_0',['Common',['../namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c',1,'knncolle_kmknn']]]
+  ['buildermatrix_0',['BuilderMatrix',['https://knncolle.github.io/knncolle/classknncolle_1_1L2NormalizedBuilder.html#abeaefcb9c85ef73693defd5f59503ff2',1,'knncolle::L2NormalizedBuilder']]]
 ];

@@ -9,6 +9,7 @@
     <templarg>class Matrix_</templarg>
     <templarg>class DistanceMetric_</templarg>
     <templarg>class KmeansMatrix_</templarg>
+    <base>knncolle::Builder&lt; typename Index_, typename Data_, typename Distance_, class Matrix_ &gt;</base>
     <member kind="typedef">
       <type>KmknnOptions&lt; Index_, Data_, Distance_, KmeansMatrix_ &gt;</type>
       <name>Options</name>
@@ -81,6 +82,7 @@
     <templarg>typename Data_</templarg>
     <templarg>typename Distance_</templarg>
     <templarg>class DistanceMetric_</templarg>
+    <base>knncolle::Prebuilt&lt; Index_, Data_, Distance_ &gt;</base>
   </compound>
   <compound kind="class">
     <name>knncolle_kmknn::KmknnSearcher</name>
@@ -89,6 +91,7 @@
     <templarg>typename Data_</templarg>
     <templarg>typename Distance_</templarg>
     <templarg>class DistanceMetric_</templarg>
+    <base>knncolle::Searcher&lt; Index_, Data_, Distance_ &gt;</base>
   </compound>
   <compound kind="namespace">
     <name>knncolle_kmknn</name>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['simplematrix_0',['SimpleMatrix',['https://ltla.github.io/CppKmeans/classkmeans_1_1SimpleMatrix.html#af0e742cfab965e8cb0a887bc0a27abe9',1,'kmeans::SimpleMatrix']]]
+  ['kmknnbuilder_0',['KmknnBuilder',['../classknncolle__kmknn_1_1KmknnBuilder.html#ac841e15738c745bd12672a62f77f6041',1,'knncolle_kmknn::KmknnBuilder::KmknnBuilder(std::shared_ptr&lt; const DistanceMetric_ &gt; metric, Options options)'],['../classknncolle__kmknn_1_1KmknnBuilder.html#a4e371713bc2d5499550516f7625dcdc4',1,'knncolle_kmknn::KmknnBuilder::KmknnBuilder(std::shared_ptr&lt; const DistanceMetric_ &gt; metric)'],['../classknncolle__kmknn_1_1KmknnBuilder.html#a36d528ba07d05d94dc845a0139377cb0',1,'knncolle_kmknn::KmknnBuilder::KmknnBuilder(const DistanceMetric_ *metric)']]]
 ];

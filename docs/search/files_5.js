@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['parallelize_2ehpp_0',['parallelize.hpp',['https://ltla.github.io/CppKmeans/parallelize_8hpp.html',1,'']]]
+  ['kmeans_2ehpp_0',['kmeans.hpp',['https://ltla.github.io/CppKmeans/kmeans_8hpp.html',1,'']]],
+  ['knncolle_2ehpp_1',['knncolle.hpp',['https://knncolle.github.io/knncolle/knncolle_8hpp.html',1,'']]]
 ];

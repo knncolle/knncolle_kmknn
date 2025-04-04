@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['distancemetric_0',['DistanceMetric',['../namespaceknncolle__kmknn.html#a951ca343a2296f4aeffa1e2bb84c6bec',1,'knncolle_kmknn']]]
+  ['common_0',['Common',['../namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c',1,'knncolle_kmknn']]]
 ];

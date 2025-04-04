@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['euclideandistance_0',['EuclideanDistance',['../namespaceknncolle__kmknn.html#a14989deec2423f5045ccd5366b24ca3f',1,'knncolle_kmknn']]]
+  ['distancemetric_0',['DistanceMetric',['../namespaceknncolle__kmknn.html#a951ca343a2296f4aeffa1e2bb84c6bec',1,'knncolle_kmknn']]]
 ];
