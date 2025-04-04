@@ -167,9 +167,9 @@ template<typename Index_, typename Data_, typename Distance_, class KmeansMatrix
 using RefineHartiganWong = kmeans::RefineHartiganWong<Index_, Common<Data_, Distance_>, Index_, Common<Data_, Distance_>, KmeansMatrix_>;
 
 /** 
- * @brief Options for `KmknnBuilder` and `KmknnPrebuilt` construction. 
+ * @brief Options for `KmknnBuilder` construction. 
  *
- * This can also be created via the `KmknnBuilder::Options` definition,
+ * This can also be created via the `KmknnBuilder::Options` typedef,
  * which ensures consistency with the template parameters used in `KmknnBuilder`.
  *
  * @tparam Index_ Integer type for the observation indices.
@@ -212,7 +212,7 @@ class KmknnPrebuilt;
  * @tparam Data_ Numeric type for the input and query data.
  * @tparam Distance_ Floating-point type for the distances.
  * @tparam DistanceMetric_ Class implementing the distance metric calculation.
- * This should satisfy the `DistanceMetric` interface.
+ * This should satisfy the `knncolle::DistanceMetric` interface.
  */
 template<typename Index_, typename Data_, typename Distance_, class DistanceMetric_ = DistanceMetric<Data_, Distance_> >
 class KmknnSearcher final : public knncolle::Searcher<Index_, Data_, Distance_> {
@@ -226,6 +226,9 @@ public:
             my_conversion_buffer.resize(my_parent.my_dim);
         }
     }
+    /**
+     * @endcond
+     */
 
 private:                
     const KmknnPrebuilt<Index_, Data_, Distance_, DistanceMetric_>& my_parent;
@@ -309,9 +312,6 @@ public:
             return my_all_neighbors.size();
         }
     }
-    /**
-     * @endcond
-     */
 };
 
 /**
@@ -323,7 +323,7 @@ public:
  * @tparam Data_ Numeric type for the input and query data.
  * @tparam Distance_ Floating-point type for the distances.
  * @tparam DistanceMetric_ Class implementing the distance metric calculation.
- * This should satisfy the `DistanceMetric` interface.
+ * This should satisfy the `knncolle::DistanceMetric` interface.
  */
 template<typename Index_, typename Data_, typename Distance_, class DistanceMetric_ = DistanceMetric<Data_, Distance_> >
 class KmknnPrebuilt final : public knncolle::Prebuilt<Index_, Data_, Distance_> {
@@ -640,14 +640,11 @@ private:
 
 public:
     /**
-     * @cond
+     * Creates a `KmknnSearcher` instance.
      */
     std::unique_ptr<knncolle::Searcher<Index_, Data_, Distance_> > initialize() const {
         return std::make_unique<KmknnSearcher<Index_, Data_, Distance_, DistanceMetric_> >(*this);
     }
-    /**
-     * @endcond
-     */
 };
 
 /**
@@ -665,9 +662,9 @@ public:
  * @tparam Distance_ Floating-point type for the distances.
  * This is also used for the cluster centers.
  * @tparam Matrix_ Class of the input data matrix. 
- * This should satisfy the `Matrix` interface.
+ * This should satisfy the `knncolle::Matrix` interface.
  * @tparam DistanceMetric_ Class implementing the distance metric calculation.
- * This should satisfy the `DistanceMetric` interface.
+ * This should satisfy the `knncolle::DistanceMetric` interface.
  * Note that the input data type is set to `Distance_` as this class must be able to compute distances to cluster centers.
  * @tparam KmeansMatrix_ Class of the input data matrix for **kmeans**.
  * This should satisfy the `kmeans::Matrix` interface, most typically a `kmeans::SimpleMatrix`.
@@ -699,7 +696,7 @@ private:
 
 public:
     /**
-     * @param metric Pointer to a distance metric instance, e.g., `knncolle::EuclideanDistance`.
+     * @param metric Pointer to a distance metric instance, e.g., `EuclideanDistance`.
      * @param options Further options for the KMKNN algorithm.
      */
     KmknnBuilder(std::shared_ptr<const DistanceMetric_> metric, Options options) : my_metric(std::move(metric)), my_options(std::move(options)) {}
@@ -707,14 +704,14 @@ public:
     /**
      * Overloaded constructor using the default options.
      *
-     * @param metric Pointer to a distance metric instance, e.g., `knncolle::EuclideanDistance`.
+     * @param metric Pointer to a distance metric instance, e.g., `EuclideanDistance`.
      */
     KmknnBuilder(std::shared_ptr<const DistanceMetric_> metric) : KmknnBuilder(std::move(metric), {}) {}
 
     /**
      * Overloaded constructor using the default options.
      *
-     * @param metric Pointer to a distance metric instance, e.g., `knncolle::EuclideanDistance`.
+     * @param metric Pointer to a distance metric instance, e.g., `EuclideanDistance`.
      */
     KmknnBuilder(const DistanceMetric_* metric) : KmknnBuilder(std::shared_ptr<const DistanceMetric_>(metric)) {}
 
@@ -733,7 +730,7 @@ public:
 
 public:
     /**
-     * @cond
+     * Creates a `KmknnPrebuilt` instance.
      */
     knncolle::Prebuilt<Index_, Data_, Distance_>* build_raw(const Matrix_& data) const {
         size_t ndim = data.num_dimensions();
@@ -749,9 +746,6 @@ public:
 
         return new KmknnPrebuilt<Index_, Data_, Distance_, DistanceMetric_>(ndim, nobs, std::move(store), my_metric, my_options);
     }
-    /**
-     * @endcond
-     */
 };
 
 }

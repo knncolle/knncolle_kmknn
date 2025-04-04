@@ -27,23 +27,54 @@ std::vector<double> matrix(ndim * nobs); // column-major ndim x nobs matrix.
 knncolle::SimpleMatrix<int, double> mat(ndim, nobs, matrix.data());
 
 // Build an KMKNN index. 
-knncolle_kmknn::KmknnBuilder<int, double, double> kbuilder(new knncolle_kmknn::EuclideanDistance<double, double>);
+auto dist = std::make_shared<knncolle_kmknn::EuclideanDistance<double, double> >();
+knncolle_kmknn::KmknnBuilder<int, double, double> kbuilder(dist);
 auto kindex = kbuilder.build_unique(mat);
 
 // Find 10 nearest neighbors of every element.
 auto results = knncolle::find_nearest_neighbors(*kindex, 10); 
 ```
 
-We can customize the construction of the `KmknnBuilder` by passing in options, e.g., to modify the k-means clustering:
+Check out the [reference documentation](https://knncolle.github.io/knncolle_kmknn/) for more details.
+
+## Customizing the search
+
+We can customize the behavior of the `KmknnBuilder` by modifying some of its options.
+For example, to modify the k-means clustering:
 
 ```cpp
 auto& opt = kbuilder.get_options();
 opt.initialize_algorithm.reset(new knncolle_kmknn::InitializeRandom<int, double, double>);
 opt.refine_algorithm.reset(new knncolle_kmknn::RefineLloyd<int, double, double>);
 auto kindex2 = kbuilder.build_unique(mat);
+
+// Alternatively we can pass some options directly to the KmknnBuilder's constructor.
+knncolle_kmknn::KmknnOptions<int, double, double> new_options;
+new_options.power = 0.8;
+knncolle_kmknn::KmknnBuilder<int, double, double> kbuilder(dist, new_options);
 ```
 
-Check out the [reference documentation](https://knncolle.github.io/knncolle_kmknn/) for more details.
+We can also pass in a different distance metric, if so desired.
+KMKNN works most naturally with the Euclidean distance as k-means aims to minimize the Euclidean distance between data points and the centroids.
+But a different distance metric will still give the correct results:
+
+```cpp
+auto man_dist = std::make_shared<knncolle_kmknn::ManhattanDistance<double, double> >();
+knncolle_kmknn::KmknnBuilder<int, double, double> man_kbuilder(man_dist);
+```
+
+As with other **knncolle** classes, advanced users can choose their own types via different template parametrizations.
+This may provide some opportunities for devirtualization if polymorphism is not required.
+
+```cpp
+knncolle_kmknn::KmknnBuilder<
+    /* observation index */ size_t,
+    /* input data type */ float,
+    /* distance type */ double,
+    /* input matrix representation */ knncolle::SimpleMatrix<size_t, float>,
+    /* distance metric */ knncolle_kmknn::EuclideanDistance<double, double>
+> kbuilder_typed(dist);
+```
 
 ## Building projects 
 
