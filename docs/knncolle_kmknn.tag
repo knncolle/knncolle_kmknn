@@ -45,6 +45,13 @@
       <anchor>a7cc86e827674d374a9090c6f4e9300ea</anchor>
       <arglist>()</arglist>
     </member>
+    <member kind="function">
+      <type>knncolle::Prebuilt&lt; Index_, Data_, Distance_ &gt; *</type>
+      <name>build_raw</name>
+      <anchorfile>classknncolle__kmknn_1_1KmknnBuilder.html</anchorfile>
+      <anchor>af75c0cc7d253fd9ad69bf8e0634dcccf</anchor>
+      <arglist>(const Matrix_ &amp;data) const</arglist>
+    </member>
   </compound>
   <compound kind="struct">
     <name>knncolle_kmknn::KmknnOptions</name>
@@ -83,6 +90,13 @@
     <templarg>typename Distance_</templarg>
     <templarg>class DistanceMetric_</templarg>
     <base>knncolle::Prebuilt&lt; Index_, Data_, Distance_ &gt;</base>
+    <member kind="function">
+      <type>std::unique_ptr&lt; knncolle::Searcher&lt; Index_, Data_, Distance_ &gt; &gt;</type>
+      <name>initialize</name>
+      <anchorfile>classknncolle__kmknn_1_1KmknnPrebuilt.html</anchorfile>
+      <anchor>a459ce91c45103e443c4f6033aba4c4a8</anchor>
+      <arglist>() const</arglist>
+    </member>
   </compound>
   <compound kind="class">
     <name>knncolle_kmknn::KmknnSearcher</name>
