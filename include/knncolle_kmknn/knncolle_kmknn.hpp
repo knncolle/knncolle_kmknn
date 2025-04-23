@@ -9,6 +9,7 @@
 #include <memory>
 #include <limits>
 #include <cmath>
+#include <cstddef>
 
 /**
  * @file Kmknn.hpp
@@ -254,7 +255,7 @@ public:
     void search(Index_ i, Index_ k, std::vector<Index_>* output_indices, std::vector<Distance_>* output_distances) {
         my_nearest.reset(k + 1);
         auto new_i = my_parent.my_new_location[i];
-        auto iptr = my_parent.my_data.data() + static_cast<size_t>(new_i) * my_parent.my_dim; // cast to avoid overflow.
+        auto iptr = my_parent.my_data.data() + static_cast<std::size_t>(new_i) * my_parent.my_dim; // cast to avoid overflow.
         my_parent.search_nn(iptr, my_nearest, my_center_order);
         my_nearest.report(output_indices, output_distances, new_i);
         my_parent.normalize(output_indices, output_distances);
@@ -282,7 +283,7 @@ public:
 
     Index_ search_all(Index_ i, Distance_ d, std::vector<Index_>* output_indices, std::vector<Distance_>* output_distances) {
         auto new_i = my_parent.my_new_location[i];
-        auto iptr = my_parent.my_data.data() + static_cast<size_t>(new_i) * my_parent.my_dim; // cast to avoid overflow.
+        auto iptr = my_parent.my_data.data() + static_cast<std::size_t>(new_i) * my_parent.my_dim; // cast to avoid overflow.
 
         if (!output_indices && !output_distances) {
             Index_ count = 0;
@@ -328,7 +329,7 @@ public:
 template<typename Index_, typename Data_, typename Distance_, class DistanceMetric_ = DistanceMetric<Data_, Distance_> >
 class KmknnPrebuilt final : public knncolle::Prebuilt<Index_, Data_, Distance_> {
 private:
-    size_t my_dim;
+    std::size_t my_dim;
     Index_ my_obs;
 
 public:
@@ -336,7 +337,7 @@ public:
         return my_obs;
     }
 
-    size_t num_dimensions() const {
+    std::size_t num_dimensions() const {
         return my_dim;
     }
 
@@ -358,7 +359,7 @@ public:
      */
     template<class KmeansMatrix_ = kmeans::SimpleMatrix<Index_, Data_> >
     KmknnPrebuilt(
-        size_t num_dim,
+        std::size_t num_dim,
         Index_ num_obs,
         std::vector<Common<Data_, Distance_> > data,
         std::shared_ptr<const DistanceMetric_> metric,
@@ -379,7 +380,7 @@ public:
         }
 
         Index_ ncenters = std::ceil(std::pow(my_obs, options.power));
-        my_centers.resize(static_cast<size_t>(ncenters) * my_dim); // cast to avoid overflow problems.
+        my_centers.resize(static_cast<std::size_t>(ncenters) * my_dim); // cast to avoid overflow problems.
 
         kmeans::SimpleMatrix<Index_, Data_> mat(my_dim, my_obs, my_data.data());
         std::vector<Index_> clusters(my_obs);
@@ -393,8 +394,8 @@ public:
             for (Index_ c = 0; c < ncenters; ++c) {
                 if (output.sizes[c]) {
                     if (c > survivors) {
-                        auto src = my_centers.begin() + static_cast<size_t>(c) * my_dim; // cast to avoid overflow.
-                        auto dest = my_centers.begin() + static_cast<size_t>(survivors) * my_dim;
+                        auto src = my_centers.begin() + static_cast<std::size_t>(c) * my_dim; // cast to avoid overflow.
+                        auto dest = my_centers.begin() + static_cast<std::size_t>(survivors) * my_dim;
                         std::copy_n(src, my_dim, dest);
                     }
                     remap[c] = survivors;
@@ -408,7 +409,7 @@ public:
                     c = remap[c];
                 }
                 ncenters = survivors;
-                my_centers.resize(static_cast<size_t>(ncenters) * my_dim);
+                my_centers.resize(static_cast<std::size_t>(ncenters) * my_dim);
                 my_sizes.resize(ncenters);
             }
         }
@@ -424,9 +425,9 @@ public:
             auto sofar = my_offsets;
             auto host = my_data.data();
             for (Index_ o = 0; o < my_obs; ++o) {
-                auto optr = host + static_cast<size_t>(o) * my_dim;
+                auto optr = host + static_cast<std::size_t>(o) * my_dim;
                 auto clustid = clusters[o];
-                auto cptr = my_centers.data() + static_cast<size_t>(clustid) * my_dim;
+                auto cptr = my_centers.data() + static_cast<std::size_t>(clustid) * my_dim;
 
                 auto& counter = sofar[clustid];
                 auto& current = by_distance[counter];
@@ -466,11 +467,11 @@ public:
 
                 // We recursively perform a "thread" of replacements until we
                 // are able to find the home of the originally replaced 'o'.
-                auto optr = host + static_cast<size_t>(o) * my_dim;
+                auto optr = host + static_cast<std::size_t>(o) * my_dim;
                 std::copy_n(optr, my_dim, buffer.begin());
                 Index_ replacement = current.second;
                 do {
-                    auto rptr = host + static_cast<size_t>(replacement) * my_dim;
+                    auto rptr = host + static_cast<std::size_t>(replacement) * my_dim;
                     std::copy_n(rptr, my_dim, optr);
                     used[replacement] = 1;
 
@@ -501,10 +502,10 @@ private:
          * this allows us to skip searches of the later clusters.
          */
         center_order.clear();
-        size_t ncenters = my_sizes.size();
+        std::size_t ncenters = my_sizes.size();
         center_order.reserve(ncenters);
         auto clust_ptr = my_centers.data();
-        for (size_t c = 0; c < ncenters; ++c, clust_ptr += my_dim) {
+        for (std::size_t c = 0; c < ncenters; ++c, clust_ptr += my_dim) {
             center_order.emplace_back(my_metric->raw(my_dim, target, clust_ptr), c);
         }
         std::sort(center_order.begin(), center_order.end());
@@ -547,7 +548,7 @@ private:
             }
 
             const auto cur_start = my_offsets[center];
-            const auto* other_cell = my_data.data() + my_dim * static_cast<size_t>(cur_start + firstcell); // cast to avoid overflow issues.
+            const auto* other_cell = my_data.data() + my_dim * static_cast<std::size_t>(cur_start + firstcell); // cast to avoid overflow issues.
             for (auto celldex = firstcell; celldex < cur_nobs; ++celldex, other_cell += my_dim) {
 #if KNNCOLLE_KMKNN_USE_UPPER
                 if (*(dIt + celldex) > upper_bd) {
@@ -603,7 +604,7 @@ private:
 #endif
 
             const auto cur_start = my_offsets[center];
-            auto other_ptr = my_data.data() + my_dim * static_cast<size_t>(cur_start + firstcell); // cast to avoid overflow issues.
+            auto other_ptr = my_data.data() + my_dim * static_cast<std::size_t>(cur_start + firstcell); // cast to avoid overflow issues.
             for (auto celldex = firstcell; celldex < cur_nobs; ++celldex, other_ptr += my_dim) {
 #if KNNCOLLE_KMKNN_USE_UPPER
                 if (*(dIt + celldex) > upper_bd) {
@@ -726,15 +727,14 @@ public:
      * Creates a `KmknnPrebuilt` instance.
      */
     knncolle::Prebuilt<Index_, Data_, Distance_>* build_raw(const Matrix_& data) const {
-        size_t ndim = data.num_dimensions();
+        std::size_t ndim = data.num_dimensions();
         auto nobs = data.num_observations();
 
-        std::vector<Common<Data_, Distance_> > store(ndim * static_cast<size_t>(nobs)); // cast to size_t to avoid problems.
+        std::vector<Common<Data_, Distance_> > store(ndim * static_cast<std::size_t>(nobs)); // cast to size_t to avoid overflow problems.
         auto work = data.new_extractor();
-        auto sIt = store.begin();
-        for (Index_ o = 0; o < nobs; ++o, sIt += ndim) {
+        for (Index_ o = 0; o < nobs; ++o) {
             auto ptr = work->next();
-            std::copy_n(ptr, ndim, sIt);
+            std::copy_n(ptr, ndim, store.begin() + static_cast<std::size_t>(o) * ndim); // cast to size_t to avoid overflow.
         }
 
         return new KmknnPrebuilt<Index_, Data_, Distance_, DistanceMetric_>(ndim, nobs, std::move(store), my_metric, my_options);
