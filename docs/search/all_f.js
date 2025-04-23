@@ -1,7 +1,7 @@
 var searchData=
 [
   ['randomaccessextractor_0',['RandomAccessExtractor',['https://ltla.github.io/CppKmeans/classkmeans_1_1RandomAccessExtractor.html',1,'kmeans']]],
-  ['raw_1',['raw',['https://knncolle.github.io/knncolle/classknncolle_1_1DistanceMetric.html#a2124334e18679dc06dc8cfe8baee4bc5',1,'knncolle::DistanceMetric']]],
+  ['raw_1',['raw',['https://knncolle.github.io/knncolle/classknncolle_1_1DistanceMetric.html#a8ce1cf96534fffbc989ae0141cf74ef4',1,'knncolle::DistanceMetric']]],
   ['refine_2',['Refine',['https://ltla.github.io/CppKmeans/classkmeans_1_1Refine.html',1,'kmeans::Refine&lt; typename Index_, typename Data_, typename Cluster_, typename Float_, typename Matrix_ &gt;'],['../namespaceknncolle__kmknn.html#aa406fc698a8543c13d2081467099000e',1,'knncolle_kmknn::Refine']]],
   ['refine_2ehpp_3',['Refine.hpp',['https://ltla.github.io/CppKmeans/Refine_8hpp.html',1,'']]],
   ['refine_3c_20index_5f_2c_20data_5f_2c_20cluster_5f_2c_20float_5f_2c_20matrix_5f_20_3e_4',['Refine&lt; Index_, Data_, Cluster_, Float_, Matrix_ &gt;',['https://ltla.github.io/CppKmeans/classkmeans_1_1Refine.html',1,'kmeans']]],
