@@ -25,7 +25,7 @@ target_link_libraries(
     knncolle_kmknn
 )
 
-target_compile_options(libtest PRIVATE -Wall -Wextra -Wpedantic)
+target_compile_options(libtest PRIVATE -Wall -Wextra -Wpedantic -Werror)
 
 set(CODE_COVERAGE "Enable coverage testing" OFF)
 if(CODE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
