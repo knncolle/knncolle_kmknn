@@ -708,14 +708,7 @@ public:
      */
     KmknnBuilder(std::shared_ptr<const DistanceMetric_> metric) : KmknnBuilder(std::move(metric), {}) {}
 
-    /**
-     * Overloaded constructor using the default options.
-     *
-     * @param metric Pointer to a distance metric instance, e.g., `EuclideanDistance`.
-     */
-    KmknnBuilder(const DistanceMetric_* metric) : KmknnBuilder(std::shared_ptr<const DistanceMetric_>(metric)) {}
-
-    // NOTE: don't provide an overload that accepts a raw metric pointer and the options,
+    // Don't provide an overload that accepts a raw metric pointer and the options,
     // as it's possible for the raw pointer to be constructed first, and then the options
     // is constructed but throws an error somewhere (e.g., in an IIFE), causing a memory leak.
     // as the raw pointer is never passed to the shared_ptr for management.

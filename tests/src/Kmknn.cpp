@@ -49,20 +49,21 @@ protected:
 
 TEST_P(KmknnTest, FindEuclidean) {
     int k = std::get<1>(GetParam());
+    auto eucdist = std::make_shared<knncolle::EuclideanDistance<double, double> >();
 
     knncolle::SimpleMatrix<int, double> mat(ndim, nobs, data.data());
-    knncolle_kmknn::KmknnBuilder<int, double, double> kb(new knncolle::EuclideanDistance<double, double>);
+    knncolle_kmknn::KmknnBuilder<int, double, double> kb(eucdist);
     auto kptr = kb.build_unique(mat);
     EXPECT_EQ(ndim, kptr->num_dimensions());
     EXPECT_EQ(nobs, kptr->num_observations());
 
     // Building a brute-force reference.
-    knncolle::BruteforceBuilder<int, double, double> bb(new knncolle::EuclideanDistance<double, double>);
+    knncolle::BruteforceBuilder<int, double, double> bb(eucdist);
     auto bptr = bb.build_unique(mat);
 
     // Testing other types. 
     knncolle::SimpleMatrix<size_t, double> mat2(ndim, nobs, data.data());
-    knncolle_kmknn::KmknnBuilder<size_t, double, float> kb2(new knncolle::EuclideanDistance<double, float>);
+    knncolle_kmknn::KmknnBuilder<size_t, double, float> kb2(std::make_shared<knncolle::EuclideanDistance<double, float> >());
     auto kptr2 = kb2.build_unique(mat2);
 
     std::vector<int> kres_i, ref_i;
@@ -96,12 +97,12 @@ TEST_P(KmknnTest, FindEuclidean) {
 
 TEST_P(KmknnTest, FindManhattan) {
     int k = std::get<1>(GetParam());    
+    auto mandist = std::make_shared<knncolle::ManhattanDistance<double, double> >();
 
     knncolle::SimpleMatrix<int, double> mat(ndim, nobs, data.data());
-    knncolle::BruteforceBuilder<int, double, double> bb(new knncolle::ManhattanDistance<double, double>);
+    knncolle::BruteforceBuilder<int, double, double> bb(mandist);
     auto bptr = bb.build_unique(mat);
-
-    knncolle_kmknn::KmknnBuilder<int, double, double> kb(new knncolle::ManhattanDistance<double, double>);
+    knncolle_kmknn::KmknnBuilder<int, double, double> kb(mandist);
     auto kptr = kb.build_unique(mat);
 
     std::vector<int> kres_i, ref_i;
@@ -119,11 +120,12 @@ TEST_P(KmknnTest, FindManhattan) {
 
 TEST_P(KmknnTest, QueryEuclidean) {
     int k = std::get<1>(GetParam());    
+    auto eucdist = std::make_shared<knncolle::EuclideanDistance<double, double> >();
 
     knncolle::SimpleMatrix<int, double> mat(ndim, nobs, data.data());
-    knncolle_kmknn::KmknnBuilder<int, double, double> kb(new knncolle::EuclideanDistance<double, double>);
+    knncolle_kmknn::KmknnBuilder<int, double, double> kb(eucdist);
     auto kptr = kb.build_unique(mat);
-    knncolle::BruteforceBuilder<int, double, double> bb(new knncolle::EuclideanDistance<double, double>);
+    knncolle::BruteforceBuilder<int, double, double> bb(eucdist);
     auto bptr = bb.build_unique(mat);
 
     std::vector<int> kres_i, ref_i;
@@ -151,8 +153,9 @@ TEST_P(KmknnTest, QueryEuclidean) {
 
 TEST_P(KmknnTest, AllEuclidean) {
     int k = std::get<1>(GetParam());    
+    auto eucdist = std::make_shared<knncolle::EuclideanDistance<double, double> >();
 
-    knncolle_kmknn::KmknnBuilder<int, double, double> kb(new knncolle::EuclideanDistance<double, double>);
+    knncolle_kmknn::KmknnBuilder<int, double, double> kb(eucdist);
     auto kptr = kb.build_unique(knncolle::SimpleMatrix<int, double>(ndim, nobs, data.data()));
     auto ksptr = kptr->initialize();
     std::vector<int> output_i, ref_i;
@@ -210,9 +213,9 @@ TEST_P(KmknnTest, AllEuclidean) {
 
 TEST_P(KmknnTest, AllManhattan) {
     int k = std::get<1>(GetParam());    
+    auto mandist = std::make_shared<knncolle::ManhattanDistance<double, double> >(); // Using Manhattan to test that denormalization is done correctly.
 
-    // Using Manhattan to test that denormalization is done correctly.
-    knncolle_kmknn::KmknnBuilder<int, double, double> kb(new knncolle::EuclideanDistance<double, double>);
+    knncolle_kmknn::KmknnBuilder<int, double, double> kb(mandist);
     auto kptr = kb.build_unique(knncolle::SimpleMatrix<int, double>(ndim, nobs, data.data()));
     auto ksptr = kptr->initialize();
     std::vector<int> output_i, ref_i;
@@ -269,7 +272,8 @@ TEST_P(KmknnDuplicateTest, Basic) {
         dup.insert(dup.end(), data.begin(), data.end());
     }
 
-    knncolle_kmknn::KmknnBuilder<int, double, double> bb(new knncolle::EuclideanDistance<double, double>);
+    auto eucdist = std::make_shared<knncolle::EuclideanDistance<double, double> >();
+    knncolle_kmknn::KmknnBuilder<int, double, double> bb(eucdist);
     int actual_nobs = nobs * duplication;
     auto bptr = bb.build_unique(knncolle::SimpleMatrix<int, double>(ndim, actual_nobs, dup.data()));
     auto bsptr = bptr->initialize();
@@ -310,7 +314,8 @@ protected:
 };
 
 TEST_F(KmknnMiscTest, Options) {
-    knncolle_kmknn::KmknnBuilder<int, double, double> kb(new knncolle::EuclideanDistance<double, double>);
+    auto eucdist = std::make_shared<knncolle::EuclideanDistance<double, double> >();
+    knncolle_kmknn::KmknnBuilder<int, double, double> kb(eucdist);
     EXPECT_FALSE(kb.get_options().initialize_algorithm);
     EXPECT_FALSE(kb.get_options().refine_algorithm);
 
@@ -367,14 +372,15 @@ TEST_F(KmknnMiscTest, SkipEmptyClusters) {
     // clusters occur before a non-empty cluster. We do so by forcing the first
     // cluster to be empty by making its center ridiculous.
 
-    knncolle_kmknn::KmknnBuilder<int, double, double> kb(new knncolle::EuclideanDistance<double, double>);
+    auto eucdist = std::make_shared<knncolle::EuclideanDistance<double, double> >();
+    knncolle::BruteforceBuilder<int, double, double> bb(eucdist);
+
+    knncolle_kmknn::KmknnBuilder<int, double, double> kb(eucdist);
     auto& opt = kb.get_options();
     opt.initialize_algorithm.reset(new InitializeNonsense<int, double, int, double, kmeans::SimpleMatrix<int, double> >); // nothing will be assigned to the first cluster. 
     kmeans::RefineLloydOptions ll_opt;
     ll_opt.max_iterations = 1; // no iterations so cluster centers can't be changed during refinement.
     opt.refine_algorithm.reset(new kmeans::RefineLloyd<int, double, int, double, kmeans::SimpleMatrix<int, double> >(ll_opt));
-
-    knncolle::BruteforceBuilder<int, double, double> bb(new knncolle::EuclideanDistance<double, double>);
 
     knncolle::SimpleMatrix<int, double> mat(ndim, nobs, data.data());
     auto kptr = kb.build_unique(mat);
@@ -399,7 +405,8 @@ TEST(Kmknn, Duplicates) {
     int nobs = 200;
     std::vector<double> data(ndim * nobs);
 
-    knncolle_kmknn::KmknnBuilder<int, double, double> kb(new knncolle::EuclideanDistance<double, double>);
+    auto eucdist = std::make_shared<knncolle::EuclideanDistance<double, double> >();
+    knncolle_kmknn::KmknnBuilder<int, double, double> kb(eucdist);
     auto kptr = kb.build_unique(knncolle::SimpleMatrix<int, double>(ndim, nobs, data.data()));
     auto ksptr = kptr->initialize();
     std::vector<int> res_i(10);
@@ -417,7 +424,8 @@ TEST(Kmknn, Empty) {
     int nobs = 0;
     std::vector<double> data;
 
-    knncolle_kmknn::KmknnBuilder<int, double, double> kb(new knncolle::EuclideanDistance<double, double>);
+    auto eucdist = std::make_shared<knncolle::EuclideanDistance<double, double> >();
+    knncolle_kmknn::KmknnBuilder<int, double, double> kb(eucdist);
     auto kptr = kb.build_unique(knncolle::SimpleMatrix<int, double>(ndim, nobs, data.data()));
     auto ksptr = kptr->initialize();
 
@@ -445,7 +453,8 @@ TEST(Kmknn, Ties) {
     std::fill(data.begin() + nobs * ndim / 2, data.end(), 2);
     const double delta = std::sqrt(ndim);
 
-    knncolle_kmknn::KmknnBuilder<int, double, double> kb(new knncolle::EuclideanDistance<double, double>);
+    auto eucdist = std::make_shared<knncolle::EuclideanDistance<double, double> >();
+    knncolle_kmknn::KmknnBuilder<int, double, double> kb(eucdist);
     auto kptr = kb.build_unique(knncolle::SimpleMatrix<int, double>(ndim, nobs, data.data()));
     auto ksptr = kptr->initialize();
     std::vector<int> output_indices;
