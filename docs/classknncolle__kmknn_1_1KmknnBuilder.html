@@ -123,8 +123,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac841e15738c745bd12672a62f77f6041"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e371713bc2d5499550516f7625dcdc4" id="r_a4e371713bc2d5499550516f7625dcdc4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e371713bc2d5499550516f7625dcdc4">KmknnBuilder</a> (std::shared_ptr&lt; const DistanceMetric_ &gt; metric)</td></tr>
 <tr class="separator:a4e371713bc2d5499550516f7625dcdc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36d528ba07d05d94dc845a0139377cb0" id="r_a36d528ba07d05d94dc845a0139377cb0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a36d528ba07d05d94dc845a0139377cb0">KmknnBuilder</a> (const DistanceMetric_ *metric)</td></tr>
-<tr class="separator:a36d528ba07d05d94dc845a0139377cb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cc86e827674d374a9090c6f4e9300ea" id="r_a7cc86e827674d374a9090c6f4e9300ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a11b086d90c33777274fa48c0657238e2">Options</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7cc86e827674d374a9090c6f4e9300ea">get_options</a> ()</td></tr>
 <tr class="separator:a7cc86e827674d374a9090c6f4e9300ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af75c0cc7d253fd9ad69bf8e0634dcccf" id="r_af75c0cc7d253fd9ad69bf8e0634dcccf"><td class="memItemLeft" align="right" valign="top"><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Prebuilt.html">knncolle::Prebuilt</a>&lt; Index_, Data_, Distance_ &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af75c0cc7d253fd9ad69bf8e0634dcccf">build_raw</a> (const Matrix_ &amp;data) const</td></tr>
@@ -173,7 +171,7 @@ template&lt;typename Index_ , typename Data_ , typename Distance_ , class Matrix
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac841e15738c745bd12672a62f77f6041" name="ac841e15738c745bd12672a62f77f6041"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac841e15738c745bd12672a62f77f6041">&#9670;&#160;</a></span>KmknnBuilder() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac841e15738c745bd12672a62f77f6041">&#9670;&#160;</a></span>KmknnBuilder() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,7 +209,7 @@ template&lt;typename Index_ , typename Data_ , typename Distance_ , class Matrix
 </div>
 </div>
 <a id="a4e371713bc2d5499550516f7625dcdc4" name="a4e371713bc2d5499550516f7625dcdc4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e371713bc2d5499550516f7625dcdc4">&#9670;&#160;</a></span>KmknnBuilder() <span class="overload">[2/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e371713bc2d5499550516f7625dcdc4">&#9670;&#160;</a></span>KmknnBuilder() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,40 +223,6 @@ template&lt;typename Index_ , typename Data_ , typename Distance_ , class Matrix
           <td class="memname"><a class="el" href="classknncolle__kmknn_1_1KmknnBuilder.html">knncolle_kmknn::KmknnBuilder</a>&lt; Index_, Data_, Distance_, Matrix_, DistanceMetric_, KmeansMatrix_ &gt;::KmknnBuilder </td>
           <td>(</td>
           <td class="paramtype">std::shared_ptr&lt; const DistanceMetric_ &gt;</td>          <td class="paramname"><span class="paramname"><em>metric</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Overloaded constructor using the default options.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">metric</td><td>Pointer to a distance metric instance, e.g., <code>EuclideanDistance</code>. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a36d528ba07d05d94dc845a0139377cb0" name="a36d528ba07d05d94dc845a0139377cb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36d528ba07d05d94dc845a0139377cb0">&#9670;&#160;</a></span>KmknnBuilder() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Index_ , typename Data_ , typename Distance_ , class Matrix_  = knncolle::Matrix&lt;Index_, Data_&gt;, class DistanceMetric_  = DistanceMetric&lt;Data_, Distance_&gt;, class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classknncolle__kmknn_1_1KmknnBuilder.html">knncolle_kmknn::KmknnBuilder</a>&lt; Index_, Data_, Distance_, Matrix_, DistanceMetric_, KmeansMatrix_ &gt;::KmknnBuilder </td>
-          <td>(</td>
-          <td class="paramtype">const DistanceMetric_ *</td>          <td class="paramname"><span class="paramname"><em>metric</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

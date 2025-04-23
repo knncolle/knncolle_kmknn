@@ -32,13 +32,6 @@
       <arglist>(std::shared_ptr&lt; const DistanceMetric_ &gt; metric)</arglist>
     </member>
     <member kind="function">
-      <type></type>
-      <name>KmknnBuilder</name>
-      <anchorfile>classknncolle__kmknn_1_1KmknnBuilder.html</anchorfile>
-      <anchor>a36d528ba07d05d94dc845a0139377cb0</anchor>
-      <arglist>(const DistanceMetric_ *metric)</arglist>
-    </member>
-    <member kind="function">
       <type>Options &amp;</type>
       <name>get_options</name>
       <anchorfile>classknncolle__kmknn_1_1KmknnBuilder.html</anchorfile>
