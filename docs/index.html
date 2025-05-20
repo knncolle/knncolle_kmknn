@@ -155,7 +155,7 @@ CMake with <code>FetchContent</code></h2>
 <div class="line">FetchContent_Declare(</div>
 <div class="line">  knncolle</div>
 <div class="line">  GIT_REPOSITORY https://github.com/knncolle/knncolle_kmknn</div>
-<div class="line">  GIT_TAG master # or any version of interest</div>
+<div class="line">  GIT_TAG master # replace with a pinned release</div>
 <div class="line">)</div>
 <div class="line"> </div>
 <div class="line">FetchContent_MakeAvailable(knncolle_kmknn)</div>
@@ -165,7 +165,8 @@ CMake with <code>FetchContent</code></h2>
 <div class="line"> </div>
 <div class="line"># For libaries</div>
 <div class="line">target_link_libraries(mylib INTERFACE knncolle::knncolle_kmknn)</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
+</div><!-- fragment --><p>By default, this will use <code>FetchContent</code> to fetch all external dependencies. Applications are advised to pin the versions of each dependency for stability - see <a href="extern/CMakeLists.txt"><code>extern/CMakeLists.txt</code></a> for suggested versions. If you want to install them manually, use <code>-DKNNCOLLE_KMKNN_FETCH_EXTERN=OFF</code>.</p>
+<h2><a class="anchor" id="autotoc_md6"></a>
 CMake with <code>find_package()</code></h2>
 <div class="fragment"><div class="line">find_package(knncolle_knncolle_kmknn CONFIG REQUIRED)</div>
 <div class="line">target_link_libraries(mylib INTERFACE knncolle::knncolle_kmknn)</div>
@@ -173,7 +174,7 @@ CMake with <code>find_package()</code></h2>
 <div class="fragment"><div class="line">mkdir build &amp;&amp; cd build</div>
 <div class="line">cmake .. -DKNNCOLLE_KMKNN_TESTS=OFF</div>
 <div class="line">cmake --build . --target install</div>
-</div><!-- fragment --><p>By default, this will use <code>FetchContent</code> to fetch all external dependencies. If you want to install them manually, use <code>-DKNNCOLLE_KMKNN_FETCH_EXTERN=OFF</code>. See <a href="extern/CMakeLists.txt"><code>extern/CMakeLists.txt</code></a> to find compatible versions of each dependency.</p>
+</div><!-- fragment --><p>Again, this will automatically acquire all its dependencies, see recommendations above.</p>
 <h2><a class="anchor" id="autotoc_md7"></a>
 Manual</h2>
 <p>If you're not using CMake, the simple approach is to just copy the files in <code>include/</code> - either directly or with Git submodules - and include their path during compilation with, e.g., GCC's <code>-I</code>. See <a href="extern/CMakeLists.txt"><code>extern/CMakeLists.txt</code></a> for the required external dependencies. </p>
