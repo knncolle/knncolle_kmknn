@@ -88,7 +88,7 @@ include(FetchContent)
 FetchContent_Declare(
   knncolle
   GIT_REPOSITORY https://github.com/knncolle/knncolle_kmknn
-  GIT_TAG master # or any version of interest
+  GIT_TAG master # replace with a pinned release
 )
 
 FetchContent_MakeAvailable(knncolle_kmknn)
@@ -103,6 +103,10 @@ target_link_libraries(myexe knncolle::knncolle_kmknn)
 # For libaries
 target_link_libraries(mylib INTERFACE knncolle::knncolle_kmknn)
 ```
+
+By default, this will use `FetchContent` to fetch all external dependencies.
+Applications are advised to pin the versions of each dependency for stability - see [`extern/CMakeLists.txt`](extern/CMakeLists.txt) for suggested versions.
+If you want to install them manually, use `-DKNNCOLLE_KMKNN_FETCH_EXTERN=OFF`.
 
 ### CMake with `find_package()`
 
@@ -119,9 +123,7 @@ cmake .. -DKNNCOLLE_KMKNN_TESTS=OFF
 cmake --build . --target install
 ```
 
-By default, this will use `FetchContent` to fetch all external dependencies.
-If you want to install them manually, use `-DKNNCOLLE_KMKNN_FETCH_EXTERN=OFF`.
-See [`extern/CMakeLists.txt`](extern/CMakeLists.txt) to find compatible versions of each dependency.
+Again, this will automatically acquire all its dependencies, see recommendations above.
 
 ### Manual
 

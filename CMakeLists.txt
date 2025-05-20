@@ -22,8 +22,8 @@ option(KNNCOLLE_KMKNN_FETCH_EXTERN "Automatically fetch knncolle_kmknn's externa
 if(KNNCOLLE_KMKNN_FETCH_EXTERN)
     add_subdirectory(extern)
 else()
-    find_package(knncolle_knncolle CONFIG REQUIRED)
-    find_package(ltla_kmeans CONFIG REQUIRED)
+    find_package(knncolle_knncolle 3.0.0 CONFIG REQUIRED)
+    find_package(ltla_kmeans 4.0.0 CONFIG REQUIRED)
 endif()
 
 target_link_libraries(knncolle_kmknn INTERFACE knncolle::knncolle ltla::kmeans)
