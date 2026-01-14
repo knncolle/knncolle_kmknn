@@ -24,7 +24,7 @@ jobs:
     - name: Add kmeans tagfile
       uses: wei/wget@v1
       with:
-        args: -O docs/kmeans.tag https://ltla.github.io/CppKmeans/kmeans.tag
+        args: -O docs/kmeans.tag https://libscran.github.io/kmeans/kmeans.tag
 
     - name: Doxygen Action
       uses: mattnotmitt/doxygen-action@v1

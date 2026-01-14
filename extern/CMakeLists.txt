@@ -8,7 +8,7 @@ FetchContent_Declare(
 
 FetchContent_Declare(
   kmeans
-  GIT_REPOSITORY https://github.com/LTLA/CppKmeans
+  GIT_REPOSITORY https://github.com/libscran/kmeans
   GIT_TAG master # ^4.0.0
 )
 
