@@ -103,7 +103,7 @@ TEST_P(KmknnTest, FindManhattan) {
     knncolle::BruteforceBuilder<int, double, double> bb(mandist);
     auto bptr = bb.build_unique(mat);
     knncolle_kmknn::KmknnBuilder<int, double, double> kb(mandist);
-    auto kptr = kb.build_unique(mat);
+    auto kptr = kb.build_shared(mat); // making a shared pointer for some variety.
 
     std::vector<int> kres_i, ref_i;
     std::vector<double> kres_d, ref_d;
@@ -124,7 +124,7 @@ TEST_P(KmknnTest, QueryEuclidean) {
 
     knncolle::SimpleMatrix<int, double> mat(ndim, nobs, data.data());
     knncolle_kmknn::KmknnBuilder<int, double, double> kb(eucdist);
-    auto kptr = kb.build_unique(mat);
+    auto kptr = kb.build_known_unique(mat); // test coverage for the known overrides.
     knncolle::BruteforceBuilder<int, double, double> bb(eucdist);
     auto bptr = bb.build_unique(mat);
 
@@ -156,7 +156,7 @@ TEST_P(KmknnTest, AllEuclidean) {
     auto eucdist = std::make_shared<knncolle::EuclideanDistance<double, double> >();
 
     knncolle_kmknn::KmknnBuilder<int, double, double> kb(eucdist);
-    auto kptr = kb.build_unique(knncolle::SimpleMatrix<int, double>(ndim, nobs, data.data()));
+    auto kptr = kb.build_known_shared(knncolle::SimpleMatrix<int, double>(ndim, nobs, data.data())); // test coverage for the known overrides.
     auto ksptr = kptr->initialize();
     std::vector<int> output_i, ref_i;
     std::vector<double> output_d, ref_d;
