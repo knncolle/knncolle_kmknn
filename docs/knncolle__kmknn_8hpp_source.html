@@ -561,10 +561,10 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span> </div>
 <div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>    std::unique_ptr&lt;knncolle::Searcher&lt;Index_, Data_, Distance_&gt; &gt; initialize()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>        <span class="keywordflow">return</span> initialize_raw();</div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>        <span class="keywordflow">return</span> initialize_known();</div>
 <div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>    }</div>
 <div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span> </div>
-<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>    <span class="keyword">auto</span> initialize_raw()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>    <span class="keyword">auto</span> initialize_known()<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>        <span class="keywordflow">return</span> std::make_unique&lt;KmknnSearcher&lt;Index_, Data_, Distance_, DistanceMetric_&gt; &gt;(*this);</div>
 <div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>    }</div>
 <div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>};</div>
