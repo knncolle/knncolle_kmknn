@@ -1,5 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
 <tagfile doxygen_version="1.12.0">
+  <compound kind="file">
+    <name>knncolle_kmknn.hpp</name>
+    <path>/github/workspace/include/knncolle_kmknn/</path>
+    <filename>knncolle__kmknn_8hpp.html</filename>
+    <class kind="struct">knncolle_kmknn::KmknnOptions</class>
+    <class kind="class">knncolle_kmknn::KmknnBuilder</class>
+    <namespace>knncolle_kmknn</namespace>
+  </compound>
   <compound kind="class">
     <name>knncolle_kmknn::KmknnBuilder</name>
     <filename>classknncolle__kmknn_1_1KmknnBuilder.html</filename>
@@ -39,10 +47,24 @@
       <arglist>()</arglist>
     </member>
     <member kind="function">
-      <type>knncolle::Prebuilt&lt; Index_, Data_, Distance_ &gt; *</type>
-      <name>build_raw</name>
+      <type>auto</type>
+      <name>build_known_raw</name>
       <anchorfile>classknncolle__kmknn_1_1KmknnBuilder.html</anchorfile>
-      <anchor>af75c0cc7d253fd9ad69bf8e0634dcccf</anchor>
+      <anchor>a31992acfce7ac76c9181ccb1b416fc07</anchor>
+      <arglist>(const Matrix_ &amp;data) const</arglist>
+    </member>
+    <member kind="function">
+      <type>auto</type>
+      <name>build_known_unique</name>
+      <anchorfile>classknncolle__kmknn_1_1KmknnBuilder.html</anchorfile>
+      <anchor>abb53f6576840a869640b0e1b797e9193</anchor>
+      <arglist>(const Matrix_ &amp;data) const</arglist>
+    </member>
+    <member kind="function">
+      <type>auto</type>
+      <name>build_known_shared</name>
+      <anchorfile>classknncolle__kmknn_1_1KmknnBuilder.html</anchorfile>
+      <anchor>a249418610a4c936e586334538c7b900f</anchor>
       <arglist>(const Matrix_ &amp;data) const</arglist>
     </member>
   </compound>
@@ -75,38 +97,11 @@
       <arglist></arglist>
     </member>
   </compound>
-  <compound kind="class">
-    <name>knncolle_kmknn::KmknnPrebuilt</name>
-    <filename>classknncolle__kmknn_1_1KmknnPrebuilt.html</filename>
-    <templarg>typename Index_</templarg>
-    <templarg>typename Data_</templarg>
-    <templarg>typename Distance_</templarg>
-    <templarg>class DistanceMetric_</templarg>
-    <base>knncolle::Prebuilt&lt; Index_, Data_, Distance_ &gt;</base>
-    <member kind="function">
-      <type>std::unique_ptr&lt; knncolle::Searcher&lt; Index_, Data_, Distance_ &gt; &gt;</type>
-      <name>initialize</name>
-      <anchorfile>classknncolle__kmknn_1_1KmknnPrebuilt.html</anchorfile>
-      <anchor>a459ce91c45103e443c4f6033aba4c4a8</anchor>
-      <arglist>() const</arglist>
-    </member>
-  </compound>
-  <compound kind="class">
-    <name>knncolle_kmknn::KmknnSearcher</name>
-    <filename>classknncolle__kmknn_1_1KmknnSearcher.html</filename>
-    <templarg>typename Index_</templarg>
-    <templarg>typename Data_</templarg>
-    <templarg>typename Distance_</templarg>
-    <templarg>class DistanceMetric_</templarg>
-    <base>knncolle::Searcher&lt; Index_, Data_, Distance_ &gt;</base>
-  </compound>
   <compound kind="namespace">
     <name>knncolle_kmknn</name>
     <filename>namespaceknncolle__kmknn.html</filename>
     <class kind="class">knncolle_kmknn::KmknnBuilder</class>
     <class kind="struct">knncolle_kmknn::KmknnOptions</class>
-    <class kind="class">knncolle_kmknn::KmknnPrebuilt</class>
-    <class kind="class">knncolle_kmknn::KmknnSearcher</class>
     <member kind="typedef">
       <type>decltype(std::declval&lt; Data_ &gt;() - std::declval&lt; Distance_ &gt;())</type>
       <name>Common</name>
