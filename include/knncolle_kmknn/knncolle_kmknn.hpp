@@ -11,6 +11,8 @@
 #include <cmath>
 #include <cstddef>
 #include <type_traits>
+#include <string>
+#include <fstream>
 
 /**
  * @file knncolle_kmknn.hpp
@@ -616,6 +618,68 @@ public:
     auto initialize_known() const {
         return std::make_unique<KmknnSearcher<Index_, Data_, Distance_, DistanceMetric_> >(*this);
     }
+
+public:
+    template<typename Input_, typename Size_>
+    static void quick_save(const std::string& path, const Input_* contents, const Size_ length) {
+        std::ofstream output(path, std::ofstream::binary);
+        output.exceptions(std::ofstream::failbit | std::ofstream::badbit);
+        output.write(reinterpret_cast<const char*>(contents), sizeof(Input_) * length);
+    }
+
+    void save(const std::string& prefix) const {
+        const std::string method_name = "knncolle_kmknn::Kmknn";
+        quick_save(prefix + "ALGORITHM", method_name.c_str(), method_name.size());
+        quick_save(prefix + "data", my_data.data(), my_data.size());
+        quick_save(prefix + "num_obs", &my_obs, 1);
+        quick_save(prefix + "num_dim", &my_dim, 1);
+        const auto num_centers = my_sizes.size();
+        quick_save(prefix + "num_centers", &num_centers, 1);
+
+        quick_save(prefix + "sizes", my_sizes.data(), my_sizes.size());
+        quick_save(prefix + "offsets", my_offsets.data(), my_offsets.size());
+        quick_save(prefix + "centers", my_centers.data(), my_centers.size());
+        quick_save(prefix + "observation_id", my_observation_id.data(), my_observation_id.size());
+        quick_save(prefix + "new_location", my_new_location.data(), my_new_location.size());
+        quick_save(prefix + "dist_to_centroid", my_dist_to_centroid.data(), my_dist_to_centroid.size());
+        my_metric->save(prefix + "distance_");
+    }
+
+    template<typename Input_, typename Size_>
+    static void quick_load(const std::string& path, Input_* const contents, const Size_ length) {
+        std::ifstream input(path, std::ifstream::binary);
+        input.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+        input.read(reinterpret_cast<char*>(contents), sizeof(Input_) * length);
+    }
+
+    KmknnPrebuilt(const std::string& prefix) {
+        quick_load(prefix + "num_obs", &my_obs, 1);
+        quick_load(prefix + "num_dim", &my_dim, 1);
+        auto num_centers = my_sizes.size();
+        quick_load(prefix + "num_centers", &num_centers, 1);
+
+        my_data.resize(static_cast<std::size_t>(my_obs) * my_dim);
+        quick_load(prefix + "data", my_data.data(), my_data.size());
+
+        sanisizer::resize(my_sizes, num_centers);
+        quick_load(prefix + "sizes", my_sizes.data(), my_sizes.size());
+        sanisizer::resize(my_offsets, num_centers);
+        quick_load(prefix + "offsets", my_offsets.data(), my_offsets.size());
+        my_centers.resize(my_dim * num_centers);
+        quick_load(prefix + "centers", my_centers.data(), my_centers.size());
+
+        sanisizer::resize(my_observation_id, my_obs);
+        quick_load(prefix + "observation_id", my_observation_id.data(), my_observation_id.size());
+        sanisizer::resize(my_new_location, my_obs);
+        quick_load(prefix + "new_location", my_new_location.data(), my_new_location.size());
+        sanisizer::resize(my_dist_to_centroid, my_obs);
+        quick_load(prefix + "dist_to_centroid", my_dist_to_centroid.data(), my_dist_to_centroid.size());
+
+        auto dptr = knncolle::load_distance_metric_raw<Data_, Distance_>(prefix + "distance_");
+        auto xptr = dynamic_cast<DistanceMetric_*>(dptr);
+        assert(xptr != NULL); // this must be safe as we load with the default base DistanceMetric_.
+        my_metric.reset(xptr);
+    }
 };
 /**
  * @endcond
@@ -732,6 +796,31 @@ public:
         return std::shared_ptr<std::remove_reference_t<decltype(*build_known_raw(data))> >(build_known_raw(data));
     }
 };
+
+/**
+ * Register a loading function for `load_prebuilt()` to load a KMKNN index from disk.
+ * This should be done before any calls to `load_prebuilt()` that might need to read an on-disk representation of a KMKNN index saved with `knncolle::Prebuilt::save()`.
+ * Registration is not thread-safe and should be done in a serial section only.
+ *
+ * @tparam Index_ Integer type for the observation indices.
+ * @tparam Data_ Numeric type for the input and query data.
+ * @tparam Distance_ Floating-point type for the distances.
+ *
+ * @return Whether any registration was performed.
+ * If a function was already registered, this function is a no-op.
+ */
+template<typename Index_, typename Data_, typename Distance_>
+bool register_load_prebuilt() {
+    static bool done = false;
+    if (!done) {
+        auto& reg = knncolle::load_prebuilt_registry<Index_, Data_, Distance_>();
+        reg["knncolle_kmknn::Kmknn"] = [](const std::string& prefix) -> knncolle::Prebuilt<Index_, Data_, Distance_>* {
+            return new KmknnPrebuilt<Index_, Data_, Distance_>(prefix);
+        };
+        done = true;
+    }
+    return done;
+}
 
 }
 

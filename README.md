@@ -33,6 +33,11 @@ auto kindex = kbuilder.build_unique(mat);
 
 // Find 10 nearest neighbors of every element.
 auto results = knncolle::find_nearest_neighbors(*kindex, 10); 
+
+// Register KMKNN so that it can be read by load_prebuilt().
+kindex->save("index_")
+knncolle_kmknn::register_load_prebuilt<int, double, double>();
+auto roundtrip = knncolle::load_prebuilt_shared<int, double, double>("index_");
 ```
 
 Check out the [reference documentation](https://knncolle.github.io/knncolle_kmknn/) for more details.
