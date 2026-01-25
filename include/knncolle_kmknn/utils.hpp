@@ -3,6 +3,7 @@
 
 #include <fstream>
 #include <string>
+#include <type_traits>
 
 namespace knncolle_kmknn {
 
@@ -19,6 +20,9 @@ void quick_load(const std::string& path, Input_* const contents, const Size_ len
     input.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     input.read(reinterpret_cast<char*>(contents), sizeof(Input_) * length);
 }
+
+template<typename Input_>
+using I = std::remove_const_t<std::remove_reference_t<Input_> >;
 
 }
 

@@ -209,7 +209,7 @@ public:
         }
 
         Index_ ncenters = std::ceil(std::pow(my_obs, options.power));
-        my_centers.resize(sanisizer::product<decltype(my_centers.size())>(ncenters, my_dim));
+        my_centers.resize(sanisizer::product<I<decltype(my_centers.size())> >(ncenters, my_dim));
 
         kmeans::SimpleMatrix<Index_, Data_> mat(my_dim, my_obs, my_data.data());
         auto clusters = sanisizer::create<std::vector<Index_> >(my_obs);
@@ -238,7 +238,7 @@ public:
                     c = remap[c];
                 }
                 ncenters = survivors; // this should be safe as survivors is always smaller than ncenters.
-                my_centers.resize(sanisizer::product_unsafe<decltype(my_centers.size())>(ncenters, my_dim));
+                my_centers.resize(sanisizer::product_unsafe<I<decltype(my_centers.size())> >(ncenters, my_dim));
                 my_sizes.resize(ncenters);
             }
         }
@@ -328,10 +328,10 @@ private:
          * this allows us to skip searches of the later clusters.
          */
         center_order.clear();
-        std::size_t ncenters = my_sizes.size();
+        const auto ncenters = my_sizes.size();
         center_order.reserve(ncenters);
-        auto clust_ptr = my_centers.data();
-        for (std::size_t c = 0; c < ncenters; ++c, clust_ptr += my_dim) {
+        for (I<decltype(ncenters)> c = 0; c < ncenters; ++c) {
+            auto clust_ptr = my_centers.data() + sanisizer::product_unsafe<std::size_t>(c, my_dim);
             center_order.emplace_back(my_metric->raw(my_dim, target, clust_ptr), c);
         }
         std::sort(center_order.begin(), center_order.end());
@@ -374,8 +374,9 @@ private:
             }
 
             const auto cur_start = my_offsets[center];
-            const auto* other_cell = my_data.data() + sanisizer::product_unsafe<std::size_t>(cur_start + firstcell, my_dim);
-            for (auto celldex = firstcell; celldex < cur_nobs; ++celldex, other_cell += my_dim) {
+            for (auto celldex = firstcell; celldex < cur_nobs; ++celldex) {
+                const auto other_cell = my_data.data() + sanisizer::product_unsafe<std::size_t>(cur_start + celldex, my_dim);
+
 #if KNNCOLLE_KMKNN_USE_UPPER
                 if (*(dIt + celldex) > upper_bd) {
                     break;
@@ -403,9 +404,9 @@ private:
         /* Computing distances to all centers. We don't sort them here 
          * because the threshold is constant so there's no point.
          */
-        Index_ ncenters = my_sizes.size();
-        auto center_ptr = my_centers.data(); 
-        for (Index_ center = 0; center < ncenters; ++center, center_ptr += my_dim) {
+        const auto ncenters = my_sizes.size();
+        for (I<decltype(ncenters)> center = 0; center < ncenters; ++center) {
+            auto center_ptr = my_centers.data() + sanisizer::product_unsafe<std::size_t>(center, my_dim);
             const Distance_ dist2center = my_metric->normalize(my_metric->raw(my_dim, target, center_ptr));
 
             auto cur_nobs = my_sizes[center];
@@ -430,8 +431,9 @@ private:
 #endif
 
             const auto cur_start = my_offsets[center];
-            auto other_ptr = my_data.data() + sanisizer::product_unsafe<std::size_t>(cur_start + firstcell, my_dim);
-            for (auto celldex = firstcell; celldex < cur_nobs; ++celldex, other_ptr += my_dim) {
+            for (auto celldex = firstcell; celldex < cur_nobs; ++celldex) {
+                const auto other_ptr = my_data.data() + sanisizer::product_unsafe<std::size_t>(cur_start + celldex, my_dim);
+
 #if KNNCOLLE_KMKNN_USE_UPPER
                 if (*(dIt + celldex) > upper_bd) {
                     break;
@@ -499,14 +501,14 @@ public:
         auto num_centers = my_sizes.size();
         quick_load(prefix + "num_centers", &num_centers, 1);
 
-        my_data.resize(sanisizer::product<decltype(my_data.size())>(my_obs, my_dim));
+        my_data.resize(sanisizer::product<I<decltype(my_data.size())> >(my_obs, my_dim));
         quick_load(prefix + "data", my_data.data(), my_data.size());
 
         sanisizer::resize(my_sizes, num_centers);
         quick_load(prefix + "sizes", my_sizes.data(), my_sizes.size());
         sanisizer::resize(my_offsets, num_centers);
         quick_load(prefix + "offsets", my_offsets.data(), my_offsets.size());
-        my_centers.resize(sanisizer::product<decltype(my_centers.size())>(my_dim, num_centers));
+        my_centers.resize(sanisizer::product<I<decltype(my_centers.size())> >(my_dim, num_centers));
         quick_load(prefix + "centers", my_centers.data(), my_centers.size());
 
         sanisizer::resize(my_observation_id, my_obs);
@@ -616,14 +618,14 @@ public:
      * Override to assist devirtualization.
      */
     auto build_known_raw(const Matrix_& data) const {
-        std::size_t ndim = data.num_dimensions();
-        auto nobs = data.num_observations();
+        const auto ndim = data.num_dimensions();
+        const auto nobs = data.num_observations();
 
         typedef std::vector<Common<Data_, Distance_> > Store;
         Store store(sanisizer::product<typename Store::size_type>(ndim, nobs));
 
         auto work = data.new_known_extractor();
-        for (Index_ o = 0; o < nobs; ++o) {
+        for (I<decltype(nobs)> o = 0; o < nobs; ++o) {
             auto ptr = work->next();
             std::copy_n(ptr, ndim, store.begin() + sanisizer::product_unsafe<std::size_t>(o, ndim)); 
         }
@@ -635,14 +637,14 @@ public:
      * Override to assist devirtualization.
      */
     auto build_known_unique(const Matrix_& data) const {
-        return std::unique_ptr<std::remove_reference_t<decltype(*build_known_raw(data))> >(build_known_raw(data));
+        return std::unique_ptr<I<decltype(*build_known_raw(data))> >(build_known_raw(data));
     }
 
     /**
      * Override to assist devirtualization.
      */
     auto build_known_shared(const Matrix_& data) const {
-        return std::shared_ptr<std::remove_reference_t<decltype(*build_known_raw(data))> >(build_known_raw(data));
+        return std::shared_ptr<I<decltype(*build_known_raw(data))> >(build_known_raw(data));
     }
 };
 
