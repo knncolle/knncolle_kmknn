@@ -88,7 +88,8 @@ $(function(){ initResizable(false); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">knncolle_kmknn Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
@@ -143,6 +144,12 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a82947272781cd9cc6040f859cf99a3f7" id="r_a82947272781cd9cc6040f859cf99a3f7"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </td></tr>
 <tr class="memitem:a82947272781cd9cc6040f859cf99a3f7"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a82947272781cd9cc6040f859cf99a3f7">RefineHartiganWong</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1RefineHartiganWong.html">kmeans::RefineHartiganWong</a>&lt;Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td></tr>
 <tr class="separator:a82947272781cd9cc6040f859cf99a3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a00b5c534534e9dc4d50ee959a991fb1d" id="r_a00b5c534534e9dc4d50ee959a991fb1d"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ &gt; </td></tr>
+<tr class="memitem:a00b5c534534e9dc4d50ee959a991fb1d"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a00b5c534534e9dc4d50ee959a991fb1d">register_load_prebuilt</a> ()</td></tr>
+<tr class="separator:a00b5c534534e9dc4d50ee959a991fb1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Namespace for the <b>knncolle_kmeans</b> library. </p>
@@ -448,6 +455,36 @@ template&lt;typename Index_ , typename Data_ , typename Distance_ , class Kmeans
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a00b5c534534e9dc4d50ee959a991fb1d" name="a00b5c534534e9dc4d50ee959a991fb1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00b5c534534e9dc4d50ee959a991fb1d">&#9670;&#160;</a></span>register_load_prebuilt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Index_ , typename Data_ , typename Distance_ &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool knncolle_kmknn::register_load_prebuilt </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Register a loading function for <code>load_prebuilt()</code> to load a KMKNN index from disk. This should be done before any calls to <code>load_prebuilt()</code> that might need to read an on-disk representation of a KMKNN index saved with <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Prebuilt.html#a87930f878bf3a22297b851173caaf893">knncolle::Prebuilt::save()</a></code>. Registration is not thread-safe and should be done in a serial section only.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Index_</td><td>Integer type for the observation indices. </td></tr>
+    <tr><td class="paramname">Data_</td><td>Numeric type for the input and query data. </td></tr>
+    <tr><td class="paramname">Distance_</td><td>Floating-point type for the distances.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Whether any registration was performed. If a function was already registered, this function is a no-op. </dd></dl>
 
 </div>
 </div>

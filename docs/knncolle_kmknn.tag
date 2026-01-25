@@ -1,11 +1,23 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
 <tagfile doxygen_version="1.12.0">
   <compound kind="file">
+    <name>aliases.hpp</name>
+    <path>/github/workspace/include/knncolle_kmknn/</path>
+    <filename>aliases_8hpp.html</filename>
+    <namespace>knncolle_kmknn</namespace>
+  </compound>
+  <compound kind="file">
     <name>knncolle_kmknn.hpp</name>
     <path>/github/workspace/include/knncolle_kmknn/</path>
     <filename>knncolle__kmknn_8hpp.html</filename>
-    <class kind="struct">knncolle_kmknn::KmknnOptions</class>
-    <class kind="class">knncolle_kmknn::KmknnBuilder</class>
+    <includes id="aliases_8hpp" name="aliases.hpp" local="yes" import="no" module="no" objc="no">aliases.hpp</includes>
+    <includes id="register_8hpp" name="register.hpp" local="yes" import="no" module="no" objc="no">register.hpp</includes>
+    <namespace>knncolle_kmknn</namespace>
+  </compound>
+  <compound kind="file">
+    <name>register.hpp</name>
+    <path>/github/workspace/include/knncolle_kmknn/</path>
+    <filename>register_8hpp.html</filename>
     <namespace>knncolle_kmknn</namespace>
   </compound>
   <compound kind="class">
@@ -185,6 +197,13 @@
       <anchorfile>namespaceknncolle__kmknn.html</anchorfile>
       <anchor>a82947272781cd9cc6040f859cf99a3f7</anchor>
       <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>register_load_prebuilt</name>
+      <anchorfile>namespaceknncolle__kmknn.html</anchorfile>
+      <anchor>a00b5c534534e9dc4d50ee959a991fb1d</anchor>
+      <arglist>()</arglist>
     </member>
   </compound>
   <compound kind="page">

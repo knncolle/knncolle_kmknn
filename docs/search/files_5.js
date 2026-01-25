@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['kmeans_2ehpp_0',['kmeans.hpp',['https://ltla.github.io/CppKmeans/kmeans_8hpp.html',1,'']]],
-  ['knncolle_2ehpp_1',['knncolle.hpp',['https://knncolle.github.io/knncolle/knncolle_8hpp.html',1,'']]],
-  ['knncolle_5fkmknn_2ehpp_2',['knncolle_kmknn.hpp',['../knncolle__kmknn_8hpp.html',1,'']]]
+  ['initialize_2ehpp_0',['Initialize.hpp',['https://ltla.github.io/CppKmeans/Initialize_8hpp.html',1,'']]],
+  ['initializekmeanspp_2ehpp_1',['InitializeKmeanspp.hpp',['https://ltla.github.io/CppKmeans/InitializeKmeanspp_8hpp.html',1,'']]],
+  ['initializenone_2ehpp_2',['InitializeNone.hpp',['https://ltla.github.io/CppKmeans/InitializeNone_8hpp.html',1,'']]],
+  ['initializerandom_2ehpp_3',['InitializeRandom.hpp',['https://ltla.github.io/CppKmeans/InitializeRandom_8hpp.html',1,'']]],
+  ['initializevariancepartition_2ehpp_4',['InitializeVariancePartition.hpp',['https://ltla.github.io/CppKmeans/InitializeVariancePartition_8hpp.html',1,'']]]
 ];

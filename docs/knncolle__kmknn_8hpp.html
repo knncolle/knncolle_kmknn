@@ -91,83 +91,28 @@ $(function(){ initResizable(false); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle"><div class="title">knncolle_kmknn.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p>Implements the k-means with k-nearest neighbors (KMKNN) algorithm.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="elRef" href="https://knncolle.github.io/knncolle/knncolle_8hpp.html">knncolle/knncolle.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="elRef" href="https://ltla.github.io/CppKmeans/kmeans_8hpp.html">kmeans/kmeans.hpp</a>&quot;</code><br />
-<code>#include &lt;algorithm&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;limits&gt;</code><br />
-<code>#include &lt;cmath&gt;</code><br />
-<code>#include &lt;cstddef&gt;</code><br />
-<code>#include &lt;type_traits&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="aliases_8hpp_source.html">aliases.hpp</a>&quot;</code><br />
+<code>#include &quot;Kmknn.hpp&quot;</code><br />
+<code>#include &quot;<a class="el" href="register_8hpp_source.html">register.hpp</a>&quot;</code><br />
 </div>
 <p><a href="knncolle__kmknn_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structknncolle__kmknn_1_1KmknnOptions.html">knncolle_kmknn::KmknnOptions&lt; Index_, Data_, Distance_, KmeansMatrix_ &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Options for <code><a class="el" href="classknncolle__kmknn_1_1KmknnBuilder.html" title="Perform a nearest neighbor search based on k-means clustering.">KmknnBuilder</a></code> construction.  <a href="structknncolle__kmknn_1_1KmknnOptions.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classknncolle__kmknn_1_1KmknnBuilder.html">knncolle_kmknn::KmknnBuilder&lt; Index_, Data_, Distance_, Matrix_, DistanceMetric_, KmeansMatrix_ &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform a nearest neighbor search based on k-means clustering.  <a href="classknncolle__kmknn_1_1KmknnBuilder.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceknncolle__kmknn.html">knncolle_kmknn</a></td></tr>
 <tr class="memdesc:namespaceknncolle__kmknn"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace for the <b>knncolle_kmeans</b> library. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:ab89a88b7e80686823b2d6e869b46d33c" id="r_ab89a88b7e80686823b2d6e869b46d33c"><td class="memTemplParams" colspan="2">template&lt;typename Data_ , typename Distance_ &gt; </td></tr>
-<tr class="memitem:ab89a88b7e80686823b2d6e869b46d33c"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">knncolle_kmknn::Common</a> = decltype(std::declval&lt;Data_&gt;() - std::declval&lt;Distance_&gt;())</td></tr>
-<tr class="separator:ab89a88b7e80686823b2d6e869b46d33c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a951ca343a2296f4aeffa1e2bb84c6bec" id="r_a951ca343a2296f4aeffa1e2bb84c6bec"><td class="memTemplParams" colspan="2">template&lt;typename Data_ , typename Distance_ &gt; </td></tr>
-<tr class="memitem:a951ca343a2296f4aeffa1e2bb84c6bec"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceknncolle__kmknn.html#a951ca343a2296f4aeffa1e2bb84c6bec">knncolle_kmknn::DistanceMetric</a> = <a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1DistanceMetric.html">knncolle::DistanceMetric</a>&lt;<a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Distance_&gt;</td></tr>
-<tr class="separator:a951ca343a2296f4aeffa1e2bb84c6bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14989deec2423f5045ccd5366b24ca3f" id="r_a14989deec2423f5045ccd5366b24ca3f"><td class="memTemplParams" colspan="2">template&lt;typename Data_ , typename Distance_ &gt; </td></tr>
-<tr class="memitem:a14989deec2423f5045ccd5366b24ca3f"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceknncolle__kmknn.html#a14989deec2423f5045ccd5366b24ca3f">knncolle_kmknn::EuclideanDistance</a> = <a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1EuclideanDistance.html">knncolle::EuclideanDistance</a>&lt;<a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Distance_&gt;</td></tr>
-<tr class="separator:a14989deec2423f5045ccd5366b24ca3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11476f42c27e84a8053827c3386714f7" id="r_a11476f42c27e84a8053827c3386714f7"><td class="memTemplParams" colspan="2">template&lt;typename Data_ , typename Distance_ &gt; </td></tr>
-<tr class="memitem:a11476f42c27e84a8053827c3386714f7"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceknncolle__kmknn.html#a11476f42c27e84a8053827c3386714f7">knncolle_kmknn::ManhattanDistance</a> = <a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1ManhattanDistance.html">knncolle::ManhattanDistance</a>&lt;<a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Distance_&gt;</td></tr>
-<tr class="separator:a11476f42c27e84a8053827c3386714f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1529d337336e9be814dbb82aaac452b" id="r_af1529d337336e9be814dbb82aaac452b"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </td></tr>
-<tr class="memitem:af1529d337336e9be814dbb82aaac452b"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceknncolle__kmknn.html#af1529d337336e9be814dbb82aaac452b">knncolle_kmknn::Initialize</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Initialize.html">kmeans::Initialize</a>&lt;Index_, <a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td></tr>
-<tr class="separator:af1529d337336e9be814dbb82aaac452b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ea87c7589eb69e6fde509581584c786" id="r_a4ea87c7589eb69e6fde509581584c786"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </td></tr>
-<tr class="memitem:a4ea87c7589eb69e6fde509581584c786"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceknncolle__kmknn.html#a4ea87c7589eb69e6fde509581584c786">knncolle_kmknn::InitializeRandom</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1InitializeRandom.html">kmeans::InitializeRandom</a>&lt;Index_, <a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td></tr>
-<tr class="separator:a4ea87c7589eb69e6fde509581584c786"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cd0b450d82b722d17fe6f2890b895ea" id="r_a3cd0b450d82b722d17fe6f2890b895ea"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </td></tr>
-<tr class="memitem:a3cd0b450d82b722d17fe6f2890b895ea"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceknncolle__kmknn.html#a3cd0b450d82b722d17fe6f2890b895ea">knncolle_kmknn::InitializeKmeanspp</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1InitializeKmeanspp.html">kmeans::InitializeKmeanspp</a>&lt;Index_, <a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td></tr>
-<tr class="separator:a3cd0b450d82b722d17fe6f2890b895ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fd74adc73ae84b227d91bda23b8411c" id="r_a0fd74adc73ae84b227d91bda23b8411c"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </td></tr>
-<tr class="memitem:a0fd74adc73ae84b227d91bda23b8411c"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceknncolle__kmknn.html#a0fd74adc73ae84b227d91bda23b8411c">knncolle_kmknn::InitializeNone</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1InitializeNone.html">kmeans::InitializeNone</a>&lt;Index_, <a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td></tr>
-<tr class="separator:a0fd74adc73ae84b227d91bda23b8411c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63fefb2020a20ccdaa88e1cb64a82ad4" id="r_a63fefb2020a20ccdaa88e1cb64a82ad4"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </td></tr>
-<tr class="memitem:a63fefb2020a20ccdaa88e1cb64a82ad4"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceknncolle__kmknn.html#a63fefb2020a20ccdaa88e1cb64a82ad4">knncolle_kmknn::InitializeVariancePartition</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1InitializeVariancePartition.html">kmeans::InitializeVariancePartition</a>&lt;Index_, <a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td></tr>
-<tr class="separator:a63fefb2020a20ccdaa88e1cb64a82ad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa406fc698a8543c13d2081467099000e" id="r_aa406fc698a8543c13d2081467099000e"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </td></tr>
-<tr class="memitem:aa406fc698a8543c13d2081467099000e"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceknncolle__kmknn.html#aa406fc698a8543c13d2081467099000e">knncolle_kmknn::Refine</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Refine.html">kmeans::Refine</a>&lt;Index_, <a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td></tr>
-<tr class="separator:aa406fc698a8543c13d2081467099000e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad19250ce8179359cd6118cdf2e9b3936" id="r_ad19250ce8179359cd6118cdf2e9b3936"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </td></tr>
-<tr class="memitem:ad19250ce8179359cd6118cdf2e9b3936"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceknncolle__kmknn.html#ad19250ce8179359cd6118cdf2e9b3936">knncolle_kmknn::RefineLloyd</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1RefineLloyd.html">kmeans::RefineLloyd</a>&lt;Index_, <a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td></tr>
-<tr class="separator:ad19250ce8179359cd6118cdf2e9b3936"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82947272781cd9cc6040f859cf99a3f7" id="r_a82947272781cd9cc6040f859cf99a3f7"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </td></tr>
-<tr class="memitem:a82947272781cd9cc6040f859cf99a3f7"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceknncolle__kmknn.html#a82947272781cd9cc6040f859cf99a3f7">knncolle_kmknn::RefineHartiganWong</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1RefineHartiganWong.html">kmeans::RefineHartiganWong</a>&lt;Index_, <a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="namespaceknncolle__kmknn.html#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td></tr>
-<tr class="separator:a82947272781cd9cc6040f859cf99a3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implements the k-means with k-nearest neighbors (KMKNN) algorithm. </p>
+<p>Umbrella header for the <b>knncolle_kmeans</b> library.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
