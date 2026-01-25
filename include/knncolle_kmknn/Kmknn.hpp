@@ -6,6 +6,7 @@
 
 #include "knncolle/knncolle.hpp"
 #include "kmeans/kmeans.hpp"
+#include "sanisizer/sanisizer.hpp"
 
 #include <algorithm>
 #include <vector>
@@ -69,7 +70,7 @@ public:
     KmknnSearcher(const KmknnPrebuilt<Index_, Data_, Distance_, DistanceMetric_>& parent) : my_parent(parent) {
         my_center_order.reserve(my_parent.my_sizes.size());
         if constexpr(needs_conversion) {
-            my_conversion_buffer.resize(my_parent.my_dim);
+            sanisizer::resize(my_conversion_buffer, my_parent.my_dim);
         }
     }
 
@@ -95,9 +96,9 @@ private:
 
 public:
     void search(Index_ i, Index_ k, std::vector<Index_>* output_indices, std::vector<Distance_>* output_distances) {
-        my_nearest.reset(k + 1);
+        my_nearest.reset(k + 1); // +1 is safe as k < num_obs.
         auto new_i = my_parent.my_new_location[i];
-        auto iptr = my_parent.my_data.data() + static_cast<std::size_t>(new_i) * my_parent.my_dim; // cast to avoid overflow.
+        auto iptr = my_parent.my_data.data() + sanisizer::product_unsafe<std::size_t>(new_i, my_parent.my_dim);
         my_parent.search_nn(iptr, my_nearest, my_center_order);
         my_nearest.report(output_indices, output_distances, new_i);
         my_parent.normalize(output_indices, output_distances);
@@ -125,7 +126,7 @@ public:
 
     Index_ search_all(Index_ i, Distance_ d, std::vector<Index_>* output_indices, std::vector<Distance_>* output_distances) {
         auto new_i = my_parent.my_new_location[i];
-        auto iptr = my_parent.my_data.data() + static_cast<std::size_t>(new_i) * my_parent.my_dim; // cast to avoid overflow.
+        auto iptr = my_parent.my_data.data() + sanisizer::product_unsafe<std::size_t>(new_i, my_parent.my_dim);
 
         if (!output_indices && !output_distances) {
             Index_ count = 0;
@@ -208,22 +209,22 @@ public:
         }
 
         Index_ ncenters = std::ceil(std::pow(my_obs, options.power));
-        my_centers.resize(static_cast<std::size_t>(ncenters) * my_dim); // cast to avoid overflow problems.
+        my_centers.resize(sanisizer::product<decltype(my_centers.size())>(ncenters, my_dim));
 
         kmeans::SimpleMatrix<Index_, Data_> mat(my_dim, my_obs, my_data.data());
-        std::vector<Index_> clusters(my_obs);
+        auto clusters = sanisizer::create<std::vector<Index_> >(my_obs);
         auto output = kmeans::compute(mat, *init, *refine, ncenters, my_centers.data(), clusters.data());
 
         // Removing empty clusters, e.g., due to duplicate points.
         {
-            my_sizes.resize(ncenters);
-            std::vector<Index_> remap(ncenters);
+            sanisizer::resize(my_sizes, ncenters);
+            auto remap = sanisizer::create<std::vector<Index_> >(ncenters);
             Index_ survivors = 0;
             for (Index_ c = 0; c < ncenters; ++c) {
                 if (output.sizes[c]) {
                     if (c > survivors) {
-                        auto src = my_centers.begin() + static_cast<std::size_t>(c) * my_dim; // cast to avoid overflow.
-                        auto dest = my_centers.begin() + static_cast<std::size_t>(survivors) * my_dim;
+                        auto src = my_centers.begin() + sanisizer::product_unsafe<std::size_t>(c, my_dim);
+                        auto dest = my_centers.begin() + sanisizer::product_unsafe<std::size_t>(survivors, my_dim);
                         std::copy_n(src, my_dim, dest);
                     }
                     remap[c] = survivors;
@@ -236,26 +237,26 @@ public:
                 for (auto& c : clusters) {
                     c = remap[c];
                 }
-                ncenters = survivors;
-                my_centers.resize(static_cast<std::size_t>(ncenters) * my_dim);
+                ncenters = survivors; // this should be safe as survivors is always smaller than ncenters.
+                my_centers.resize(sanisizer::product_unsafe<decltype(my_centers.size())>(ncenters, my_dim));
                 my_sizes.resize(ncenters);
             }
         }
 
-        my_offsets.resize(ncenters);
+        sanisizer::resize(my_offsets, ncenters);
         for (Index_ i = 1; i < ncenters; ++i) {
             my_offsets[i] = my_offsets[i - 1] + my_sizes[i - 1];
         }
 
         // Organize points correctly; firstly, sorting by distance from the assigned center.
-        std::vector<std::pair<Distance_, Index_> > by_distance(my_obs);
+        auto by_distance = sanisizer::create<std::vector<std::pair<Distance_, Index_> > >(my_obs);
         {
             auto sofar = my_offsets;
             auto host = my_data.data();
             for (Index_ o = 0; o < my_obs; ++o) {
-                auto optr = host + static_cast<std::size_t>(o) * my_dim;
+                auto optr = host + sanisizer::product_unsafe<std::size_t>(o, my_dim);
                 auto clustid = clusters[o];
-                auto cptr = my_centers.data() + static_cast<std::size_t>(clustid) * my_dim;
+                auto cptr = my_centers.data() + sanisizer::product_unsafe<std::size_t>(clustid, my_dim);
 
                 auto& counter = sofar[clustid];
                 auto& current = by_distance[counter];
@@ -274,11 +275,11 @@ public:
         // Permuting in-place to mirror the reordered distances, so that the search is more cache-friendly.
         {
             auto host = my_data.data();
-            std::vector<uint8_t> used(my_obs);
-            std::vector<Data_> buffer(my_dim);
-            my_observation_id.resize(my_obs);
-            my_dist_to_centroid.resize(my_obs);
-            my_new_location.resize(my_obs);
+            auto used = sanisizer::create<std::vector<unsigned char> >(my_obs);
+            auto buffer = sanisizer::create<std::vector<Data_> >(my_dim);
+            sanisizer::resize(my_observation_id, my_obs);
+            sanisizer::resize(my_dist_to_centroid, my_obs);
+            sanisizer::resize(my_new_location, my_obs);
 
             for (Index_ o = 0; o < my_obs; ++o) {
                 if (used[o]) {
@@ -295,11 +296,11 @@ public:
 
                 // We recursively perform a "thread" of replacements until we
                 // are able to find the home of the originally replaced 'o'.
-                auto optr = host + static_cast<std::size_t>(o) * my_dim;
+                auto optr = host + sanisizer::product_unsafe<std::size_t>(o, my_dim);
                 std::copy_n(optr, my_dim, buffer.begin());
                 Index_ replacement = current.second;
                 do {
-                    auto rptr = host + static_cast<std::size_t>(replacement) * my_dim;
+                    auto rptr = host + sanisizer::product_unsafe<std::size_t>(replacement, my_dim);
                     std::copy_n(rptr, my_dim, optr);
                     used[replacement] = 1;
 
@@ -373,7 +374,7 @@ private:
             }
 
             const auto cur_start = my_offsets[center];
-            const auto* other_cell = my_data.data() + my_dim * static_cast<std::size_t>(cur_start + firstcell); // cast to avoid overflow issues.
+            const auto* other_cell = my_data.data() + sanisizer::product_unsafe<std::size_t>(cur_start + firstcell, my_dim);
             for (auto celldex = firstcell; celldex < cur_nobs; ++celldex, other_cell += my_dim) {
 #if KNNCOLLE_KMKNN_USE_UPPER
                 if (*(dIt + celldex) > upper_bd) {
@@ -429,7 +430,7 @@ private:
 #endif
 
             const auto cur_start = my_offsets[center];
-            auto other_ptr = my_data.data() + my_dim * static_cast<std::size_t>(cur_start + firstcell); // cast to avoid overflow issues.
+            auto other_ptr = my_data.data() + sanisizer::product_unsafe<std::size_t>(cur_start + firstcell, my_dim);
             for (auto celldex = firstcell; celldex < cur_nobs; ++celldex, other_ptr += my_dim) {
 #if KNNCOLLE_KMKNN_USE_UPPER
                 if (*(dIt + celldex) > upper_bd) {
@@ -498,14 +499,14 @@ public:
         auto num_centers = my_sizes.size();
         quick_load(prefix + "num_centers", &num_centers, 1);
 
-        my_data.resize(static_cast<std::size_t>(my_obs) * my_dim);
+        my_data.resize(sanisizer::product<decltype(my_data.size())>(my_obs, my_dim));
         quick_load(prefix + "data", my_data.data(), my_data.size());
 
         sanisizer::resize(my_sizes, num_centers);
         quick_load(prefix + "sizes", my_sizes.data(), my_sizes.size());
         sanisizer::resize(my_offsets, num_centers);
         quick_load(prefix + "offsets", my_offsets.data(), my_offsets.size());
-        my_centers.resize(my_dim * num_centers);
+        my_centers.resize(sanisizer::product<decltype(my_centers.size())>(my_dim, num_centers));
         quick_load(prefix + "centers", my_centers.data(), my_centers.size());
 
         sanisizer::resize(my_observation_id, my_obs);
@@ -618,11 +619,13 @@ public:
         std::size_t ndim = data.num_dimensions();
         auto nobs = data.num_observations();
 
-        std::vector<Common<Data_, Distance_> > store(ndim * static_cast<std::size_t>(nobs)); // cast to size_t to avoid overflow problems.
+        typedef std::vector<Common<Data_, Distance_> > Store;
+        Store store(sanisizer::product<typename Store::size_type>(ndim, nobs));
+
         auto work = data.new_known_extractor();
         for (Index_ o = 0; o < nobs; ++o) {
             auto ptr = work->next();
-            std::copy_n(ptr, ndim, store.begin() + static_cast<std::size_t>(o) * ndim); // cast to size_t to avoid overflow.
+            std::copy_n(ptr, ndim, store.begin() + sanisizer::product_unsafe<std::size_t>(o, ndim)); 
         }
 
         return new KmknnPrebuilt<Index_, Data_, Distance_, DistanceMetric_>(ndim, nobs, std::move(store), my_metric, my_options);
