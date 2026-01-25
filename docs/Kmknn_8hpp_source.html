@@ -272,7 +272,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            refine.reset(<span class="keyword">new</span> RefineHartiganWong&lt;Index_, Data_, Distance_, KmeansMatrix_&gt;);</div>
 <div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>        }</div>
 <div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        <span class="keyword">const</span> Index_ ncenters = std::ceil(std::pow(my_obs, options.power));</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        Index_ ncenters = std::ceil(std::pow(my_obs, options.power));</div>
 <div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        my_centers.resize(sanisizer::product&lt;I&lt;<span class="keyword">decltype</span>(my_centers.size())&gt; &gt;(ncenters, my_dim));</div>
 <div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
 <div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        <a class="code hl_classRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1SimpleMatrix.html">kmeans::SimpleMatrix&lt;Index_, Data_&gt;</a> mat(my_dim, my_obs, my_data.data());</div>
@@ -394,7 +394,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>        center_order.clear();</div>
 <div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>        <span class="keyword">const</span> <span class="keyword">auto</span> ncenters = my_sizes.size();</div>
 <div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>        center_order.reserve(ncenters);</div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>        <span class="keywordflow">for</span> (<span class="keyword">decltype</span>(ncenters) c = 0; c &lt; ncenters; ++c) {</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>        <span class="keywordflow">for</span> (I&lt;<span class="keyword">decltype</span>(ncenters)&gt; c = 0; c &lt; ncenters; ++c) {</div>
 <div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>            <span class="keyword">auto</span> clust_ptr = my_centers.data() + sanisizer::product_unsafe&lt;std::size_t&gt;(c, my_dim);</div>
 <div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>            center_order.emplace_back(my_metric-&gt;raw(my_dim, target, clust_ptr), c);</div>
 <div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>        }</div>
