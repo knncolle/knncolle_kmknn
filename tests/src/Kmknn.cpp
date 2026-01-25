@@ -1,47 +1,13 @@
 #include <gtest/gtest.h>
+
+#include "TestCore.h"
+
 #include "knncolle_kmknn/knncolle_kmknn.hpp"
 #include "aarand/aarand.hpp"
 
 #include <vector>
-#include <random>
-#include <filesystem>
 #include <cstddef>
-#include <random>
-
-class TestCore {
-protected:
-    inline static int nobs, ndim;
-    inline static std::vector<double> data;
-    inline static std::tuple<int, int> last_params;
-
-protected:
-    static void assemble(const std::tuple<int, int>& param) {
-        if (param == last_params) {
-            return;
-        }
-        last_params = param;
-
-        nobs = std::get<0>(param);
-        ndim = std::get<1>(param);
-
-        std::mt19937_64 rng(nobs * 10 + ndim);
-        std::normal_distribution distr;
-
-        data.resize(nobs * ndim);
-        for (auto& d : data) {
-            d = distr(rng);
-        }
-    }
-
-    template<class It_, class Rng_>
-    static void fill_random(It_ start, It_ end, Rng_& eng) {
-        std::normal_distribution distr;
-        while (start != end) {
-            *start = distr(eng);
-            ++start;
-        }
-    }
-};
+#include <memory>
 
 class KmknnTest : public TestCore, public ::testing::TestWithParam<std::tuple<std::tuple<int, int>, int> > {
 protected:
@@ -494,93 +460,5 @@ TEST(Kmknn, Ties) {
         EXPECT_EQ(output_indices, expected_i);
         std::vector<double> expected_d { 0, 0, 0, 0, delta, delta, delta };
         EXPECT_EQ(output_distances, expected_d);
-    }
-}
-
-TEST(Kmknn, Aliases) {
-    {
-        constexpr bool test = std::is_same<knncolle_kmknn::Common<int, float>, float>::value;
-        EXPECT_TRUE(test);
-    }
-    {
-        constexpr bool test = std::is_same<knncolle_kmknn::Common<double, float>, double>::value;
-        EXPECT_TRUE(test);
-    }
-    {
-        constexpr bool test = std::is_same<knncolle_kmknn::Common<size_t, float>, float>::value;
-        EXPECT_TRUE(test);
-    }
-    {
-        constexpr bool test = std::is_same<knncolle_kmknn::Common<size_t, double>, double>::value;
-        EXPECT_TRUE(test);
-    }
-
-    [[maybe_unused]] knncolle_kmknn::Initialize<int, double, double>* iptr;
-    [[maybe_unused]] knncolle_kmknn::InitializeRandom<int, double, double> initr;
-    [[maybe_unused]] knncolle_kmknn::InitializeKmeanspp<int, double, double> initp;
-    [[maybe_unused]] knncolle_kmknn::InitializeNone<int, double, double> initn;
-    [[maybe_unused]] knncolle_kmknn::InitializeVariancePartition<int, double, double> initv;
-
-    [[maybe_unused]] knncolle_kmknn::Refine<int, double, double>* rptr;
-    [[maybe_unused]] knncolle_kmknn::RefineLloyd<int, double, double> refl;
-    [[maybe_unused]] knncolle_kmknn::RefineHartiganWong<int, double, double> refhw;
-}
-
-class KmknnLoadPrebuiltTest : public TestCore, public ::testing::Test {
-protected:
-    inline static std::filesystem::path savedir;
-
-    static void SetUpTestSuite() {
-        assemble({ 50, 5 });
-
-        savedir = "save-prebuilt-tests";
-        std::filesystem::remove_all(savedir);
-        std::filesystem::create_directory(savedir);
-
-        knncolle_kmknn::register_load_prebuilt<int, double, double>();
-    }
-};
-
-TEST_F(KmknnLoadPrebuiltTest, Euclidean) {
-    auto eucdist = std::make_shared<knncolle::EuclideanDistance<double, double> >();
-    knncolle_kmknn::KmknnBuilder<int, double, double> kb(eucdist);
-    auto bptr = kb.build_unique(knncolle::SimpleMatrix<int, double>(ndim, nobs, data.data()));
-
-    const auto prefix = (savedir / "euclidean_").string();
-    bptr->save(prefix);
-
-    auto reloaded = knncolle::load_prebuilt_shared<int, double, double>(prefix);
-    std::vector<int> output_i, output_i2;
-    std::vector<double> output_d, output_d2;
-
-    auto searcher = bptr->initialize();
-    auto researcher = reloaded->initialize();
-    for (int x = 0; x < nobs; ++x) {
-        searcher->search(x, 5, &output_i, &output_d);
-        researcher->search(x, 5, &output_i2, &output_d2);
-        EXPECT_EQ(output_i, output_i2);
-        EXPECT_EQ(output_d, output_d2);
-    }
-}
-
-TEST_F(KmknnLoadPrebuiltTest, Manhattan) {
-    auto eucdist = std::make_shared<knncolle::ManhattanDistance<double, double> >();
-    knncolle_kmknn::KmknnBuilder<int, double, double> kb(eucdist);
-    auto bptr = kb.build_unique(knncolle::SimpleMatrix<int, double>(ndim, nobs, data.data()));
-
-    const auto prefix = (savedir / "manhattan_").string();
-    bptr->save(prefix);
-
-    auto reloaded = knncolle::load_prebuilt_shared<int, double, double>(prefix);
-    std::vector<int> output_i, output_i2;
-    std::vector<double> output_d, output_d2;
-
-    auto searcher = bptr->initialize();
-    auto researcher = reloaded->initialize();
-    for (int x = 0; x < nobs; ++x) {
-        searcher->search(x, 5, &output_i, &output_d);
-        researcher->search(x, 5, &output_i2, &output_d2);
-        EXPECT_EQ(output_i, output_i2);
-        EXPECT_EQ(output_d, output_d2);
     }
 }
