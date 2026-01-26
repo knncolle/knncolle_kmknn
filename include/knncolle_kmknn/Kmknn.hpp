@@ -479,44 +479,44 @@ public:
 public:
     void save(const std::string& prefix) const {
         const std::string method_name = "knncolle_kmknn::Kmknn";
-        quick_save(prefix + "ALGORITHM", method_name.c_str(), method_name.size());
-        quick_save(prefix + "data", my_data.data(), my_data.size());
-        quick_save(prefix + "num_obs", &my_obs, 1);
-        quick_save(prefix + "num_dim", &my_dim, 1);
+        knncolle::quick_save(prefix + "ALGORITHM", method_name.c_str(), method_name.size());
+        knncolle::quick_save(prefix + "data", my_data.data(), my_data.size());
+        knncolle::quick_save(prefix + "num_obs", &my_obs, 1);
+        knncolle::quick_save(prefix + "num_dim", &my_dim, 1);
         const auto num_centers = my_sizes.size();
-        quick_save(prefix + "num_centers", &num_centers, 1);
+        knncolle::quick_save(prefix + "num_centers", &num_centers, 1);
 
-        quick_save(prefix + "sizes", my_sizes.data(), my_sizes.size());
-        quick_save(prefix + "offsets", my_offsets.data(), my_offsets.size());
-        quick_save(prefix + "centers", my_centers.data(), my_centers.size());
-        quick_save(prefix + "observation_id", my_observation_id.data(), my_observation_id.size());
-        quick_save(prefix + "new_location", my_new_location.data(), my_new_location.size());
-        quick_save(prefix + "dist_to_centroid", my_dist_to_centroid.data(), my_dist_to_centroid.size());
+        knncolle::quick_save(prefix + "sizes", my_sizes.data(), my_sizes.size());
+        knncolle::quick_save(prefix + "offsets", my_offsets.data(), my_offsets.size());
+        knncolle::quick_save(prefix + "centers", my_centers.data(), my_centers.size());
+        knncolle::quick_save(prefix + "observation_id", my_observation_id.data(), my_observation_id.size());
+        knncolle::quick_save(prefix + "new_location", my_new_location.data(), my_new_location.size());
+        knncolle::quick_save(prefix + "dist_to_centroid", my_dist_to_centroid.data(), my_dist_to_centroid.size());
         my_metric->save(prefix + "distance_");
     }
 
     KmknnPrebuilt(const std::string& prefix) {
-        quick_load(prefix + "num_obs", &my_obs, 1);
-        quick_load(prefix + "num_dim", &my_dim, 1);
+        knncolle::quick_load(prefix + "num_obs", &my_obs, 1);
+        knncolle::quick_load(prefix + "num_dim", &my_dim, 1);
         auto num_centers = my_sizes.size();
-        quick_load(prefix + "num_centers", &num_centers, 1);
+        knncolle::quick_load(prefix + "num_centers", &num_centers, 1);
 
         my_data.resize(sanisizer::product<I<decltype(my_data.size())> >(my_obs, my_dim));
-        quick_load(prefix + "data", my_data.data(), my_data.size());
+        knncolle::quick_load(prefix + "data", my_data.data(), my_data.size());
 
         sanisizer::resize(my_sizes, num_centers);
-        quick_load(prefix + "sizes", my_sizes.data(), my_sizes.size());
+        knncolle::quick_load(prefix + "sizes", my_sizes.data(), my_sizes.size());
         sanisizer::resize(my_offsets, num_centers);
-        quick_load(prefix + "offsets", my_offsets.data(), my_offsets.size());
+        knncolle::quick_load(prefix + "offsets", my_offsets.data(), my_offsets.size());
         my_centers.resize(sanisizer::product<I<decltype(my_centers.size())> >(my_dim, num_centers));
-        quick_load(prefix + "centers", my_centers.data(), my_centers.size());
+        knncolle::quick_load(prefix + "centers", my_centers.data(), my_centers.size());
 
         sanisizer::resize(my_observation_id, my_obs);
-        quick_load(prefix + "observation_id", my_observation_id.data(), my_observation_id.size());
+        knncolle::quick_load(prefix + "observation_id", my_observation_id.data(), my_observation_id.size());
         sanisizer::resize(my_new_location, my_obs);
-        quick_load(prefix + "new_location", my_new_location.data(), my_new_location.size());
+        knncolle::quick_load(prefix + "new_location", my_new_location.data(), my_new_location.size());
         sanisizer::resize(my_dist_to_centroid, my_obs);
-        quick_load(prefix + "dist_to_centroid", my_dist_to_centroid.data(), my_dist_to_centroid.size());
+        knncolle::quick_load(prefix + "dist_to_centroid", my_dist_to_centroid.data(), my_dist_to_centroid.size());
 
         auto dptr = knncolle::load_distance_metric_raw<Data_, Distance_>(prefix + "distance_");
         auto xptr = dynamic_cast<DistanceMetric_*>(dptr);
