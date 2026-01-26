@@ -209,16 +209,16 @@ public:
         }
 
         Index_ ncenters = std::ceil(std::pow(my_obs, options.power));
-        my_centers.resize(sanisizer::product<I<decltype(my_centers.size())> >(ncenters, my_dim));
+        my_centers.resize(sanisizer::product<I<decltype(my_centers.size())> >(sanisizer::attest_gez(ncenters), my_dim));
 
         kmeans::SimpleMatrix<Index_, Data_> mat(my_dim, my_obs, my_data.data());
-        auto clusters = sanisizer::create<std::vector<Index_> >(my_obs);
+        auto clusters = sanisizer::create<std::vector<Index_> >(sanisizer::attest_gez(my_obs));
         auto output = kmeans::compute(mat, *init, *refine, ncenters, my_centers.data(), clusters.data());
 
         // Removing empty clusters, e.g., due to duplicate points.
         {
-            sanisizer::resize(my_sizes, ncenters);
-            auto remap = sanisizer::create<std::vector<Index_> >(ncenters);
+            sanisizer::resize(my_sizes, sanisizer::attest_gez(ncenters));
+            auto remap = sanisizer::create<std::vector<Index_> >(sanisizer::attest_gez(ncenters));
             Index_ survivors = 0;
             for (Index_ c = 0; c < ncenters; ++c) {
                 if (output.sizes[c]) {
@@ -243,13 +243,13 @@ public:
             }
         }
 
-        sanisizer::resize(my_offsets, ncenters);
+        sanisizer::resize(my_offsets, sanisizer::attest_gez(ncenters));
         for (Index_ i = 1; i < ncenters; ++i) {
             my_offsets[i] = my_offsets[i - 1] + my_sizes[i - 1];
         }
 
         // Organize points correctly; firstly, sorting by distance from the assigned center.
-        auto by_distance = sanisizer::create<std::vector<std::pair<Distance_, Index_> > >(my_obs);
+        auto by_distance = sanisizer::create<std::vector<std::pair<Distance_, Index_> > >(sanisizer::attest_gez(my_obs));
         {
             auto sofar = my_offsets;
             auto host = my_data.data();
@@ -275,11 +275,11 @@ public:
         // Permuting in-place to mirror the reordered distances, so that the search is more cache-friendly.
         {
             auto host = my_data.data();
-            auto used = sanisizer::create<std::vector<unsigned char> >(my_obs);
+            auto used = sanisizer::create<std::vector<unsigned char> >(sanisizer::attest_gez(my_obs));
             auto buffer = sanisizer::create<std::vector<Data_> >(my_dim);
-            sanisizer::resize(my_observation_id, my_obs);
-            sanisizer::resize(my_dist_to_centroid, my_obs);
-            sanisizer::resize(my_new_location, my_obs);
+            sanisizer::resize(my_observation_id, sanisizer::attest_gez(my_obs));
+            sanisizer::resize(my_dist_to_centroid, sanisizer::attest_gez(my_obs));
+            sanisizer::resize(my_new_location, sanisizer::attest_gez(my_obs));
 
             for (Index_ o = 0; o < my_obs; ++o) {
                 if (used[o]) {
@@ -501,21 +501,21 @@ public:
         auto num_centers = my_sizes.size();
         knncolle::quick_load(prefix + "num_centers", &num_centers, 1);
 
-        my_data.resize(sanisizer::product<I<decltype(my_data.size())> >(my_obs, my_dim));
+        my_data.resize(sanisizer::product<I<decltype(my_data.size())> >(sanisizer::attest_gez(my_obs), my_dim));
         knncolle::quick_load(prefix + "data", my_data.data(), my_data.size());
 
-        sanisizer::resize(my_sizes, num_centers);
+        sanisizer::resize(my_sizes, sanisizer::attest_gez(num_centers));
         knncolle::quick_load(prefix + "sizes", my_sizes.data(), my_sizes.size());
-        sanisizer::resize(my_offsets, num_centers);
+        sanisizer::resize(my_offsets, sanisizer::attest_gez(num_centers));
         knncolle::quick_load(prefix + "offsets", my_offsets.data(), my_offsets.size());
-        my_centers.resize(sanisizer::product<I<decltype(my_centers.size())> >(my_dim, num_centers));
+        my_centers.resize(sanisizer::product<I<decltype(my_centers.size())> >(my_dim, sanisizer::attest_gez(num_centers)));
         knncolle::quick_load(prefix + "centers", my_centers.data(), my_centers.size());
 
-        sanisizer::resize(my_observation_id, my_obs);
+        sanisizer::resize(my_observation_id, sanisizer::attest_gez(my_obs));
         knncolle::quick_load(prefix + "observation_id", my_observation_id.data(), my_observation_id.size());
-        sanisizer::resize(my_new_location, my_obs);
+        sanisizer::resize(my_new_location, sanisizer::attest_gez(my_obs));
         knncolle::quick_load(prefix + "new_location", my_new_location.data(), my_new_location.size());
-        sanisizer::resize(my_dist_to_centroid, my_obs);
+        sanisizer::resize(my_dist_to_centroid, sanisizer::attest_gez(my_obs));
         knncolle::quick_load(prefix + "dist_to_centroid", my_dist_to_centroid.data(), my_dist_to_centroid.size());
 
         auto dptr = knncolle::load_distance_metric_raw<Data_, Distance_>(prefix + "distance_");
