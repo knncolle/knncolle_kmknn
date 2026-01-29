@@ -147,9 +147,9 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a00b5c534534e9dc4d50ee959a991fb1d" id="r_a00b5c534534e9dc4d50ee959a991fb1d"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ &gt; </td></tr>
-<tr class="memitem:a00b5c534534e9dc4d50ee959a991fb1d"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a00b5c534534e9dc4d50ee959a991fb1d">register_load_prebuilt</a> ()</td></tr>
-<tr class="separator:a00b5c534534e9dc4d50ee959a991fb1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86696b7cfcea4769e6d5115f358f160e" id="r_a86696b7cfcea4769e6d5115f358f160e"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ &gt; </td></tr>
+<tr class="memitem:a86696b7cfcea4769e6d5115f358f160e"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a86696b7cfcea4769e6d5115f358f160e">load_kmknn_prebuilt</a> (const std::filesystem::path &amp;dir)</td></tr>
+<tr class="separator:a86696b7cfcea4769e6d5115f358f160e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Namespace for the <b>knncolle_kmeans</b> library. </p>
@@ -459,8 +459,8 @@ template&lt;typename Index_ , typename Data_ , typename Distance_ , class Kmeans
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a00b5c534534e9dc4d50ee959a991fb1d" name="a00b5c534534e9dc4d50ee959a991fb1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00b5c534534e9dc4d50ee959a991fb1d">&#9670;&#160;</a></span>register_load_prebuilt()</h2>
+<a id="a86696b7cfcea4769e6d5115f358f160e" name="a86696b7cfcea4769e6d5115f358f160e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86696b7cfcea4769e6d5115f358f160e">&#9670;&#160;</a></span>load_kmknn_prebuilt()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -468,14 +468,15 @@ template&lt;typename Index_ , typename Data_ , typename Distance_ , class Kmeans
 template&lt;typename Index_ , typename Data_ , typename Distance_ &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool knncolle_kmknn::register_load_prebuilt </td>
+          <td class="memname">auto knncolle_kmknn::load_kmknn_prebuilt </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dir</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Register a loading function for <code>load_prebuilt()</code> to load a KMKNN index from disk. This should be done before any calls to <code>load_prebuilt()</code> that might need to read an on-disk representation of a KMKNN index saved with <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Prebuilt.html#a87930f878bf3a22297b851173caaf893">knncolle::Prebuilt::save()</a></code>. Registration is not thread-safe and should be done in a serial section only.</p>
+<p>Helper function to define a <code><a class="elRef" href="https://knncolle.github.io/knncolle/namespaceknncolle.html#a0574e57c9150cb0bfe1da0e7eff6aa01">knncolle::LoadPrebuiltFunction</a></code> for KMKNN in <code><a class="elRef" href="https://knncolle.github.io/knncolle/namespaceknncolle.html#a2157dec9e895be903278fc6903c793e0">knncolle::load_prebuilt_raw()</a></code>.</p>
+<p>To load an KMKNN index from disk, users are expected to define and register an KMKNN-specific <code><a class="elRef" href="https://knncolle.github.io/knncolle/namespaceknncolle.html#a0574e57c9150cb0bfe1da0e7eff6aa01">knncolle::LoadPrebuiltFunction</a></code>. In this function, users should call <code>load_kmknn_prebuilt_types()</code> to figure out the saved index's <code>KMKNNDistance_</code>, <code>KMKNNIndex</code> and <code>KMKNNData_</code>. Then, they should call <code><a class="el" href="#a86696b7cfcea4769e6d5115f358f160e">load_kmknn_prebuilt()</a></code> with the appropriate types to return a pointer to a <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Prebuilt.html">knncolle::Prebuilt</a></code> object. This user-defined function should be registered in <code>load_prebuilt_registry()</code> with the key in <code>knncolle_kmknn::save_name</code>.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Index_</td><td>Integer type for the observation indices. </td></tr>
@@ -484,7 +485,13 @@ template&lt;typename Index_ , typename Data_ , typename Distance_ &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Whether any registration was performed. If a function was already registered, this function is a no-op. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir</td><td>Path to a directory in which a prebuilt KMKNN index was saved. An KMKNN index would typically be saved by calling the <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Prebuilt.html#add21dc74e08a6ad495c6e241fa3d5968">knncolle::Prebuilt::save()</a></code> method of the KMKNN subclass instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to a <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Prebuilt.html">knncolle::Prebuilt</a></code> KMKNN index. </dd></dl>
 
 </div>
 </div>

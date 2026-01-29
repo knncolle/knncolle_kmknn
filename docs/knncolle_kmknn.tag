@@ -11,13 +11,13 @@
     <path>/github/workspace/include/knncolle_kmknn/</path>
     <filename>knncolle__kmknn_8hpp.html</filename>
     <includes id="aliases_8hpp" name="aliases.hpp" local="yes" import="no" module="no" objc="no">aliases.hpp</includes>
-    <includes id="register_8hpp" name="register.hpp" local="yes" import="no" module="no" objc="no">register.hpp</includes>
+    <includes id="load__kmknn__prebuilt_8hpp" name="load_kmknn_prebuilt.hpp" local="yes" import="no" module="no" objc="no">load_kmknn_prebuilt.hpp</includes>
     <namespace>knncolle_kmknn</namespace>
   </compound>
   <compound kind="file">
-    <name>register.hpp</name>
+    <name>load_kmknn_prebuilt.hpp</name>
     <path>/github/workspace/include/knncolle_kmknn/</path>
-    <filename>register_8hpp.html</filename>
+    <filename>load__kmknn__prebuilt_8hpp.html</filename>
     <namespace>knncolle_kmknn</namespace>
   </compound>
   <compound kind="class">
@@ -199,11 +199,11 @@
       <arglist></arglist>
     </member>
     <member kind="function">
-      <type>bool</type>
-      <name>register_load_prebuilt</name>
+      <type>auto</type>
+      <name>load_kmknn_prebuilt</name>
       <anchorfile>namespaceknncolle__kmknn.html</anchorfile>
-      <anchor>a00b5c534534e9dc4d50ee959a991fb1d</anchor>
-      <arglist>()</arglist>
+      <anchor>a86696b7cfcea4769e6d5115f358f160e</anchor>
+      <arglist>(const std::filesystem::path &amp;dir)</arglist>
     </member>
   </compound>
   <compound kind="page">
