@@ -19,7 +19,12 @@ protected:
         std::filesystem::remove_all(savedir);
         std::filesystem::create_directory(savedir);
 
-        knncolle_kmknn::register_load_prebuilt<int, double, double>();
+        knncolle::register_load_euclidean_distance<double, double>();
+        knncolle::register_load_manhattan_distance<double, double>();
+        auto& reg = knncolle::load_prebuilt_registry<int, double, double>();
+        reg[knncolle_kmknn::kmknn_prebuilt_save_name] = [](const std::filesystem::path& dir) -> knncolle::Prebuilt<int, double, double>* {
+            return knncolle_kmknn::load_kmknn_prebuilt<int, double, double>(dir);
+        };
     }
 };
 
@@ -28,10 +33,11 @@ TEST_F(KmknnLoadPrebuiltTest, Euclidean) {
     knncolle_kmknn::KmknnBuilder<int, double, double> kb(eucdist);
     auto bptr = kb.build_unique(knncolle::SimpleMatrix<int, double>(ndim, nobs, data.data()));
 
-    const auto prefix = (savedir / "euclidean_").string();
-    bptr->save(prefix);
+    const auto dir = savedir / "euclidean";
+    std::filesystem::create_directory(dir);
+    bptr->save(dir);
 
-    auto reloaded = knncolle::load_prebuilt_shared<int, double, double>(prefix);
+    auto reloaded = knncolle::load_prebuilt_shared<int, double, double>(dir);
     std::vector<int> output_i, output_i2;
     std::vector<double> output_d, output_d2;
 
@@ -50,10 +56,11 @@ TEST_F(KmknnLoadPrebuiltTest, Manhattan) {
     knncolle_kmknn::KmknnBuilder<int, double, double> kb(eucdist);
     auto bptr = kb.build_unique(knncolle::SimpleMatrix<int, double>(ndim, nobs, data.data()));
 
-    const auto prefix = (savedir / "manhattan_").string();
-    bptr->save(prefix);
+    const auto dir = savedir / "manhattan";
+    std::filesystem::create_directory(dir);
+    bptr->save(dir);
 
-    auto reloaded = knncolle::load_prebuilt_shared<int, double, double>(prefix);
+    auto reloaded = knncolle::load_prebuilt_shared<int, double, double>(dir);
     std::vector<int> output_i, output_i2;
     std::vector<double> output_d, output_d2;
 

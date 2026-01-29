@@ -33,11 +33,6 @@ auto kindex = kbuilder.build_unique(mat);
 
 // Find 10 nearest neighbors of every element.
 auto results = knncolle::find_nearest_neighbors(*kindex, 10); 
-
-// Register KMKNN so that it can be read by load_prebuilt().
-kindex->save("index_")
-knncolle_kmknn::register_load_prebuilt<int, double, double>();
-auto roundtrip = knncolle::load_prebuilt_shared<int, double, double>("index_");
 ```
 
 Check out the [reference documentation](https://knncolle.github.io/knncolle_kmknn/) for more details.
@@ -79,6 +74,28 @@ knncolle_kmknn::KmknnBuilder<
     /* input matrix representation */ knncolle::SimpleMatrix<size_t, float>,
     /* distance metric */ knncolle_kmknn::EuclideanDistance<double, double>
 > kbuilder_typed(dist);
+```
+
+## Saving and loading to/from disk
+
+To save and reload KMKNN indices from disk, we need to register a loading function into **knncolle**'s `load_prebuilt()` registry.
+
+```cpp
+auto& reg = knncolle::load_prebuilt_registry<int, double, double>();
+reg[knncolle_kmknn::save_name] = [](const std::filesystem::path& dir) -> Prebuilt<int, double, double>* {
+    return knncolle_kmknn::load_kmknn_prebuilt<int, double, double>(dir);
+};
+```
+
+Then we can save and reload the `Prebuilt` KMKNN indices.
+Note the caveats on `knncolle::Prebuilt::save()` -
+specifically, the files are not guaranteed to be portable between machines or even different versions of **knncolle_kmknn**.
+
+```cpp
+std::filesystem::path save_dir = "kmknn/location/here";
+std::filesystem::create_directory(save_dir);
+an_index.save(save_dir);
+auto reloaded = knncolle::load_prebuilt_shared(save_dir);
 ```
 
 ## Building projects 

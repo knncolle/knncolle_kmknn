@@ -17,7 +17,7 @@ enable_testing()
 add_executable(
     libtest
     src/Kmknn.cpp
-    src/load_prebuilt.cpp
+    src/load_kmknn_prebuilt.cpp
     src/aliases.cpp
 )
 

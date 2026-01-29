@@ -3,7 +3,7 @@
 
 #include "aliases.hpp"
 #include "Kmknn.hpp"
-#include "register.hpp"
+#include "load_kmknn_prebuilt.hpp"
 
 /**
  * @file knncolle_kmknn.hpp
