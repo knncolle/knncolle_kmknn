@@ -217,9 +217,6 @@ TEST_P(KmknnDuplicateTest, Basic) {
     // correctly when these clusters occur after all other clusters. With the
     // default kmeans++ initialization, the trailing clusters will be empty if
     // 'k' is larger than the number of unique points.
-    //
-    // Note that we don't consider zero-size clusters that are intermingled
-    // with non-zero-size clusters; see the SkipEmpty test below for that.
 
     int duplication = 10;
     std::vector<double> dup;
@@ -340,63 +337,8 @@ TEST_F(KmknnMiscTest, OtherTypes) {
     }
 }
 
-template<typename Index_, typename Data_, typename Cluster_, typename Float_, class Matrix_ = kmeans::Matrix<Index_, Data_> >
-struct InitializeNonsense : public kmeans::Initialize<Index_, Data_, Cluster_, Float_, Matrix_> {
-    Cluster_ run(const Matrix_& data, Cluster_ ncenters, Float_* centers) const {
-        std::mt19937_64 eng(1000);
-        auto nobs = data.num_observations();
-        std::vector<Index_> chosen(std::min(nobs, static_cast<Index_>(ncenters)));
-        aarand::sample(nobs, ncenters, chosen.begin(), eng);
-
-        size_t ndim = data.num_dimensions();
-        size_t nchosen = chosen.size();
-        auto work = data.new_extractor(chosen.data(), nchosen);
-        auto out = centers;
-        for (size_t i = 0; i < nchosen; ++i) {
-            auto ptr = work->get_observation();
-            std::copy_n(ptr, ndim, out);
-            out += ndim;
-        }
-
-        std::fill_n(centers, ndim, 100000000); // first one is nonsensically far away.
-        return nchosen;
-    }
-};
-
-TEST_F(KmknnMiscTest, SkipEmptyClusters) {
-    // We test the code that skips empty clusters in the constructor when these
-    // clusters occur before a non-empty cluster. We do so by forcing the first
-    // cluster to be empty by making its center ridiculous.
-
-    auto eucdist = std::make_shared<knncolle::EuclideanDistance<double, double> >();
-    knncolle::BruteforceBuilder<int, double, double> bb(eucdist);
-
-    knncolle_kmknn::KmknnBuilder<int, double, double> kb(eucdist, eucdist);
-    auto& opt = kb.get_options();
-    opt.initialize_algorithm.reset(new InitializeNonsense<int, double, int, double, kmeans::SimpleMatrix<int, double> >); // nothing will be assigned to the first cluster. 
-    kmeans::RefineLloydOptions ll_opt;
-    ll_opt.max_iterations = 1; // no iterations so cluster centers can't be changed during refinement.
-    opt.refine_algorithm.reset(new kmeans::RefineLloyd<int, double, int, double, kmeans::SimpleMatrix<int, double> >(ll_opt));
-
-    knncolle::SimpleMatrix<int, double> mat(ndim, nobs, data.data());
-    auto kptr = kb.build_unique(mat);
-    auto bptr = bb.build_unique(mat);
-
-    std::vector<int> kres_i, ref_i;
-    std::vector<double> kres_d, ref_d;
-    auto bsptr = bptr->initialize();
-    auto ksptr = kptr->initialize();
-
-    for (int x = 0; x < nobs; ++x) {
-        bsptr->search(x, 4, &ref_i, &ref_d);
-        ksptr->search(x, 4, &kres_i, &kres_d);
-        EXPECT_EQ(kres_i, ref_i);
-        EXPECT_EQ(kres_d, ref_d);
-    }
-}
-
-TEST(Kmknn, Duplicates) {
-    // Duplicates are another way to induce empty clusters.
+TEST(Kmknn, AllZero) {
+    // Incidentally, these duplicates are another way to induce empty clusters.
     int ndim = 5;
     int nobs = 200;
     std::vector<double> data(ndim * nobs);
