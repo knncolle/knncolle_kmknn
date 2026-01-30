@@ -82,12 +82,12 @@ To save and reload KMKNN indices from disk, we need to register a loading functi
 
 ```cpp
 auto& reg = knncolle::load_prebuilt_registry<int, double, double>();
-reg[knncolle_kmknn::save_name] = [](const std::filesystem::path& dir) -> Prebuilt<int, double, double>* {
+reg[knncolle_kmknn::kmknn_prebuilt_save_name] = [](const std::filesystem::path& dir) -> knncolle::Prebuilt<int, double, double>* {
     return knncolle_kmknn::load_kmknn_prebuilt<int, double, double>(dir);
 };
 ```
 
-Then we can save and reload the `Prebuilt` KMKNN indices.
+Then we can save and reload the `knncolle::Prebuilt` KMKNN indices.
 Note the caveats on `knncolle::Prebuilt::save()` -
 specifically, the files are not guaranteed to be portable between machines or even different versions of **knncolle_kmknn**.
 
