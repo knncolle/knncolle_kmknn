@@ -23,15 +23,23 @@ namespace knncolle_kmknn {
  * @tparam Index_ Integer type for the observation indices.
  * @tparam Data_ Numeric type for the input and query data.
  * @tparam Distance_ Floating-point type for the distances.
+ * @tparam KmeansFloat_ Floating-point type of the cluster centroids.
  *
  * @param dir Path to a directory in which a prebuilt KMKNN index was saved.
  * An KMKNN index would typically be saved by calling the `knncolle::Prebuilt::save()` method of the KMKNN subclass instance.
  *
  * @return Pointer to a `knncolle::Prebuilt` KMKNN index.
  */
-template<typename Index_, typename Data_, typename Distance_>
+template<typename Index_, typename Data_, typename Distance_, typename KmeansFloat_ = Distance_>
 auto load_kmknn_prebuilt(const std::filesystem::path& dir) {
-    return new KmknnPrebuilt<Index_, Data_, Distance_>(dir);
+    return new KmknnPrebuilt<
+        Index_,
+        Data_,
+        Distance_,
+        knncolle::DistanceMetric<Data_, Distance_>,
+        KmeansFloat_,
+        knncolle::DistanceMetric<KmeansFloat_, Distance_>
+    >(dir);
 }
 
 }

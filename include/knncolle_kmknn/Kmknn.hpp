@@ -2,7 +2,6 @@
 #define KNNCOLLE_KMKNN_KMKNN_HPP
 
 #include "utils.hpp"
-#include "aliases.hpp"
 
 #include "knncolle/knncolle.hpp"
 #include "kmeans/kmeans.hpp"
@@ -39,11 +38,24 @@ inline static constexpr const char* kmknn_prebuilt_save_name = "knncolle_kmknn::
  * @tparam Index_ Integer type for the observation indices.
  * @tparam Data_ Numeric type for the input and query data.
  * @tparam Distance_ Floating-point type for the distances.
+ * @tparam KmeansIndex_ Integer type of the observation indices for **kmeans**. 
+ * @tparam KmeansData_ Numeric type of the input data for **kmeans**. 
+ * @tparam KmeansCluster_ Integer type of the cluster identities for **kmeans**. 
+ * @tparam KmeansFloat_ Floating-point type of the cluster centroids.
  * @tparam KmeansMatrix_ Class of the input data matrix for **kmeans**.
  * This should satisfy the `kmeans::Matrix` interface, most typically a `kmeans::SimpleMatrix`.
  * (Note that this is a different class from the `knncolle::Matrix` interface!)
  */
-template<typename Index_, typename Data_, typename Distance_, class KmeansMatrix_ = kmeans::SimpleMatrix<Index_, Data_> >
+template<
+    typename Index_,
+    typename Data_,
+    typename Distance_,
+    typename KmeansIndex_ = Index_,
+    typename KmeansData_ = Data_,
+    typename KmeansCluster_ = Index_,
+    typename KmeansFloat_ = Distance_,
+    class KmeansMatrix_ = kmeans::SimpleMatrix<KmeansIndex_, KmeansData_>
+>
 struct KmknnOptions {
     /**
      * Power of the number of observations, to define the number of cluster centers.
@@ -53,46 +65,46 @@ struct KmknnOptions {
 
     /**
      * Initialization method for k-means clustering.
-     * If NULL, defaults to `InitializeKmeanspp`.
+     * If NULL, defaults to `kmeans::InitializeKmeanspp`.
      */
-    std::shared_ptr<Initialize<Index_, Data_, Distance_, KmeansMatrix_> > initialize_algorithm;
+    std::shared_ptr<kmeans::Initialize<KmeansIndex_, KmeansData_, KmeansCluster_, KmeansFloat_, KmeansMatrix_> > initialize_algorithm;
 
     /**
      * Refinement method for k-means clustering.
-     * If NULL, defaults to `RefineHartiganWong`.
+     * If NULL, defaults to `kmeans::RefineHartiganWong`.
      */
-    std::shared_ptr<Refine<Index_, Data_, Distance_, KmeansMatrix_> > refine_algorithm;
+    std::shared_ptr<kmeans::Refine<KmeansIndex_, KmeansData_, KmeansCluster_, KmeansFloat_, KmeansMatrix_> > refine_algorithm;
 };
 
 /**
  * @cond
  */
-template<typename Index_, typename Data_, typename Distance_, class DistanceMetric_>
+template<typename Index_, typename Data_, typename Distance_, class DistanceMetricData_, class KmeansFloat_, class DistanceMetricCenter_>
 class KmknnPrebuilt;
 
-template<typename Index_, typename Data_, typename Distance_, class DistanceMetric_ = DistanceMetric<Data_, Distance_> >
+template<typename Index_, typename Data_, typename Distance_, class DistanceMetricData_, class KmeansFloat_, class DistanceMetricCenter_>
 class KmknnSearcher final : public knncolle::Searcher<Index_, Data_, Distance_> {
 public:
-    KmknnSearcher(const KmknnPrebuilt<Index_, Data_, Distance_, DistanceMetric_>& parent) : my_parent(parent) {
+    KmknnSearcher(const KmknnPrebuilt<Index_, Data_, Distance_, DistanceMetricData_, KmeansFloat_, DistanceMetricCenter_>& parent) : my_parent(parent) {
         my_center_order.reserve(my_parent.my_sizes.size());
         if constexpr(needs_conversion) {
-            sanisizer::resize(my_conversion_buffer, my_parent.my_dim);
+            sanisizer::resize(my_query_conversion_buffer, my_parent.my_dim);
         }
     }
 
 private:                
-    const KmknnPrebuilt<Index_, Data_, Distance_, DistanceMetric_>& my_parent;
+    const KmknnPrebuilt<Index_, Data_, Distance_, DistanceMetricData_, KmeansFloat_, DistanceMetricCenter_>& my_parent;
     knncolle::NeighborQueue<Index_, Distance_> my_nearest;
     std::vector<std::pair<Distance_, Index_> > my_all_neighbors;
     std::vector<std::pair<Distance_, Index_> > my_center_order;
 
-    // Converting input data to 'Center_'.
-    static constexpr bool needs_conversion = !std::is_same<Common<Data_, Distance_>, Data_>::value;
-    typename std::conditional<needs_conversion, std::vector<Common<Data_, Distance_> >, bool>::type my_conversion_buffer;
+    // Converting Data_ to KmeansFloat_ if we need to.
+    static constexpr bool needs_conversion = !std::is_same<KmeansFloat_, Data_>::value;
+    typename std::conditional<needs_conversion, std::vector<KmeansFloat_>, bool>::type my_query_conversion_buffer; 
 
-    const Common<Data_, Distance_> * sanitize(const Data_* query) {
+    const KmeansFloat_* sanitize_query(const Data_* query) {
         if constexpr(needs_conversion) {
-            auto conv_buffer = my_conversion_buffer.data();
+            auto conv_buffer = my_query_conversion_buffer.data();
             std::copy_n(query, my_parent.my_dim, conv_buffer);
             return conv_buffer;
         } else {
@@ -100,14 +112,109 @@ private:
         }
     }
 
+    void finalize(std::vector<Index_>* output_indices, std::vector<Distance_>* output_distances) const {
+        if (output_indices) {
+            for (auto& s : *output_indices) {
+                s = my_parent.my_observation_id[s];
+            }
+        }
+        if (output_distances) {
+            for (auto& d : *output_distances) {
+                d = my_parent.my_metric_data->normalize(d);
+            }
+        }
+    }
+
+private:
+    void search_nn(const Data_* query) {
+        /* Computing distances to all centers and sorting them. The aim is to
+         * go through the nearest centers first, to try to get the shortest
+         * threshold (i.e., 'nearest.limit()') possible at the start;
+         * this allows us to skip searches of the later clusters.
+         */
+        {
+            const auto query_san = sanitize_query(query);
+            const auto ncenters = my_parent.my_sizes.size();
+            my_center_order.clear();
+            my_center_order.reserve(ncenters);
+
+            for (I<decltype(ncenters)> c = 0; c < ncenters; ++c) {
+                auto clust_ptr = my_parent.my_centers.data() + sanisizer::product_unsafe<std::size_t>(c, my_parent.my_dim);
+                my_center_order.emplace_back(my_parent.my_metric_center->raw(my_parent.my_dim, query_san, clust_ptr), c);
+            }
+            std::sort(my_center_order.begin(), my_center_order.end());
+        }
+
+        // Computing the distance to each center, and deciding whether to proceed for each cluster.
+        Distance_ threshold_raw = std::numeric_limits<Distance_>::infinity();
+        for (const auto& curcent : my_center_order) {
+            const Index_ center = curcent.second;
+            const Distance_ dist2center = my_parent.my_metric_center->normalize(curcent.first);
+
+            const auto cur_nobs = my_parent.my_sizes[center];
+            const Distance_* dIt = my_parent.my_dist_to_centroid.data() + my_parent.my_offsets[center];
+            const Distance_ maxdist = *(dIt + cur_nobs - 1);
+
+            Index_ firstcell = 0;
+#if KNNCOLLE_KMKNN_USE_UPPER
+            Distance_ upper_bd = std::numeric_limits<Distance_>::max();
+#endif
+
+            if (!std::isinf(threshold_raw)) {
+                const Distance_ threshold = my_parent.my_metric_center->normalize(threshold_raw);
+
+                /* The conditional expression below exploits the triangle inequality; it is equivalent to asking whether:
+                 *     threshold + maxdist < dist2center
+                 * All points (if any) within this cluster with distances above 'lower_bd' are potentially countable.
+                 */
+                const Distance_ lower_bd = dist2center - threshold;
+                if (maxdist < lower_bd) {
+                    continue;
+                }
+
+                firstcell = std::lower_bound(dIt, dIt + cur_nobs, lower_bd) - dIt;
+
+#if KNNCOLLE_KMKNN_USE_UPPER
+                /* This exploits the reverse triangle inequality, to ignore points where:
+                 *     threshold + dist2center < point-to-center distance
+                 */
+                upper_bd = threshold + dist2center;
+#endif
+            }
+
+            const auto cur_start = my_parent.my_offsets[center];
+            for (auto celldex = firstcell; celldex < cur_nobs; ++celldex) {
+                const auto other_cell = my_parent.my_data.data() + sanisizer::product_unsafe<std::size_t>(cur_start + celldex, my_parent.my_dim);
+
+#if KNNCOLLE_KMKNN_USE_UPPER
+                if (*(dIt + celldex) > upper_bd) {
+                    break;
+                }
+#endif
+
+                auto dist2cell_raw = my_parent.my_metric_data->raw(my_parent.my_dim, query, other_cell);
+                if (dist2cell_raw <= threshold_raw) {
+                    my_nearest.add(cur_start + celldex, dist2cell_raw);
+                    if (my_nearest.is_full()) {
+                        threshold_raw = my_nearest.limit(); // Shrinking the threshold, if an earlier NN has been found.
+#if KNNCOLLE_KMKNN_USE_UPPER
+                        upper_bd = my_parent.my_metric_data->normalize(threshold_raw) + dist2center; 
+#endif
+                    }
+                }
+            }
+        }
+    }
+
+
 public:
     void search(Index_ i, Index_ k, std::vector<Index_>* output_indices, std::vector<Distance_>* output_distances) {
         my_nearest.reset(k + 1); // +1 is safe as k < num_obs.
         auto new_i = my_parent.my_new_location[i];
         auto iptr = my_parent.my_data.data() + sanisizer::product_unsafe<std::size_t>(new_i, my_parent.my_dim);
-        my_parent.search_nn(iptr, my_nearest, my_center_order);
+        search_nn(iptr);
         my_nearest.report(output_indices, output_distances, new_i);
-        my_parent.normalize(output_indices, output_distances);
+        finalize(output_indices, output_distances);
     }
 
     void search(const Data_* query, Index_ k, std::vector<Index_>* output_indices, std::vector<Distance_>* output_distances) {
@@ -120,12 +227,70 @@ public:
             }
         } else {
             my_nearest.reset(k);
-            my_parent.search_nn(sanitize(query), my_nearest, my_center_order);
+            search_nn(query);
             my_nearest.report(output_indices, output_distances);
-            my_parent.normalize(output_indices, output_distances);
+            finalize(output_indices, output_distances);
         }
     }
 
+private:
+    template<bool count_only_, typename Output_>
+    void search_all(const Data_* query, Distance_ threshold, Output_& all_neighbors) {
+        Distance_ threshold_raw = my_parent.my_metric_center->denormalize(threshold);
+        const auto query_san = sanitize_query(query);
+
+        /* Computing distances to all centers. We don't sort them here 
+         * because the threshold is constant so there's no point.
+         */
+        const auto ncenters = my_parent.my_sizes.size();
+        for (I<decltype(ncenters)> center = 0; center < ncenters; ++center) {
+            auto center_ptr = my_parent.my_centers.data() + sanisizer::product_unsafe<std::size_t>(center, my_parent.my_dim);
+            const Distance_ dist2center = my_parent.my_metric_center->normalize(my_parent.my_metric_center->raw(my_parent.my_dim, query_san, center_ptr));
+
+            auto cur_nobs = my_parent.my_sizes[center];
+            const Distance_* dIt = my_parent.my_dist_to_centroid.data() + my_parent.my_offsets[center];
+            const Distance_ maxdist = *(dIt + cur_nobs - 1);
+
+            /* The conditional expression below exploits the triangle inequality; it is equivalent to asking whether:
+             *     threshold + maxdist < dist2center
+             * All points (if any) within this cluster with distances above 'lower_bd' are potentially countable.
+             */
+            const Distance_ lower_bd = dist2center - threshold;
+            if (maxdist < lower_bd) {
+                continue;
+            }
+
+            Index_ firstcell = std::lower_bound(dIt, dIt + cur_nobs, lower_bd) - dIt;
+#if KNNCOLLE_KMKNN_USE_UPPER
+            /* This exploits the reverse triangle inequality, to ignore points where:
+             *     threshold + dist2center < point-to-center distance
+             */
+            Distance_ upper_bd = threshold + dist2center;
+#endif
+
+            const auto cur_start = my_parent.my_offsets[center];
+            for (auto celldex = firstcell; celldex < cur_nobs; ++celldex) {
+                const auto other_ptr = my_parent.my_data.data() + sanisizer::product_unsafe<std::size_t>(cur_start + celldex, my_parent.my_dim);
+
+#if KNNCOLLE_KMKNN_USE_UPPER
+                if (*(dIt + celldex) > upper_bd) {
+                    break;
+                }
+#endif
+
+                auto dist2cell_raw = my_parent.my_metric_data->raw(my_parent.my_dim, query, other_ptr);
+                if (dist2cell_raw <= threshold_raw) {
+                    if constexpr(count_only_) {
+                        ++all_neighbors;
+                    } else {
+                        all_neighbors.emplace_back(dist2cell_raw, cur_start + celldex);
+                    }
+                }
+            }
+        }
+    }
+
+public:
     bool can_search_all() const {
         return true;
     }
@@ -136,14 +301,14 @@ public:
 
         if (!output_indices && !output_distances) {
             Index_ count = 0;
-            my_parent.template search_all<true>(iptr, d, count);
+            search_all<true>(iptr, d, count);
             return knncolle::count_all_neighbors_without_self(count);
 
         } else {
             my_all_neighbors.clear();
-            my_parent.template search_all<false>(iptr, d, my_all_neighbors);
+            search_all<false>(iptr, d, my_all_neighbors);
             knncolle::report_all_neighbors(my_all_neighbors, output_indices, output_distances, new_i);
-            my_parent.normalize(output_indices, output_distances);
+            finalize(output_indices, output_distances);
             return knncolle::count_all_neighbors_without_self(my_all_neighbors.size());
         }
     }
@@ -151,20 +316,20 @@ public:
     Index_ search_all(const Data_* query, Distance_ d, std::vector<Index_>* output_indices, std::vector<Distance_>* output_distances) {
         if (!output_indices && !output_distances) {
             Index_ count = 0;
-            my_parent.template search_all<true>(query, d, count);
+            search_all<true>(query, d, count);
             return count;
 
         } else {
             my_all_neighbors.clear();
-            my_parent.template search_all<false>(sanitize(query), d, my_all_neighbors);
+            search_all<false>(query, d, my_all_neighbors);
             knncolle::report_all_neighbors(my_all_neighbors, output_indices, output_distances);
-            my_parent.normalize(output_indices, output_distances);
+            finalize(output_indices, output_distances);
             return my_all_neighbors.size();
         }
     }
 };
 
-template<typename Index_, typename Data_, typename Distance_, class DistanceMetric_ = DistanceMetric<Data_, Distance_> >
+template<typename Index_, typename Data_, typename Distance_, class DistanceMetricData_, typename KmeansFloat_, class DistanceMetricCenter_>
 class KmknnPrebuilt final : public knncolle::Prebuilt<Index_, Data_, Distance_> {
 private:
     std::size_t my_dim;
@@ -180,99 +345,112 @@ public:
     }
 
 private:
-    std::vector<Common<Data_, Distance_> > my_data;
-    std::shared_ptr<const DistanceMetric_> my_metric;
+    std::vector<Data_> my_data;
+    std::shared_ptr<const DistanceMetricData_> my_metric_data;
+    std::shared_ptr<const DistanceMetricCenter_> my_metric_center;
     
     std::vector<Index_> my_sizes;
     std::vector<Index_> my_offsets;
 
-    std::vector<Common<Data_, Distance_> > my_centers;
+    std::vector<KmeansFloat_> my_centers;
 
     std::vector<Index_> my_observation_id, my_new_location;
     std::vector<Distance_> my_dist_to_centroid;
 
 public:
-    template<class KmeansMatrix_ = kmeans::SimpleMatrix<Index_, Data_> >
+    template<typename KmeansIndex_, typename KmeansData_, typename KmeansCluster_, class KmeansMatrix_>
     KmknnPrebuilt(
         std::size_t num_dim,
         Index_ num_obs,
-        std::vector<Common<Data_, Distance_> > data,
-        std::shared_ptr<const DistanceMetric_> metric,
-        const KmknnOptions<Index_, Data_, Distance_, KmeansMatrix_>& options
+        std::vector<Data_> data,
+        std::shared_ptr<const DistanceMetricData_> metric_data,
+        std::shared_ptr<const DistanceMetricCenter_> metric_center,
+        const KmknnOptions<Index_, Data_, Distance_, KmeansIndex_, KmeansData_, KmeansCluster_, KmeansFloat_, KmeansMatrix_>& options
     ) :
         my_dim(num_dim),
         my_obs(num_obs),
         my_data(std::move(data)),
-        my_metric(std::move(metric))
+        my_metric_data(std::move(metric_data)),
+        my_metric_center(std::move(metric_center))
     { 
         auto init = options.initialize_algorithm;
         if (init == nullptr) {
-            init.reset(new InitializeKmeanspp<Index_, Data_, Distance_, KmeansMatrix_>);
+            init.reset(new kmeans::InitializeKmeanspp<KmeansIndex_, KmeansData_, KmeansCluster_, KmeansFloat_, KmeansMatrix_>);
         }
         auto refine = options.refine_algorithm;
         if (refine == nullptr) {
-            refine.reset(new RefineHartiganWong<Index_, Data_, Distance_, KmeansMatrix_>);
+            refine.reset(new kmeans::RefineHartiganWong<KmeansIndex_, KmeansData_, KmeansCluster_, KmeansFloat_, KmeansMatrix_>);
         }
 
-        Index_ ncenters = std::ceil(std::pow(my_obs, options.power));
+        KmeansCluster_ ncenters = sanisizer::from_float<KmeansCluster_>(std::ceil(std::pow(my_obs, options.power)));
         my_centers.resize(sanisizer::product<I<decltype(my_centers.size())> >(sanisizer::attest_gez(ncenters), my_dim));
 
-        kmeans::SimpleMatrix<Index_, Data_> mat(my_dim, my_obs, my_data.data());
-        auto clusters = sanisizer::create<std::vector<Index_> >(sanisizer::attest_gez(my_obs));
+        constexpr bool same_data = std::is_same<Data_, KmeansData_>::value;
+        typename std::conditional<same_data, bool, std::vector<KmeansData_> >::type kmeans_data_buffer;
+        const KmeansData_* data_ptr = NULL;
+        if constexpr(same_data) {
+            data_ptr = my_data.data();
+        } else {
+            kmeans_data_buffer.insert(kmeans_data_buffer.end(), my_data.begin(), my_data.end());
+            data_ptr = kmeans_data_buffer.data();
+        }
+
+        kmeans::SimpleMatrix<KmeansIndex_, KmeansData_> mat(my_dim, sanisizer::cast<KmeansIndex_>(sanisizer::attest_gez(my_obs)), data_ptr);
+        auto clusters = sanisizer::create<std::vector<KmeansCluster_> >(sanisizer::attest_gez(my_obs));
         auto output = kmeans::compute(mat, *init, *refine, ncenters, my_centers.data(), clusters.data());
 
         // Removing empty clusters, e.g., due to duplicate points.
-        {
-            sanisizer::resize(my_sizes, sanisizer::attest_gez(ncenters));
-            auto remap = sanisizer::create<std::vector<Index_> >(sanisizer::attest_gez(ncenters));
-            Index_ survivors = 0;
-            for (Index_ c = 0; c < ncenters; ++c) {
-                if (output.sizes[c]) {
-                    if (c > survivors) {
-                        auto src = my_centers.begin() + sanisizer::product_unsafe<std::size_t>(c, my_dim);
-                        auto dest = my_centers.begin() + sanisizer::product_unsafe<std::size_t>(survivors, my_dim);
-                        std::copy_n(src, my_dim, dest);
-                    }
-                    remap[c] = survivors;
-                    my_sizes[survivors] = output.sizes[c];
-                    ++survivors;
-                }
-            }
+        const auto survivors = kmeans::remove_unused_centers(my_dim, static_cast<KmeansIndex_>(my_obs), clusters.data(), ncenters, my_centers.data(), output.sizes);
+        if (survivors < ncenters) {
+            ncenters = survivors;
+            my_centers.resize(sanisizer::product_unsafe<I<decltype(my_centers.size())> >(ncenters, my_dim));
+            output.sizes.resize(ncenters);
+        }
 
-            if (survivors < ncenters) {
-                for (auto& c : clusters) {
-                    c = remap[c];
-                }
-                ncenters = survivors; // this should be safe as survivors is always smaller than ncenters.
-                my_centers.resize(sanisizer::product_unsafe<I<decltype(my_centers.size())> >(ncenters, my_dim));
-                my_sizes.resize(ncenters);
-            }
+        if constexpr(std::is_same<Index_, KmeansIndex_>::value) {
+            my_sizes.swap(output.sizes);
+        } else {
+            my_sizes.insert(my_sizes.end(), output.sizes.begin(), output.sizes.end());
         }
 
         sanisizer::resize(my_offsets, sanisizer::attest_gez(ncenters));
-        for (Index_ i = 1; i < ncenters; ++i) {
+        for (KmeansCluster_ i = 1; i < ncenters; ++i) {
             my_offsets[i] = my_offsets[i - 1] + my_sizes[i - 1];
         }
 
         // Organize points correctly; firstly, sorting by distance from the assigned center.
         auto by_distance = sanisizer::create<std::vector<std::pair<Distance_, Index_> > >(sanisizer::attest_gez(my_obs));
         {
+            static constexpr bool needs_conversion = !std::is_same<KmeansFloat_, Data_>::value;
+            typename std::conditional<needs_conversion, std::vector<KmeansFloat_>, bool>::type conversion_buffer; 
+            if constexpr(needs_conversion) {
+                sanisizer::resize(conversion_buffer, my_dim);
+            }
+
             auto sofar = my_offsets;
-            auto host = my_data.data();
             for (Index_ o = 0; o < my_obs; ++o) {
-                auto optr = host + sanisizer::product_unsafe<std::size_t>(o, my_dim);
+                auto optr = my_data.data() + sanisizer::product_unsafe<std::size_t>(o, my_dim);
+
+                const KmeansFloat_* observation = NULL;
+                if constexpr(needs_conversion) {
+                    std::copy_n(optr, my_dim, conversion_buffer.data());
+                    observation = conversion_buffer.data();
+                } else {
+                    observation = optr;
+                }
+
                 auto clustid = clusters[o];
                 auto cptr = my_centers.data() + sanisizer::product_unsafe<std::size_t>(clustid, my_dim);
 
                 auto& counter = sofar[clustid];
                 auto& current = by_distance[counter];
-                current.first = my_metric->normalize(my_metric->raw(my_dim, optr, cptr));
+                current.first = my_metric_center->normalize(my_metric_center->raw(my_dim, observation, cptr));
                 current.second = o;
 
                 ++counter;
             }
 
-            for (Index_ c = 0; c < ncenters; ++c) {
+            for (KmeansCluster_ c = 0; c < ncenters; ++c) {
                 auto begin = by_distance.begin() + my_offsets[c];
                 std::sort(begin, begin + my_sizes[c]);
             }
@@ -280,7 +458,6 @@ public:
 
         // Permuting in-place to mirror the reordered distances, so that the search is more cache-friendly.
         {
-            auto host = my_data.data();
             auto used = sanisizer::create<std::vector<unsigned char> >(sanisizer::attest_gez(my_obs));
             auto buffer = sanisizer::create<std::vector<Data_> >(my_dim);
             sanisizer::resize(my_observation_id, sanisizer::attest_gez(my_obs));
@@ -302,11 +479,11 @@ public:
 
                 // We recursively perform a "thread" of replacements until we
                 // are able to find the home of the originally replaced 'o'.
-                auto optr = host + sanisizer::product_unsafe<std::size_t>(o, my_dim);
+                auto optr = my_data.data() + sanisizer::product_unsafe<std::size_t>(o, my_dim);
                 std::copy_n(optr, my_dim, buffer.begin());
                 Index_ replacement = current.second;
                 do {
-                    auto rptr = host + sanisizer::product_unsafe<std::size_t>(replacement, my_dim);
+                    auto rptr = my_data.data() + sanisizer::product_unsafe<std::size_t>(replacement, my_dim);
                     std::copy_n(rptr, my_dim, optr);
                     used[replacement] = 1;
 
@@ -326,152 +503,7 @@ public:
         return;
     }
 
-private:
-    void search_nn(const Common<Data_, Distance_>* target, knncolle::NeighborQueue<Index_, Distance_>& nearest, std::vector<std::pair<Distance_, Index_> >& center_order) const { 
-        /* Computing distances to all centers and sorting them. The aim is to
-         * go through the nearest centers first, to try to get the shortest
-         * threshold (i.e., 'nearest.limit()') possible at the start;
-         * this allows us to skip searches of the later clusters.
-         */
-        center_order.clear();
-        const auto ncenters = my_sizes.size();
-        center_order.reserve(ncenters);
-        for (I<decltype(ncenters)> c = 0; c < ncenters; ++c) {
-            auto clust_ptr = my_centers.data() + sanisizer::product_unsafe<std::size_t>(c, my_dim);
-            center_order.emplace_back(my_metric->raw(my_dim, target, clust_ptr), c);
-        }
-        std::sort(center_order.begin(), center_order.end());
-
-        // Computing the distance to each center, and deciding whether to proceed for each cluster.
-        Distance_ threshold_raw = std::numeric_limits<Distance_>::infinity();
-        for (const auto& curcent : center_order) {
-            const Index_ center = curcent.second;
-            const Distance_ dist2center = my_metric->normalize(curcent.first);
-
-            const auto cur_nobs = my_sizes[center];
-            const Distance_* dIt = my_dist_to_centroid.data() + my_offsets[center];
-            const Distance_ maxdist = *(dIt + cur_nobs - 1);
-
-            Index_ firstcell = 0;
-#if KNNCOLLE_KMKNN_USE_UPPER
-            Distance_ upper_bd = std::numeric_limits<Distance_>::max();
-#endif
-
-            if (!std::isinf(threshold_raw)) {
-                const Distance_ threshold = my_metric->normalize(threshold_raw);
-
-                /* The conditional expression below exploits the triangle inequality; it is equivalent to asking whether:
-                 *     threshold + maxdist < dist2center
-                 * All points (if any) within this cluster with distances above 'lower_bd' are potentially countable.
-                 */
-                const Distance_ lower_bd = dist2center - threshold;
-                if (maxdist < lower_bd) {
-                    continue;
-                }
-
-                firstcell = std::lower_bound(dIt, dIt + cur_nobs, lower_bd) - dIt;
-
-#if KNNCOLLE_KMKNN_USE_UPPER
-                /* This exploits the reverse triangle inequality, to ignore points where:
-                 *     threshold + dist2center < point-to-center distance
-                 */
-                upper_bd = threshold + dist2center;
-#endif
-            }
-
-            const auto cur_start = my_offsets[center];
-            for (auto celldex = firstcell; celldex < cur_nobs; ++celldex) {
-                const auto other_cell = my_data.data() + sanisizer::product_unsafe<std::size_t>(cur_start + celldex, my_dim);
-
-#if KNNCOLLE_KMKNN_USE_UPPER
-                if (*(dIt + celldex) > upper_bd) {
-                    break;
-                }
-#endif
-
-                auto dist2cell_raw = my_metric->raw(my_dim, target, other_cell);
-                if (dist2cell_raw <= threshold_raw) {
-                    nearest.add(cur_start + celldex, dist2cell_raw);
-                    if (nearest.is_full()) {
-                        threshold_raw = nearest.limit(); // Shrinking the threshold, if an earlier NN has been found.
-#if KNNCOLLE_KMKNN_USE_UPPER
-                        upper_bd = my_metric->normalize(threshold_raw) + dist2center; 
-#endif
-                    }
-                }
-            }
-        }
-    }
-
-    template<bool count_only_, typename Output_>
-    void search_all(const Data_* target, Distance_ threshold, Output_& all_neighbors) const {
-        Distance_ threshold_raw = my_metric->denormalize(threshold);
-
-        /* Computing distances to all centers. We don't sort them here 
-         * because the threshold is constant so there's no point.
-         */
-        const auto ncenters = my_sizes.size();
-        for (I<decltype(ncenters)> center = 0; center < ncenters; ++center) {
-            auto center_ptr = my_centers.data() + sanisizer::product_unsafe<std::size_t>(center, my_dim);
-            const Distance_ dist2center = my_metric->normalize(my_metric->raw(my_dim, target, center_ptr));
-
-            auto cur_nobs = my_sizes[center];
-            const Distance_* dIt = my_dist_to_centroid.data() + my_offsets[center];
-            const Distance_ maxdist = *(dIt + cur_nobs - 1);
-
-            /* The conditional expression below exploits the triangle inequality; it is equivalent to asking whether:
-             *     threshold + maxdist < dist2center
-             * All points (if any) within this cluster with distances above 'lower_bd' are potentially countable.
-             */
-            const Distance_ lower_bd = dist2center - threshold;
-            if (maxdist < lower_bd) {
-                continue;
-            }
-
-            Index_ firstcell = std::lower_bound(dIt, dIt + cur_nobs, lower_bd) - dIt;
-#if KNNCOLLE_KMKNN_USE_UPPER
-            /* This exploits the reverse triangle inequality, to ignore points where:
-             *     threshold + dist2center < point-to-center distance
-             */
-            Distance_ upper_bd = threshold + dist2center;
-#endif
-
-            const auto cur_start = my_offsets[center];
-            for (auto celldex = firstcell; celldex < cur_nobs; ++celldex) {
-                const auto other_ptr = my_data.data() + sanisizer::product_unsafe<std::size_t>(cur_start + celldex, my_dim);
-
-#if KNNCOLLE_KMKNN_USE_UPPER
-                if (*(dIt + celldex) > upper_bd) {
-                    break;
-                }
-#endif
-
-                auto dist2cell_raw = my_metric->raw(my_dim, target, other_ptr);
-                if (dist2cell_raw <= threshold_raw) {
-                    if constexpr(count_only_) {
-                        ++all_neighbors;
-                    } else {
-                        all_neighbors.emplace_back(dist2cell_raw, cur_start + celldex);
-                    }
-                }
-            }
-        }
-    }
-
-    void normalize(std::vector<Index_>* output_indices, std::vector<Distance_>* output_distances) const {
-        if (output_indices) {
-            for (auto& s : *output_indices) {
-                s = my_observation_id[s];
-            }
-        }
-        if (output_distances) {
-            for (auto& d : *output_distances) {
-                d = my_metric->normalize(d);
-            }
-        }
-    }
-
-    friend class KmknnSearcher<Index_, Data_, Distance_, DistanceMetric_>;
+    friend class KmknnSearcher<Index_, Data_, Distance_, DistanceMetricData_, KmeansFloat_, DistanceMetricCenter_>;
 
 public:
     std::unique_ptr<knncolle::Searcher<Index_, Data_, Distance_> > initialize() const {
@@ -479,7 +511,7 @@ public:
     }
 
     auto initialize_known() const {
-        return std::make_unique<KmknnSearcher<Index_, Data_, Distance_, DistanceMetric_> >(*this);
+        return std::make_unique<KmknnSearcher<Index_, Data_, Distance_, DistanceMetricData_, KmeansFloat_, DistanceMetricCenter_> >(*this);
     }
 
 public:
@@ -498,9 +530,20 @@ public:
         knncolle::quick_save(dir / "NEW_LOCATION", my_new_location.data(), my_new_location.size());
         knncolle::quick_save(dir / "DIST_TO_CENTROID", my_dist_to_centroid.data(), my_dist_to_centroid.size());
 
-        const auto distdir = dir / "DISTANCE";
-        std::filesystem::create_directory(distdir);
-        my_metric->save(distdir);
+        auto float_type = knncolle::get_numeric_type<KmeansFloat_>();
+        knncolle::quick_save(dir / "FLOAT_TYPE", &float_type, 1);
+
+        {
+            const auto distdir = dir / "DISTANCE_DATA";
+            std::filesystem::create_directory(distdir);
+            my_metric_data->save(distdir);
+        }
+
+        {
+            const auto distdir = dir / "DISTANCE_CENTER";
+            std::filesystem::create_directory(distdir);
+            my_metric_center->save(distdir);
+        }
     }
 
     KmknnPrebuilt(const std::filesystem::path& dir) {
@@ -526,10 +569,19 @@ public:
         sanisizer::resize(my_dist_to_centroid, sanisizer::attest_gez(my_obs));
         knncolle::quick_load(dir / "DIST_TO_CENTROID", my_dist_to_centroid.data(), my_dist_to_centroid.size());
 
-        auto dptr = knncolle::load_distance_metric_raw<Data_, Distance_>(dir / "DISTANCE");
-        auto xptr = dynamic_cast<DistanceMetric_*>(dptr);
-        assert(xptr != NULL); // this must be safe as we load with the default base DistanceMetric_.
-        my_metric.reset(xptr);
+        {
+            auto dptr = knncolle::load_distance_metric_raw<Data_, Distance_>(dir / "DISTANCE_DATA");
+            auto xptr = dynamic_cast<DistanceMetricData_*>(dptr);
+            assert(xptr != NULL); // this must be safe as we load with the default base DistanceMetricData_.
+            my_metric_data.reset(xptr);
+        }
+
+        {
+            auto dptr = knncolle::load_distance_metric_raw<Data_, Distance_>(dir / "DISTANCE_CENTER");
+            auto xptr = dynamic_cast<DistanceMetricCenter_*>(dptr);
+            assert(xptr != NULL); // this must be safe as we load with the default base DistanceMetricCenter_.
+            my_metric_center.reset(xptr);
+        }
     }
 };
 /**
@@ -549,15 +601,19 @@ public:
  * @tparam Index_ Integer type for the observation indices.
  * @tparam Data_ Numeric type for the input and query data.
  * @tparam Distance_ Floating-point type for the distances.
- * This is also used for the cluster centers.
  * @tparam Matrix_ Class of the input data matrix. 
  * This should satisfy the `knncolle::Matrix` interface.
- * @tparam DistanceMetric_ Class implementing the distance metric calculation.
+ * @tparam DistanceMetricData_ Class implementing the calculation of distances between observations.
  * This should satisfy the `knncolle::DistanceMetric` interface.
- * Note that the input data type is set to `Distance_` as this class must be able to compute distances to cluster centers.
+ * @tparam KmeansIndex_ Integer type of the observation indices for **kmeans**. 
+ * @tparam KmeansData_ Numeric type of the input data for **kmeans**. 
+ * @tparam KmeansCluster_ Integer type of the cluster identities for **kmeans**. 
+ * @tparam KmeansFloat_ Floating-point type of the cluster centroids.
  * @tparam KmeansMatrix_ Class of the input data matrix for **kmeans**.
  * This should satisfy the `kmeans::Matrix` interface, most typically a `kmeans::SimpleMatrix`.
  * (Note that this is a different class from the `knncolle::Matrix` interface!)
+ * @tparam DistanceMetricCenter_ Class implementing the calculation of distances between an observation and a cluster centroid.
+ * This should satisfy the `knncolle::DistanceMetric` interface.
  *
  * @see
  * Wang X (2012). 
@@ -569,33 +625,50 @@ template<
     typename Data_,
     typename Distance_,
     class Matrix_ = knncolle::Matrix<Index_, Data_>,
-    class DistanceMetric_ = DistanceMetric<Data_, Distance_>,
-    class KmeansMatrix_ = kmeans::SimpleMatrix<Index_, Data_>
+    class DistanceMetricData_ = knncolle::DistanceMetric<Data_, Distance_>,
+    typename KmeansIndex_ = Index_,
+    typename KmeansData_ = Data_,
+    typename KmeansCluster_ = Index_,
+    typename KmeansFloat_ = Distance_,
+    class KmeansMatrix_ = kmeans::SimpleMatrix<KmeansIndex_, KmeansData_>,
+    class DistanceMetricCenter_ = knncolle::DistanceMetric<KmeansFloat_, Distance_>
 >
 class KmknnBuilder final : public knncolle::Builder<Index_, Data_, Distance_, Matrix_> {
 public:
     /**
      * Convenient name for the `KmknnOptions` class that ensures consistent template parametrization.
      */
-    typedef KmknnOptions<Index_, Data_, Distance_, KmeansMatrix_> Options;
+    typedef KmknnOptions<Index_, Data_, Distance_, KmeansIndex_, KmeansData_, KmeansCluster_, KmeansFloat_, KmeansMatrix_> Options;
 
 private:
-    std::shared_ptr<const DistanceMetric_> my_metric;
+    std::shared_ptr<const DistanceMetricData_> my_metric_data;
+    std::shared_ptr<const DistanceMetricCenter_> my_metric_center;
     Options my_options;
 
 public:
     /**
-     * @param metric Pointer to a distance metric instance, e.g., `EuclideanDistance`.
+     * @param metric_data  Pointer to a distance metric (e.g., `knncolle::EuclideanDistance`) for computing distances between observations.
+     * @param metric_center Pointer to a distance metric (e.g., `knncolle::EuclideanDistance`) for computing distances between observations and cluster centroids.
      * @param options Further options for the KMKNN algorithm.
      */
-    KmknnBuilder(std::shared_ptr<const DistanceMetric_> metric, Options options) : my_metric(std::move(metric)), my_options(std::move(options)) {}
+    KmknnBuilder(
+        std::shared_ptr<const DistanceMetricData_> metric_data,
+        std::shared_ptr<const DistanceMetricCenter_> metric_center,
+        Options options
+    ) :
+        my_metric_data(std::move(metric_data)),
+        my_metric_center(std::move(metric_center)),
+        my_options(std::move(options))
+    {}
 
     /**
      * Overloaded constructor using the default options.
      *
-     * @param metric Pointer to a distance metric instance, e.g., `EuclideanDistance`.
+     * @param metric_data  Pointer to a distance metric (e.g., `knncolle::EuclideanDistance`) for computing distances between observations.
+     * @param metric_center Pointer to a distance metric (e.g., `knncolle::EuclideanDistance`) for computing distances between observations and cluster centroids.
      */
-    KmknnBuilder(std::shared_ptr<const DistanceMetric_> metric) : KmknnBuilder(std::move(metric), {}) {}
+    KmknnBuilder(std::shared_ptr<const DistanceMetricData_> metric_data, std::shared_ptr<const DistanceMetricCenter_> metric_center) :
+        KmknnBuilder(std::move(metric_data), std::move(metric_center), {}) {}
 
     // Don't provide an overload that accepts a raw metric pointer and the options,
     // as it's possible for the raw pointer to be constructed first, and then the options
@@ -629,7 +702,7 @@ public:
         const auto ndim = data.num_dimensions();
         const auto nobs = data.num_observations();
 
-        typedef std::vector<Common<Data_, Distance_> > Store;
+        typedef std::vector<Data_> Store;
         Store store(sanisizer::product<typename Store::size_type>(ndim, nobs));
 
         auto work = data.new_known_extractor();
@@ -638,7 +711,14 @@ public:
             std::copy_n(ptr, ndim, store.begin() + sanisizer::product_unsafe<std::size_t>(o, ndim)); 
         }
 
-        return new KmknnPrebuilt<Index_, Data_, Distance_, DistanceMetric_>(ndim, nobs, std::move(store), my_metric, my_options);
+        return new KmknnPrebuilt<Index_, Data_, Distance_, DistanceMetricData_, KmeansFloat_, DistanceMetricCenter_>(
+            ndim,
+            nobs,
+            std::move(store),
+            my_metric_data,
+            my_metric_center,
+            my_options
+        );
     }
 
     /**

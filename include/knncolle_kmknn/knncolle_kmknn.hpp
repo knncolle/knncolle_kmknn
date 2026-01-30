@@ -1,7 +1,6 @@
 #ifndef KNNCOLLE_KMKNN_HPP
 #define KNNCOLLE_KMKNN_HPP
 
-#include "aliases.hpp"
 #include "Kmknn.hpp"
 #include "load_kmknn_prebuilt.hpp"
 

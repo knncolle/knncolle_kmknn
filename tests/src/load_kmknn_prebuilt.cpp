@@ -30,7 +30,7 @@ protected:
 
 TEST_F(KmknnLoadPrebuiltTest, Euclidean) {
     auto eucdist = std::make_shared<knncolle::EuclideanDistance<double, double> >();
-    knncolle_kmknn::KmknnBuilder<int, double, double> kb(eucdist);
+    knncolle_kmknn::KmknnBuilder<int, double, double> kb(eucdist, eucdist);
     auto bptr = kb.build_unique(knncolle::SimpleMatrix<int, double>(ndim, nobs, data.data()));
 
     const auto dir = savedir / "euclidean";
@@ -52,8 +52,8 @@ TEST_F(KmknnLoadPrebuiltTest, Euclidean) {
 }
 
 TEST_F(KmknnLoadPrebuiltTest, Manhattan) {
-    auto eucdist = std::make_shared<knncolle::ManhattanDistance<double, double> >();
-    knncolle_kmknn::KmknnBuilder<int, double, double> kb(eucdist);
+    auto mandist = std::make_shared<knncolle::ManhattanDistance<double, double> >();
+    knncolle_kmknn::KmknnBuilder<int, double, double> kb(mandist, mandist);
     auto bptr = kb.build_unique(knncolle::SimpleMatrix<int, double>(ndim, nobs, data.data()));
 
     const auto dir = savedir / "manhattan";

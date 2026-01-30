@@ -18,7 +18,6 @@ add_executable(
     libtest
     src/Kmknn.cpp
     src/load_kmknn_prebuilt.cpp
-    src/aliases.cpp
 )
 
 target_link_libraries(
