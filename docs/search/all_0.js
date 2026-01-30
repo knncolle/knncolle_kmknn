@@ -1,6 +1,5 @@
 var searchData=
 [
   ['add_0',['add',['https://knncolle.github.io/knncolle/classknncolle_1_1NeighborQueue.html#ac0add776502ad89cc532ede0da9e7559',1,'knncolle::NeighborQueue']]],
-  ['aliases_2ehpp_1',['aliases.hpp',['../aliases_8hpp.html',1,'']]],
-  ['and_20loading_20to_20from_20disk_2',['Saving and loading to/from disk',['../index.html#autotoc_md4',1,'']]]
+  ['and_20loading_20to_20from_20disk_1',['Saving and loading to/from disk',['../index.html#autotoc_md4',1,'']]]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>knncolle_kmknn: knncolle_kmknn::KmknnOptions&lt; Index_, Data_, Distance_, KmeansMatrix_ &gt; Struct Template Reference</title>
+<title>knncolle_kmknn: knncolle_kmknn::KmknnOptions&lt; Index_, Data_, Distance_, KmeansIndex_, KmeansData_, KmeansCluster_, KmeansFloat_, KmeansMatrix_ &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -93,7 +93,7 @@ $(function(){ initResizable(false); });
   <div class="summary">
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structknncolle__kmknn_1_1KmknnOptions-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">knncolle_kmknn::KmknnOptions&lt; Index_, Data_, Distance_, KmeansMatrix_ &gt; Struct Template Reference</div></div>
+  <div class="headertitle"><div class="title">knncolle_kmknn::KmknnOptions&lt; Index_, Data_, Distance_, KmeansIndex_, KmeansData_, KmeansCluster_, KmeansFloat_, KmeansMatrix_ &gt; Struct Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -104,54 +104,58 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a84b020741aac4160fed42a291d054216" id="r_a84b020741aac4160fed42a291d054216"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a84b020741aac4160fed42a291d054216">power</a> = 0.5</td></tr>
-<tr class="separator:a84b020741aac4160fed42a291d054216"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72b15c4565052f08de373f00f90c46ab" id="r_a72b15c4565052f08de373f00f90c46ab"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="namespaceknncolle__kmknn.html#af1529d337336e9be814dbb82aaac452b">Initialize</a>&lt; Index_, Data_, Distance_, KmeansMatrix_ &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72b15c4565052f08de373f00f90c46ab">initialize_algorithm</a></td></tr>
-<tr class="separator:a72b15c4565052f08de373f00f90c46ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e70f115b4eb557512fa7199c681f853" id="r_a3e70f115b4eb557512fa7199c681f853"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="namespaceknncolle__kmknn.html#aa406fc698a8543c13d2081467099000e">Refine</a>&lt; Index_, Data_, Distance_, KmeansMatrix_ &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3e70f115b4eb557512fa7199c681f853">refine_algorithm</a></td></tr>
-<tr class="separator:a3e70f115b4eb557512fa7199c681f853"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc25b2afd6e77663dd7e971c1a4649d4" id="r_abc25b2afd6e77663dd7e971c1a4649d4"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc25b2afd6e77663dd7e971c1a4649d4">power</a> = 0.5</td></tr>
+<tr class="separator:abc25b2afd6e77663dd7e971c1a4649d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8703599b50b8f5e7c397bf514c2a2e52" id="r_a8703599b50b8f5e7c397bf514c2a2e52"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Initialize.html">kmeans::Initialize</a>&lt; KmeansIndex_, KmeansData_, KmeansCluster_, KmeansFloat_, KmeansMatrix_ &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8703599b50b8f5e7c397bf514c2a2e52">initialize_algorithm</a></td></tr>
+<tr class="separator:a8703599b50b8f5e7c397bf514c2a2e52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91f70de83c9040c668fa67927f15a0bf" id="r_a91f70de83c9040c668fa67927f15a0bf"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Refine.html">kmeans::Refine</a>&lt; KmeansIndex_, KmeansData_, KmeansCluster_, KmeansFloat_, KmeansMatrix_ &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91f70de83c9040c668fa67927f15a0bf">refine_algorithm</a></td></tr>
+<tr class="separator:a91f70de83c9040c668fa67927f15a0bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename Index_, typename Data_, typename Distance_, class KmeansMatrix_ = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt;<br />
-struct knncolle_kmknn::KmknnOptions&lt; Index_, Data_, Distance_, KmeansMatrix_ &gt;</div><p>Options for <code><a class="el" href="classknncolle__kmknn_1_1KmknnBuilder.html" title="Perform a nearest neighbor search based on k-means clustering.">KmknnBuilder</a></code> construction. </p>
-<p>This can also be created via the <code><a class="el" href="classknncolle__kmknn_1_1KmknnBuilder.html#a11b086d90c33777274fa48c0657238e2">KmknnBuilder::Options</a></code> typedef, which ensures consistency with the template parameters used in <code><a class="el" href="classknncolle__kmknn_1_1KmknnBuilder.html" title="Perform a nearest neighbor search based on k-means clustering.">KmknnBuilder</a></code>.</p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename Index_, typename Data_, typename Distance_, typename KmeansIndex_ = Index_, typename KmeansData_ = Data_, typename KmeansCluster_ = Index_, typename KmeansFloat_ = Distance_, class KmeansMatrix_ = kmeans::SimpleMatrix&lt;KmeansIndex_, KmeansData_&gt;&gt;<br />
+struct knncolle_kmknn::KmknnOptions&lt; Index_, Data_, Distance_, KmeansIndex_, KmeansData_, KmeansCluster_, KmeansFloat_, KmeansMatrix_ &gt;</div><p>Options for <code><a class="el" href="classknncolle__kmknn_1_1KmknnBuilder.html" title="Perform a nearest neighbor search based on k-means clustering.">KmknnBuilder</a></code> construction. </p>
+<p>This can also be created via the <code><a class="el" href="classknncolle__kmknn_1_1KmknnBuilder.html#a8956bd3195d022eb5b4c0b69e5dcc45f">KmknnBuilder::Options</a></code> typedef, which ensures consistency with the template parameters used in <code><a class="el" href="classknncolle__kmknn_1_1KmknnBuilder.html" title="Perform a nearest neighbor search based on k-means clustering.">KmknnBuilder</a></code>.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Index_</td><td>Integer type for the observation indices. </td></tr>
     <tr><td class="paramname">Data_</td><td>Numeric type for the input and query data. </td></tr>
     <tr><td class="paramname">Distance_</td><td>Floating-point type for the distances. </td></tr>
+    <tr><td class="paramname">KmeansIndex_</td><td>Integer type of the observation indices for <b>kmeans</b>. </td></tr>
+    <tr><td class="paramname">KmeansData_</td><td>Numeric type of the input data for <b>kmeans</b>. </td></tr>
+    <tr><td class="paramname">KmeansCluster_</td><td>Integer type of the cluster identities for <b>kmeans</b>. </td></tr>
+    <tr><td class="paramname">KmeansFloat_</td><td>Floating-point type of the cluster centroids. </td></tr>
     <tr><td class="paramname">KmeansMatrix_</td><td>Class of the input data matrix for <b>kmeans</b>. This should satisfy the <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Matrix.html">kmeans::Matrix</a></code> interface, most typically a <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1SimpleMatrix.html">kmeans::SimpleMatrix</a></code>. (Note that this is a different class from the <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Matrix.html">knncolle::Matrix</a></code> interface!) </td></tr>
   </table>
   </dd>
 </dl>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a72b15c4565052f08de373f00f90c46ab" name="a72b15c4565052f08de373f00f90c46ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72b15c4565052f08de373f00f90c46ab">&#9670;&#160;</a></span>initialize_algorithm</h2>
+<a id="a8703599b50b8f5e7c397bf514c2a2e52" name="a8703599b50b8f5e7c397bf514c2a2e52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8703599b50b8f5e7c397bf514c2a2e52">&#9670;&#160;</a></span>initialize_algorithm</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </div>
+template&lt;typename Index_ , typename Data_ , typename Distance_ , typename KmeansIndex_  = Index_, typename KmeansData_  = Data_, typename KmeansCluster_  = Index_, typename KmeansFloat_  = Distance_, class KmeansMatrix_  = kmeans::SimpleMatrix&lt;KmeansIndex_, KmeansData_&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="namespaceknncolle__kmknn.html#af1529d337336e9be814dbb82aaac452b">Initialize</a>&lt;Index_, Data_, Distance_, KmeansMatrix_&gt; &gt; <a class="el" href="structknncolle__kmknn_1_1KmknnOptions.html">knncolle_kmknn::KmknnOptions</a>&lt; Index_, Data_, Distance_, KmeansMatrix_ &gt;::initialize_algorithm</td>
+          <td class="memname">std::shared_ptr&lt;<a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Initialize.html">kmeans::Initialize</a>&lt;KmeansIndex_, KmeansData_, KmeansCluster_, KmeansFloat_, KmeansMatrix_&gt; &gt; <a class="el" href="structknncolle__kmknn_1_1KmknnOptions.html">knncolle_kmknn::KmknnOptions</a>&lt; Index_, Data_, Distance_, KmeansIndex_, KmeansData_, KmeansCluster_, KmeansFloat_, KmeansMatrix_ &gt;::initialize_algorithm</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Initialization method for k-means clustering. If NULL, defaults to <code>InitializeKmeanspp</code>. </p>
+<p>Initialization method for k-means clustering. If NULL, defaults to <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1InitializeKmeanspp.html">kmeans::InitializeKmeanspp</a></code>. </p>
 
 </div>
 </div>
-<a id="a84b020741aac4160fed42a291d054216" name="a84b020741aac4160fed42a291d054216"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84b020741aac4160fed42a291d054216">&#9670;&#160;</a></span>power</h2>
+<a id="abc25b2afd6e77663dd7e971c1a4649d4" name="abc25b2afd6e77663dd7e971c1a4649d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc25b2afd6e77663dd7e971c1a4649d4">&#9670;&#160;</a></span>power</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </div>
+template&lt;typename Index_ , typename Data_ , typename Distance_ , typename KmeansIndex_  = Index_, typename KmeansData_  = Data_, typename KmeansCluster_  = Index_, typename KmeansFloat_  = Distance_, class KmeansMatrix_  = kmeans::SimpleMatrix&lt;KmeansIndex_, KmeansData_&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">double <a class="el" href="structknncolle__kmknn_1_1KmknnOptions.html">knncolle_kmknn::KmknnOptions</a>&lt; Index_, Data_, Distance_, KmeansMatrix_ &gt;::power = 0.5</td>
+          <td class="memname">double <a class="el" href="structknncolle__kmknn_1_1KmknnOptions.html">knncolle_kmknn::KmknnOptions</a>&lt; Index_, Data_, Distance_, KmeansIndex_, KmeansData_, KmeansCluster_, KmeansFloat_, KmeansMatrix_ &gt;::power = 0.5</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -159,20 +163,20 @@ template&lt;typename Index_ , typename Data_ , typename Distance_ , class Kmeans
 
 </div>
 </div>
-<a id="a3e70f115b4eb557512fa7199c681f853" name="a3e70f115b4eb557512fa7199c681f853"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e70f115b4eb557512fa7199c681f853">&#9670;&#160;</a></span>refine_algorithm</h2>
+<a id="a91f70de83c9040c668fa67927f15a0bf" name="a91f70de83c9040c668fa67927f15a0bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91f70de83c9040c668fa67927f15a0bf">&#9670;&#160;</a></span>refine_algorithm</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </div>
+template&lt;typename Index_ , typename Data_ , typename Distance_ , typename KmeansIndex_  = Index_, typename KmeansData_  = Data_, typename KmeansCluster_  = Index_, typename KmeansFloat_  = Distance_, class KmeansMatrix_  = kmeans::SimpleMatrix&lt;KmeansIndex_, KmeansData_&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="namespaceknncolle__kmknn.html#aa406fc698a8543c13d2081467099000e">Refine</a>&lt;Index_, Data_, Distance_, KmeansMatrix_&gt; &gt; <a class="el" href="structknncolle__kmknn_1_1KmknnOptions.html">knncolle_kmknn::KmknnOptions</a>&lt; Index_, Data_, Distance_, KmeansMatrix_ &gt;::refine_algorithm</td>
+          <td class="memname">std::shared_ptr&lt;<a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Refine.html">kmeans::Refine</a>&lt;KmeansIndex_, KmeansData_, KmeansCluster_, KmeansFloat_, KmeansMatrix_&gt; &gt; <a class="el" href="structknncolle__kmknn_1_1KmknnOptions.html">knncolle_kmknn::KmknnOptions</a>&lt; Index_, Data_, Distance_, KmeansIndex_, KmeansData_, KmeansCluster_, KmeansFloat_, KmeansMatrix_ &gt;::refine_algorithm</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Refinement method for k-means clustering. If NULL, defaults to <code>RefineHartiganWong</code>. </p>
+<p>Refinement method for k-means clustering. If NULL, defaults to <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1RefineHartiganWong.html">kmeans::RefineHartiganWong</a></code>. </p>
 
 </div>
 </div>

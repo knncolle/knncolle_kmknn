@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['manhattandistance_0',['ManhattanDistance',['https://knncolle.github.io/knncolle/classknncolle_1_1ManhattanDistance.html',1,'knncolle::ManhattanDistance&lt; typename Data_, typename Distance_ &gt;'],['../namespaceknncolle__kmknn.html#a11476f42c27e84a8053827c3386714f7',1,'knncolle_kmknn::ManhattanDistance']]],
+  ['manhattandistance_0',['ManhattanDistance',['https://knncolle.github.io/knncolle/classknncolle_1_1ManhattanDistance.html',1,'knncolle']]],
   ['manual_1',['Manual',['../index.html#autotoc_md8',1,'']]],
   ['matrix_2',['Matrix',['https://ltla.github.io/CppKmeans/classkmeans_1_1Matrix.html',1,'kmeans::Matrix&lt; typename Index_, typename Data_ &gt;'],['https://knncolle.github.io/knncolle/classknncolle_1_1Matrix.html',1,'knncolle::Matrix&lt; typename Index_, typename Data_ &gt;']]],
   ['matrix_2ehpp_3',['Matrix.hpp',['https://knncolle.github.io/knncolle/Matrix_8hpp.html',1,'(Global Namespace)'],['https://ltla.github.io/CppKmeans/Matrix_8hpp.html',1,'(Global Namespace)']]],

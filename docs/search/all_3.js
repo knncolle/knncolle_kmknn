@@ -6,7 +6,7 @@ var searchData=
   ['details_2ehpp_3',['Details.hpp',['https://ltla.github.io/CppKmeans/Details_8hpp.html',1,'']]],
   ['details_3c_20index_5f_20_3e_4',['Details&lt; Index_ &gt;',['https://ltla.github.io/CppKmeans/structkmeans_1_1Details.html',1,'kmeans']]],
   ['disk_5',['Saving and loading to/from disk',['../index.html#autotoc_md4',1,'']]],
-  ['distancemetric_6',['DistanceMetric',['https://knncolle.github.io/knncolle/classknncolle_1_1DistanceMetric.html',1,'knncolle::DistanceMetric&lt; typename Data_, typename Distance_ &gt;'],['../namespaceknncolle__kmknn.html#a951ca343a2296f4aeffa1e2bb84c6bec',1,'knncolle_kmknn::DistanceMetric']]],
+  ['distancemetric_6',['DistanceMetric',['https://knncolle.github.io/knncolle/classknncolle_1_1DistanceMetric.html',1,'knncolle']]],
   ['distancemetric_3c_20data_5f_2c_20distance_5f_20_3e_7',['DistanceMetric&lt; Data_, Distance_ &gt;',['https://knncolle.github.io/knncolle/classknncolle_1_1DistanceMetric.html',1,'knncolle']]],
   ['distances_2ehpp_8',['distances.hpp',['https://knncolle.github.io/knncolle/distances_8hpp.html',1,'']]]
 ];

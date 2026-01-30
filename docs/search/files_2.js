@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['compute_5fwcss_2ehpp_0',['compute_wcss.hpp',['https://ltla.github.io/CppKmeans/compute__wcss_8hpp.html',1,'']]]
+  ['details_2ehpp_0',['Details.hpp',['https://ltla.github.io/CppKmeans/Details_8hpp.html',1,'']]],
+  ['distances_2ehpp_1',['distances.hpp',['https://knncolle.github.io/knncolle/distances_8hpp.html',1,'']]]
 ];

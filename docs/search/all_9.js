@@ -7,7 +7,7 @@ var searchData=
   ['limit_4',['limit',['https://knncolle.github.io/knncolle/classknncolle_1_1NeighborQueue.html#ade4febddacc0e5725caa3c683486dcb0',1,'knncolle::NeighborQueue']]],
   ['load_5fdistance_5fmetric_5fraw_5',['load_distance_metric_raw',['https://knncolle.github.io/knncolle/namespaceknncolle.html#acd94b11fc8a2fade908a509ed2ecfddb',1,'knncolle']]],
   ['load_5fdistance_5fmetric_5fregistry_6',['load_distance_metric_registry',['https://knncolle.github.io/knncolle/namespaceknncolle.html#ad4af1d9292bd24d4bd3f72f4f99d9cbc',1,'knncolle']]],
-  ['load_5fkmknn_5fprebuilt_7',['load_kmknn_prebuilt',['../namespaceknncolle__kmknn.html#a86696b7cfcea4769e6d5115f358f160e',1,'knncolle_kmknn']]],
+  ['load_5fkmknn_5fprebuilt_7',['load_kmknn_prebuilt',['../namespaceknncolle__kmknn.html#a90d91598dd336ae937d96153e28f56b9',1,'knncolle_kmknn']]],
   ['load_5fkmknn_5fprebuilt_2ehpp_8',['load_kmknn_prebuilt.hpp',['../load__kmknn__prebuilt_8hpp.html',1,'']]],
   ['load_5fl2normalized_5fprebuilt_9',['load_l2normalized_prebuilt',['https://knncolle.github.io/knncolle/namespaceknncolle.html#a54a79aea2d2c0a9ece9e107c60776c22',1,'knncolle']]],
   ['load_5fl2normalized_5fprebuilt_5ftypes_10',['load_l2normalized_prebuilt_types',['https://knncolle.github.io/knncolle/namespaceknncolle.html#a7226ddc157c8e3c39d89b13bb412dda4',1,'knncolle']]],

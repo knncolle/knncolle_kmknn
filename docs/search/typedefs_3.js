@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['euclideandistance_0',['EuclideanDistance',['../namespaceknncolle__kmknn.html#a14989deec2423f5045ccd5366b24ca3f',1,'knncolle_kmknn']]]
+  ['neighborlist_0',['NeighborList',['https://knncolle.github.io/knncolle/namespaceknncolle.html#a97693d779b6041859ffa0ef2d9c1500b',1,'knncolle']]],
+  ['normalizedmatrix_1',['NormalizedMatrix',['https://knncolle.github.io/knncolle/classknncolle_1_1L2NormalizedBuilder.html#a1098d7699574f9d509508b6a1fe23a32',1,'knncolle::L2NormalizedBuilder']]]
 ];

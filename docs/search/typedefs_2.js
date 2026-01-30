@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['distancemetric_0',['DistanceMetric',['../namespaceknncolle__kmknn.html#a951ca343a2296f4aeffa1e2bb84c6bec',1,'knncolle_kmknn']]]
+  ['loaddistancemetricfunction_0',['LoadDistanceMetricFunction',['https://knncolle.github.io/knncolle/namespaceknncolle.html#a67fb4089867eeafca50930f79698f820',1,'knncolle']]],
+  ['loadprebuiltfunction_1',['LoadPrebuiltFunction',['https://knncolle.github.io/knncolle/namespaceknncolle.html#a0574e57c9150cb0bfe1da0e7eff6aa01',1,'knncolle']]]
 ];

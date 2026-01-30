@@ -1,16 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
 <tagfile doxygen_version="1.12.0">
   <compound kind="file">
-    <name>aliases.hpp</name>
-    <path>/github/workspace/include/knncolle_kmknn/</path>
-    <filename>aliases_8hpp.html</filename>
-    <namespace>knncolle_kmknn</namespace>
-  </compound>
-  <compound kind="file">
     <name>knncolle_kmknn.hpp</name>
     <path>/github/workspace/include/knncolle_kmknn/</path>
     <filename>knncolle__kmknn_8hpp.html</filename>
-    <includes id="aliases_8hpp" name="aliases.hpp" local="yes" import="no" module="no" objc="no">aliases.hpp</includes>
     <includes id="load__kmknn__prebuilt_8hpp" name="load_kmknn_prebuilt.hpp" local="yes" import="no" module="no" objc="no">load_kmknn_prebuilt.hpp</includes>
     <namespace>knncolle_kmknn</namespace>
   </compound>
@@ -27,56 +20,61 @@
     <templarg>typename Data_</templarg>
     <templarg>typename Distance_</templarg>
     <templarg>class Matrix_</templarg>
-    <templarg>class DistanceMetric_</templarg>
+    <templarg>class DistanceMetricData_</templarg>
+    <templarg>typename KmeansIndex_</templarg>
+    <templarg>typename KmeansData_</templarg>
+    <templarg>typename KmeansCluster_</templarg>
+    <templarg>typename KmeansFloat_</templarg>
     <templarg>class KmeansMatrix_</templarg>
+    <templarg>class DistanceMetricCenter_</templarg>
     <base>knncolle::Builder&lt; typename Index_, typename Data_, typename Distance_, class Matrix_ &gt;</base>
     <member kind="typedef">
-      <type>KmknnOptions&lt; Index_, Data_, Distance_, KmeansMatrix_ &gt;</type>
+      <type>KmknnOptions&lt; Index_, Data_, Distance_, KmeansIndex_, KmeansData_, KmeansCluster_, KmeansFloat_, KmeansMatrix_ &gt;</type>
       <name>Options</name>
       <anchorfile>classknncolle__kmknn_1_1KmknnBuilder.html</anchorfile>
-      <anchor>a11b086d90c33777274fa48c0657238e2</anchor>
+      <anchor>a8956bd3195d022eb5b4c0b69e5dcc45f</anchor>
       <arglist></arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>KmknnBuilder</name>
       <anchorfile>classknncolle__kmknn_1_1KmknnBuilder.html</anchorfile>
-      <anchor>ac841e15738c745bd12672a62f77f6041</anchor>
-      <arglist>(std::shared_ptr&lt; const DistanceMetric_ &gt; metric, Options options)</arglist>
+      <anchor>a8d95fab3e38f2acd0c0ae33a651ac54c</anchor>
+      <arglist>(std::shared_ptr&lt; const DistanceMetricData_ &gt; metric_data, std::shared_ptr&lt; const DistanceMetricCenter_ &gt; metric_center, Options options)</arglist>
     </member>
     <member kind="function">
       <type></type>
       <name>KmknnBuilder</name>
       <anchorfile>classknncolle__kmknn_1_1KmknnBuilder.html</anchorfile>
-      <anchor>a4e371713bc2d5499550516f7625dcdc4</anchor>
-      <arglist>(std::shared_ptr&lt; const DistanceMetric_ &gt; metric)</arglist>
+      <anchor>a51fab6a43dba7fbde3a4c138b2695dbc</anchor>
+      <arglist>(std::shared_ptr&lt; const DistanceMetricData_ &gt; metric_data, std::shared_ptr&lt; const DistanceMetricCenter_ &gt; metric_center)</arglist>
     </member>
     <member kind="function">
       <type>Options &amp;</type>
       <name>get_options</name>
       <anchorfile>classknncolle__kmknn_1_1KmknnBuilder.html</anchorfile>
-      <anchor>a7cc86e827674d374a9090c6f4e9300ea</anchor>
+      <anchor>adb0ac04a27f8bf23e4d5dfcf3d2863b8</anchor>
       <arglist>()</arglist>
     </member>
     <member kind="function">
       <type>auto</type>
       <name>build_known_raw</name>
       <anchorfile>classknncolle__kmknn_1_1KmknnBuilder.html</anchorfile>
-      <anchor>a31992acfce7ac76c9181ccb1b416fc07</anchor>
+      <anchor>a69cbd818ec930b13314f6c3f00e4a247</anchor>
       <arglist>(const Matrix_ &amp;data) const</arglist>
     </member>
     <member kind="function">
       <type>auto</type>
       <name>build_known_unique</name>
       <anchorfile>classknncolle__kmknn_1_1KmknnBuilder.html</anchorfile>
-      <anchor>abb53f6576840a869640b0e1b797e9193</anchor>
+      <anchor>a59c9c836c77549822cd3c069f5e38714</anchor>
       <arglist>(const Matrix_ &amp;data) const</arglist>
     </member>
     <member kind="function">
       <type>auto</type>
       <name>build_known_shared</name>
       <anchorfile>classknncolle__kmknn_1_1KmknnBuilder.html</anchorfile>
-      <anchor>a249418610a4c936e586334538c7b900f</anchor>
+      <anchor>ad2496dc0dea523d8b61052a41ecc59e8</anchor>
       <arglist>(const Matrix_ &amp;data) const</arglist>
     </member>
   </compound>
@@ -86,26 +84,30 @@
     <templarg>typename Index_</templarg>
     <templarg>typename Data_</templarg>
     <templarg>typename Distance_</templarg>
+    <templarg>typename KmeansIndex_</templarg>
+    <templarg>typename KmeansData_</templarg>
+    <templarg>typename KmeansCluster_</templarg>
+    <templarg>typename KmeansFloat_</templarg>
     <templarg>class KmeansMatrix_</templarg>
     <member kind="variable">
       <type>double</type>
       <name>power</name>
       <anchorfile>structknncolle__kmknn_1_1KmknnOptions.html</anchorfile>
-      <anchor>a84b020741aac4160fed42a291d054216</anchor>
+      <anchor>abc25b2afd6e77663dd7e971c1a4649d4</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>std::shared_ptr&lt; Initialize&lt; Index_, Data_, Distance_, KmeansMatrix_ &gt; &gt;</type>
+      <type>std::shared_ptr&lt; kmeans::Initialize&lt; KmeansIndex_, KmeansData_, KmeansCluster_, KmeansFloat_, KmeansMatrix_ &gt; &gt;</type>
       <name>initialize_algorithm</name>
       <anchorfile>structknncolle__kmknn_1_1KmknnOptions.html</anchorfile>
-      <anchor>a72b15c4565052f08de373f00f90c46ab</anchor>
+      <anchor>a8703599b50b8f5e7c397bf514c2a2e52</anchor>
       <arglist></arglist>
     </member>
     <member kind="variable">
-      <type>std::shared_ptr&lt; Refine&lt; Index_, Data_, Distance_, KmeansMatrix_ &gt; &gt;</type>
+      <type>std::shared_ptr&lt; kmeans::Refine&lt; KmeansIndex_, KmeansData_, KmeansCluster_, KmeansFloat_, KmeansMatrix_ &gt; &gt;</type>
       <name>refine_algorithm</name>
       <anchorfile>structknncolle__kmknn_1_1KmknnOptions.html</anchorfile>
-      <anchor>a3e70f115b4eb557512fa7199c681f853</anchor>
+      <anchor>a91f70de83c9040c668fa67927f15a0bf</anchor>
       <arglist></arglist>
     </member>
   </compound>
@@ -114,95 +116,11 @@
     <filename>namespaceknncolle__kmknn.html</filename>
     <class kind="class">knncolle_kmknn::KmknnBuilder</class>
     <class kind="struct">knncolle_kmknn::KmknnOptions</class>
-    <member kind="typedef">
-      <type>decltype(std::declval&lt; Data_ &gt;() - std::declval&lt; Distance_ &gt;())</type>
-      <name>Common</name>
-      <anchorfile>namespaceknncolle__kmknn.html</anchorfile>
-      <anchor>ab89a88b7e80686823b2d6e869b46d33c</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>knncolle::DistanceMetric&lt; Common&lt; Data_, Distance_ &gt;, Distance_ &gt;</type>
-      <name>DistanceMetric</name>
-      <anchorfile>namespaceknncolle__kmknn.html</anchorfile>
-      <anchor>a951ca343a2296f4aeffa1e2bb84c6bec</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>knncolle::EuclideanDistance&lt; Common&lt; Data_, Distance_ &gt;, Distance_ &gt;</type>
-      <name>EuclideanDistance</name>
-      <anchorfile>namespaceknncolle__kmknn.html</anchorfile>
-      <anchor>a14989deec2423f5045ccd5366b24ca3f</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>knncolle::ManhattanDistance&lt; Common&lt; Data_, Distance_ &gt;, Distance_ &gt;</type>
-      <name>ManhattanDistance</name>
-      <anchorfile>namespaceknncolle__kmknn.html</anchorfile>
-      <anchor>a11476f42c27e84a8053827c3386714f7</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>kmeans::Initialize&lt; Index_, Common&lt; Data_, Distance_ &gt;, Index_, Common&lt; Data_, Distance_ &gt;, KmeansMatrix_ &gt;</type>
-      <name>Initialize</name>
-      <anchorfile>namespaceknncolle__kmknn.html</anchorfile>
-      <anchor>af1529d337336e9be814dbb82aaac452b</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>kmeans::InitializeRandom&lt; Index_, Common&lt; Data_, Distance_ &gt;, Index_, Common&lt; Data_, Distance_ &gt;, KmeansMatrix_ &gt;</type>
-      <name>InitializeRandom</name>
-      <anchorfile>namespaceknncolle__kmknn.html</anchorfile>
-      <anchor>a4ea87c7589eb69e6fde509581584c786</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>kmeans::InitializeKmeanspp&lt; Index_, Common&lt; Data_, Distance_ &gt;, Index_, Common&lt; Data_, Distance_ &gt;, KmeansMatrix_ &gt;</type>
-      <name>InitializeKmeanspp</name>
-      <anchorfile>namespaceknncolle__kmknn.html</anchorfile>
-      <anchor>a3cd0b450d82b722d17fe6f2890b895ea</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>kmeans::InitializeNone&lt; Index_, Common&lt; Data_, Distance_ &gt;, Index_, Common&lt; Data_, Distance_ &gt;, KmeansMatrix_ &gt;</type>
-      <name>InitializeNone</name>
-      <anchorfile>namespaceknncolle__kmknn.html</anchorfile>
-      <anchor>a0fd74adc73ae84b227d91bda23b8411c</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>kmeans::InitializeVariancePartition&lt; Index_, Common&lt; Data_, Distance_ &gt;, Index_, Common&lt; Data_, Distance_ &gt;, KmeansMatrix_ &gt;</type>
-      <name>InitializeVariancePartition</name>
-      <anchorfile>namespaceknncolle__kmknn.html</anchorfile>
-      <anchor>a63fefb2020a20ccdaa88e1cb64a82ad4</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>kmeans::Refine&lt; Index_, Common&lt; Data_, Distance_ &gt;, Index_, Common&lt; Data_, Distance_ &gt;, KmeansMatrix_ &gt;</type>
-      <name>Refine</name>
-      <anchorfile>namespaceknncolle__kmknn.html</anchorfile>
-      <anchor>aa406fc698a8543c13d2081467099000e</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>kmeans::RefineLloyd&lt; Index_, Common&lt; Data_, Distance_ &gt;, Index_, Common&lt; Data_, Distance_ &gt;, KmeansMatrix_ &gt;</type>
-      <name>RefineLloyd</name>
-      <anchorfile>namespaceknncolle__kmknn.html</anchorfile>
-      <anchor>ad19250ce8179359cd6118cdf2e9b3936</anchor>
-      <arglist></arglist>
-    </member>
-    <member kind="typedef">
-      <type>kmeans::RefineHartiganWong&lt; Index_, Common&lt; Data_, Distance_ &gt;, Index_, Common&lt; Data_, Distance_ &gt;, KmeansMatrix_ &gt;</type>
-      <name>RefineHartiganWong</name>
-      <anchorfile>namespaceknncolle__kmknn.html</anchorfile>
-      <anchor>a82947272781cd9cc6040f859cf99a3f7</anchor>
-      <arglist></arglist>
-    </member>
     <member kind="function">
       <type>auto</type>
       <name>load_kmknn_prebuilt</name>
       <anchorfile>namespaceknncolle__kmknn.html</anchorfile>
-      <anchor>a86696b7cfcea4769e6d5115f358f160e</anchor>
+      <anchor>a90d91598dd336ae937d96153e28f56b9</anchor>
       <arglist>(const std::filesystem::path &amp;dir)</arglist>
     </member>
   </compound>

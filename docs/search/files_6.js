@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['kmeans_2ehpp_0',['kmeans.hpp',['https://ltla.github.io/CppKmeans/kmeans_8hpp.html',1,'']]],
-  ['knncolle_2ehpp_1',['knncolle.hpp',['https://knncolle.github.io/knncolle/knncolle_8hpp.html',1,'']]],
-  ['knncolle_5fkmknn_2ehpp_2',['knncolle_kmknn.hpp',['../knncolle__kmknn_8hpp.html',1,'']]]
+  ['l2normalized_2ehpp_0',['L2Normalized.hpp',['https://knncolle.github.io/knncolle/L2Normalized_8hpp.html',1,'']]],
+  ['load_5fkmknn_5fprebuilt_2ehpp_1',['load_kmknn_prebuilt.hpp',['../load__kmknn__prebuilt_8hpp.html',1,'']]],
+  ['load_5fprebuilt_2ehpp_2',['load_prebuilt.hpp',['https://knncolle.github.io/knncolle/load__prebuilt_8hpp.html',1,'']]]
 ];

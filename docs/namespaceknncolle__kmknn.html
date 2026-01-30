@@ -88,7 +88,6 @@ $(function(){ initResizable(false); });
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">knncolle_kmknn Namespace Reference</div></div>
 </div><!--header-->
@@ -106,366 +105,22 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Options for <code><a class="el" href="classknncolle__kmknn_1_1KmknnBuilder.html" title="Perform a nearest neighbor search based on k-means clustering.">KmknnBuilder</a></code> construction.  <a href="structknncolle__kmknn_1_1KmknnOptions.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:ab89a88b7e80686823b2d6e869b46d33c" id="r_ab89a88b7e80686823b2d6e869b46d33c"><td class="memTemplParams" colspan="2">template&lt;typename Data_ , typename Distance_ &gt; </td></tr>
-<tr class="memitem:ab89a88b7e80686823b2d6e869b46d33c"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a> = decltype(std::declval&lt;Data_&gt;() - std::declval&lt;Distance_&gt;())</td></tr>
-<tr class="separator:ab89a88b7e80686823b2d6e869b46d33c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a951ca343a2296f4aeffa1e2bb84c6bec" id="r_a951ca343a2296f4aeffa1e2bb84c6bec"><td class="memTemplParams" colspan="2">template&lt;typename Data_ , typename Distance_ &gt; </td></tr>
-<tr class="memitem:a951ca343a2296f4aeffa1e2bb84c6bec"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a951ca343a2296f4aeffa1e2bb84c6bec">DistanceMetric</a> = <a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1DistanceMetric.html">knncolle::DistanceMetric</a>&lt;<a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Distance_&gt;</td></tr>
-<tr class="separator:a951ca343a2296f4aeffa1e2bb84c6bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14989deec2423f5045ccd5366b24ca3f" id="r_a14989deec2423f5045ccd5366b24ca3f"><td class="memTemplParams" colspan="2">template&lt;typename Data_ , typename Distance_ &gt; </td></tr>
-<tr class="memitem:a14989deec2423f5045ccd5366b24ca3f"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a14989deec2423f5045ccd5366b24ca3f">EuclideanDistance</a> = <a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1EuclideanDistance.html">knncolle::EuclideanDistance</a>&lt;<a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Distance_&gt;</td></tr>
-<tr class="separator:a14989deec2423f5045ccd5366b24ca3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11476f42c27e84a8053827c3386714f7" id="r_a11476f42c27e84a8053827c3386714f7"><td class="memTemplParams" colspan="2">template&lt;typename Data_ , typename Distance_ &gt; </td></tr>
-<tr class="memitem:a11476f42c27e84a8053827c3386714f7"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a11476f42c27e84a8053827c3386714f7">ManhattanDistance</a> = <a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1ManhattanDistance.html">knncolle::ManhattanDistance</a>&lt;<a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Distance_&gt;</td></tr>
-<tr class="separator:a11476f42c27e84a8053827c3386714f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1529d337336e9be814dbb82aaac452b" id="r_af1529d337336e9be814dbb82aaac452b"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </td></tr>
-<tr class="memitem:af1529d337336e9be814dbb82aaac452b"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#af1529d337336e9be814dbb82aaac452b">Initialize</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Initialize.html">kmeans::Initialize</a>&lt;Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td></tr>
-<tr class="separator:af1529d337336e9be814dbb82aaac452b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ea87c7589eb69e6fde509581584c786" id="r_a4ea87c7589eb69e6fde509581584c786"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </td></tr>
-<tr class="memitem:a4ea87c7589eb69e6fde509581584c786"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a4ea87c7589eb69e6fde509581584c786">InitializeRandom</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1InitializeRandom.html">kmeans::InitializeRandom</a>&lt;Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td></tr>
-<tr class="separator:a4ea87c7589eb69e6fde509581584c786"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cd0b450d82b722d17fe6f2890b895ea" id="r_a3cd0b450d82b722d17fe6f2890b895ea"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </td></tr>
-<tr class="memitem:a3cd0b450d82b722d17fe6f2890b895ea"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a3cd0b450d82b722d17fe6f2890b895ea">InitializeKmeanspp</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1InitializeKmeanspp.html">kmeans::InitializeKmeanspp</a>&lt;Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td></tr>
-<tr class="separator:a3cd0b450d82b722d17fe6f2890b895ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fd74adc73ae84b227d91bda23b8411c" id="r_a0fd74adc73ae84b227d91bda23b8411c"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </td></tr>
-<tr class="memitem:a0fd74adc73ae84b227d91bda23b8411c"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a0fd74adc73ae84b227d91bda23b8411c">InitializeNone</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1InitializeNone.html">kmeans::InitializeNone</a>&lt;Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td></tr>
-<tr class="separator:a0fd74adc73ae84b227d91bda23b8411c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63fefb2020a20ccdaa88e1cb64a82ad4" id="r_a63fefb2020a20ccdaa88e1cb64a82ad4"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </td></tr>
-<tr class="memitem:a63fefb2020a20ccdaa88e1cb64a82ad4"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a63fefb2020a20ccdaa88e1cb64a82ad4">InitializeVariancePartition</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1InitializeVariancePartition.html">kmeans::InitializeVariancePartition</a>&lt;Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td></tr>
-<tr class="separator:a63fefb2020a20ccdaa88e1cb64a82ad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa406fc698a8543c13d2081467099000e" id="r_aa406fc698a8543c13d2081467099000e"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </td></tr>
-<tr class="memitem:aa406fc698a8543c13d2081467099000e"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#aa406fc698a8543c13d2081467099000e">Refine</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Refine.html">kmeans::Refine</a>&lt;Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td></tr>
-<tr class="separator:aa406fc698a8543c13d2081467099000e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad19250ce8179359cd6118cdf2e9b3936" id="r_ad19250ce8179359cd6118cdf2e9b3936"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </td></tr>
-<tr class="memitem:ad19250ce8179359cd6118cdf2e9b3936"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ad19250ce8179359cd6118cdf2e9b3936">RefineLloyd</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1RefineLloyd.html">kmeans::RefineLloyd</a>&lt;Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td></tr>
-<tr class="separator:ad19250ce8179359cd6118cdf2e9b3936"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82947272781cd9cc6040f859cf99a3f7" id="r_a82947272781cd9cc6040f859cf99a3f7"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </td></tr>
-<tr class="memitem:a82947272781cd9cc6040f859cf99a3f7"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a82947272781cd9cc6040f859cf99a3f7">RefineHartiganWong</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1RefineHartiganWong.html">kmeans::RefineHartiganWong</a>&lt;Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td></tr>
-<tr class="separator:a82947272781cd9cc6040f859cf99a3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a86696b7cfcea4769e6d5115f358f160e" id="r_a86696b7cfcea4769e6d5115f358f160e"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ &gt; </td></tr>
-<tr class="memitem:a86696b7cfcea4769e6d5115f358f160e"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a86696b7cfcea4769e6d5115f358f160e">load_kmknn_prebuilt</a> (const std::filesystem::path &amp;dir)</td></tr>
-<tr class="separator:a86696b7cfcea4769e6d5115f358f160e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90d91598dd336ae937d96153e28f56b9" id="r_a90d91598dd336ae937d96153e28f56b9"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , typename KmeansFloat_  = Distance_&gt; </td></tr>
+<tr class="memitem:a90d91598dd336ae937d96153e28f56b9"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a90d91598dd336ae937d96153e28f56b9">load_kmknn_prebuilt</a> (const std::filesystem::path &amp;dir)</td></tr>
+<tr class="separator:a90d91598dd336ae937d96153e28f56b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Namespace for the <b>knncolle_kmeans</b> library. </p>
-</div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="ab89a88b7e80686823b2d6e869b46d33c" name="ab89a88b7e80686823b2d6e869b46d33c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab89a88b7e80686823b2d6e869b46d33c">&#9670;&#160;</a></span>Common</h2>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a90d91598dd336ae937d96153e28f56b9" name="a90d91598dd336ae937d96153e28f56b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90d91598dd336ae937d96153e28f56b9">&#9670;&#160;</a></span>load_kmknn_prebuilt()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Data_ , typename Distance_ &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">knncolle_kmknn::Common</a> = decltype(std::declval&lt;Data_&gt;() - std::declval&lt;Distance_&gt;())</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Common type for promoting <code>Data_</code> and <code>Distance_</code> during subtraction. If <code>Data_</code> is integer, the common type will be the floating-point type of <code>Distance_</code>; otherwise if both types are floating-point, the common type will be the higher-precision type. This is used to define the common datatype for storing both the input data and the centroids, so that the same <code>DistanceMetric</code> can be used to compute the distances to a query datapoint.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Data_</td><td>Numeric type for the input and query data. </td></tr>
-    <tr><td class="paramname">Distance_</td><td>Floating-point type for the distances. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a951ca343a2296f4aeffa1e2bb84c6bec" name="a951ca343a2296f4aeffa1e2bb84c6bec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a951ca343a2296f4aeffa1e2bb84c6bec">&#9670;&#160;</a></span>DistanceMetric</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Data_ , typename Distance_ &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#a951ca343a2296f4aeffa1e2bb84c6bec">knncolle_kmknn::DistanceMetric</a> = <a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1DistanceMetric.html">knncolle::DistanceMetric</a>&lt;<a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Distance_&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Convenient alias for <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1DistanceMetric.html">knncolle::DistanceMetric</a></code> with the first template argument set to the <code>Common</code> type.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Data_</td><td>Numeric type for the input and query data. </td></tr>
-    <tr><td class="paramname">Distance_</td><td>Floating-point type for the distances. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a14989deec2423f5045ccd5366b24ca3f" name="a14989deec2423f5045ccd5366b24ca3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14989deec2423f5045ccd5366b24ca3f">&#9670;&#160;</a></span>EuclideanDistance</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Data_ , typename Distance_ &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#a14989deec2423f5045ccd5366b24ca3f">knncolle_kmknn::EuclideanDistance</a> = <a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1EuclideanDistance.html">knncolle::EuclideanDistance</a>&lt;<a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Distance_&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Convenient alias for <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1EuclideanDistance.html">knncolle::EuclideanDistance</a></code> with the first template argument set to the <code>Common</code> type.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Data_</td><td>Numeric type for the input and query data. </td></tr>
-    <tr><td class="paramname">Distance_</td><td>Floating-point type for the distances. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="af1529d337336e9be814dbb82aaac452b" name="af1529d337336e9be814dbb82aaac452b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1529d337336e9be814dbb82aaac452b">&#9670;&#160;</a></span>Initialize</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#af1529d337336e9be814dbb82aaac452b">knncolle_kmknn::Initialize</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Initialize.html">kmeans::Initialize</a>&lt;Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Convenient alias for <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Initialize.html">kmeans::Initialize</a></code>, using the <code>Common</code> type for the input data and the distances/centroids.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Index_</td><td>Integer type for the observation indices. </td></tr>
-    <tr><td class="paramname">Data_</td><td>Numeric type for the input and query data. </td></tr>
-    <tr><td class="paramname">Distance_</td><td>Floating-point type for the distances. </td></tr>
-    <tr><td class="paramname">KmeansMatrix_</td><td>Class of the input data matrix for <b>kmeans</b>. This should satisfy the <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Matrix.html">kmeans::Matrix</a></code> interface, most typically a <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1SimpleMatrix.html">kmeans::SimpleMatrix</a></code>. (Note that this is a different class from the <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Matrix.html">knncolle::Matrix</a></code> interface!) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a3cd0b450d82b722d17fe6f2890b895ea" name="a3cd0b450d82b722d17fe6f2890b895ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3cd0b450d82b722d17fe6f2890b895ea">&#9670;&#160;</a></span>InitializeKmeanspp</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#a3cd0b450d82b722d17fe6f2890b895ea">knncolle_kmknn::InitializeKmeanspp</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1InitializeKmeanspp.html">kmeans::InitializeKmeanspp</a>&lt;Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Convenient alias for <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1InitializeKmeanspp.html">kmeans::InitializeKmeanspp</a></code>, using the <code>Common</code> type for the input data and the distances/centroids.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Index_</td><td>Integer type for the observation indices. </td></tr>
-    <tr><td class="paramname">Data_</td><td>Numeric type for the input and query data. </td></tr>
-    <tr><td class="paramname">Distance_</td><td>Floating-point type for the distances. </td></tr>
-    <tr><td class="paramname">KmeansMatrix_</td><td>Class of the input data matrix for <b>kmeans</b>. This should satisfy the <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Matrix.html">kmeans::Matrix</a></code> interface, most typically a <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1SimpleMatrix.html">kmeans::SimpleMatrix</a></code>. (Note that this is a different class from the <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Matrix.html">knncolle::Matrix</a></code> interface!) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a0fd74adc73ae84b227d91bda23b8411c" name="a0fd74adc73ae84b227d91bda23b8411c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fd74adc73ae84b227d91bda23b8411c">&#9670;&#160;</a></span>InitializeNone</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#a0fd74adc73ae84b227d91bda23b8411c">knncolle_kmknn::InitializeNone</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1InitializeNone.html">kmeans::InitializeNone</a>&lt;Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Convenient alias for <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1InitializeNone.html">kmeans::InitializeNone</a></code>, using the <code>Common</code> type for the input data and the distances/centroids.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Index_</td><td>Integer type for the observation indices. </td></tr>
-    <tr><td class="paramname">Data_</td><td>Numeric type for the input and query data. </td></tr>
-    <tr><td class="paramname">Distance_</td><td>Floating-point type for the distances. </td></tr>
-    <tr><td class="paramname">KmeansMatrix_</td><td>Class of the input data matrix for <b>kmeans</b>. This should satisfy the <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Matrix.html">kmeans::Matrix</a></code> interface, most typically a <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1SimpleMatrix.html">kmeans::SimpleMatrix</a></code>. (Note that this is a different class from the <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Matrix.html">knncolle::Matrix</a></code> interface!) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a4ea87c7589eb69e6fde509581584c786" name="a4ea87c7589eb69e6fde509581584c786"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ea87c7589eb69e6fde509581584c786">&#9670;&#160;</a></span>InitializeRandom</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#a4ea87c7589eb69e6fde509581584c786">knncolle_kmknn::InitializeRandom</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1InitializeRandom.html">kmeans::InitializeRandom</a>&lt;Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Convenient alias for <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1InitializeRandom.html">kmeans::InitializeRandom</a></code>, using the <code>Common</code> type for the input data and the distances/centroids.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Index_</td><td>Integer type for the observation indices. </td></tr>
-    <tr><td class="paramname">Data_</td><td>Numeric type for the input and query data. </td></tr>
-    <tr><td class="paramname">Distance_</td><td>Floating-point type for the distances. </td></tr>
-    <tr><td class="paramname">KmeansMatrix_</td><td>Class of the input data matrix for <b>kmeans</b>. This should satisfy the <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Matrix.html">kmeans::Matrix</a></code> interface, most typically a <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1SimpleMatrix.html">kmeans::SimpleMatrix</a></code>. (Note that this is a different class from the <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Matrix.html">knncolle::Matrix</a></code> interface!) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a63fefb2020a20ccdaa88e1cb64a82ad4" name="a63fefb2020a20ccdaa88e1cb64a82ad4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63fefb2020a20ccdaa88e1cb64a82ad4">&#9670;&#160;</a></span>InitializeVariancePartition</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#a63fefb2020a20ccdaa88e1cb64a82ad4">knncolle_kmknn::InitializeVariancePartition</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1InitializeVariancePartition.html">kmeans::InitializeVariancePartition</a>&lt;Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Convenient alias for <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1InitializeVariancePartition.html">kmeans::InitializeVariancePartition</a></code>, using the <code>Common</code> type for the input data and the distances/centroids.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Index_</td><td>Integer type for the observation indices. </td></tr>
-    <tr><td class="paramname">Data_</td><td>Numeric type for the input and query data. </td></tr>
-    <tr><td class="paramname">Distance_</td><td>Floating-point type for the distances. </td></tr>
-    <tr><td class="paramname">KmeansMatrix_</td><td>Class of the input data matrix for <b>kmeans</b>. This should satisfy the <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Matrix.html">kmeans::Matrix</a></code> interface, most typically a <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1SimpleMatrix.html">kmeans::SimpleMatrix</a></code>. (Note that this is a different class from the <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Matrix.html">knncolle::Matrix</a></code> interface!) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a11476f42c27e84a8053827c3386714f7" name="a11476f42c27e84a8053827c3386714f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11476f42c27e84a8053827c3386714f7">&#9670;&#160;</a></span>ManhattanDistance</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Data_ , typename Distance_ &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#a11476f42c27e84a8053827c3386714f7">knncolle_kmknn::ManhattanDistance</a> = <a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1ManhattanDistance.html">knncolle::ManhattanDistance</a>&lt;<a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Distance_&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Convenient alias for <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1ManhattanDistance.html">knncolle::ManhattanDistance</a></code> with the first template argument set to the <code>Common</code> type.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Data_</td><td>Numeric type for the input and query data. </td></tr>
-    <tr><td class="paramname">Distance_</td><td>Floating-point type for the distances. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aa406fc698a8543c13d2081467099000e" name="aa406fc698a8543c13d2081467099000e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa406fc698a8543c13d2081467099000e">&#9670;&#160;</a></span>Refine</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#aa406fc698a8543c13d2081467099000e">knncolle_kmknn::Refine</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Refine.html">kmeans::Refine</a>&lt;Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Convenient alias for <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Refine.html">kmeans::Refine</a></code>, using the <code>Common</code> type for the input data and the distances/centroids.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Index_</td><td>Integer type for the observation indices. </td></tr>
-    <tr><td class="paramname">Data_</td><td>Numeric type for the input and query data. </td></tr>
-    <tr><td class="paramname">Distance_</td><td>Floating-point type for the distances. </td></tr>
-    <tr><td class="paramname">KmeansMatrix_</td><td>Class of the input data matrix for <b>kmeans</b>. This should satisfy the <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Matrix.html">kmeans::Matrix</a></code> interface, most typically a <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1SimpleMatrix.html">kmeans::SimpleMatrix</a></code>. (Note that this is a different class from the <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Matrix.html">knncolle::Matrix</a></code> interface!) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a82947272781cd9cc6040f859cf99a3f7" name="a82947272781cd9cc6040f859cf99a3f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82947272781cd9cc6040f859cf99a3f7">&#9670;&#160;</a></span>RefineHartiganWong</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#a82947272781cd9cc6040f859cf99a3f7">knncolle_kmknn::RefineHartiganWong</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1RefineHartiganWong.html">kmeans::RefineHartiganWong</a>&lt;Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Convenient alias for <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1RefineHartiganWong.html">kmeans::RefineHartiganWong</a></code>, using the <code>Common</code> type for the input data and the distances/centroids.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Index_</td><td>Integer type for the observation indices. </td></tr>
-    <tr><td class="paramname">Data_</td><td>Numeric type for the input and query data. </td></tr>
-    <tr><td class="paramname">Distance_</td><td>Floating-point type for the distances. </td></tr>
-    <tr><td class="paramname">KmeansMatrix_</td><td>Class of the input data matrix for <b>kmeans</b>. This should satisfy the <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Matrix.html">kmeans::Matrix</a></code> interface, most typically a <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1SimpleMatrix.html">kmeans::SimpleMatrix</a></code>. (Note that this is a different class from the <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Matrix.html">knncolle::Matrix</a></code> interface!) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ad19250ce8179359cd6118cdf2e9b3936" name="ad19250ce8179359cd6118cdf2e9b3936"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad19250ce8179359cd6118cdf2e9b3936">&#9670;&#160;</a></span>RefineLloyd</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Index_ , typename Data_ , typename Distance_ , class KmeansMatrix_  = kmeans::SimpleMatrix&lt;Index_, Data_&gt;&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#ad19250ce8179359cd6118cdf2e9b3936">knncolle_kmknn::RefineLloyd</a> = <a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1RefineLloyd.html">kmeans::RefineLloyd</a>&lt;Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, Index_, <a class="el" href="#ab89a88b7e80686823b2d6e869b46d33c">Common</a>&lt;Data_, Distance_&gt;, KmeansMatrix_&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Convenient alias for <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1RefineLloyd.html">kmeans::RefineLloyd</a></code>, using the <code>Common</code> type for the input data and the distances/centroids.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Index_</td><td>Integer type for the observation indices. </td></tr>
-    <tr><td class="paramname">Data_</td><td>Numeric type for the input and query data. </td></tr>
-    <tr><td class="paramname">Distance_</td><td>Floating-point type for the distances. </td></tr>
-    <tr><td class="paramname">KmeansMatrix_</td><td>Class of the input data matrix for <b>kmeans</b>. This should satisfy the <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1Matrix.html">kmeans::Matrix</a></code> interface, most typically a <code><a class="elRef" href="https://ltla.github.io/CppKmeans/classkmeans_1_1SimpleMatrix.html">kmeans::SimpleMatrix</a></code>. (Note that this is a different class from the <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Matrix.html">knncolle::Matrix</a></code> interface!) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a86696b7cfcea4769e6d5115f358f160e" name="a86696b7cfcea4769e6d5115f358f160e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86696b7cfcea4769e6d5115f358f160e">&#9670;&#160;</a></span>load_kmknn_prebuilt()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename Index_ , typename Data_ , typename Distance_ &gt; </div>
+template&lt;typename Index_ , typename Data_ , typename Distance_ , typename KmeansFloat_  = Distance_&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">auto knncolle_kmknn::load_kmknn_prebuilt </td>
@@ -476,12 +131,13 @@ template&lt;typename Index_ , typename Data_ , typename Distance_ &gt; </div>
       </table>
 </div><div class="memdoc">
 <p>Helper function to define a <code><a class="elRef" href="https://knncolle.github.io/knncolle/namespaceknncolle.html#a0574e57c9150cb0bfe1da0e7eff6aa01">knncolle::LoadPrebuiltFunction</a></code> for KMKNN in <code><a class="elRef" href="https://knncolle.github.io/knncolle/namespaceknncolle.html#a2157dec9e895be903278fc6903c793e0">knncolle::load_prebuilt_raw()</a></code>.</p>
-<p>To load an KMKNN index from disk, users are expected to define and register an KMKNN-specific <code><a class="elRef" href="https://knncolle.github.io/knncolle/namespaceknncolle.html#a0574e57c9150cb0bfe1da0e7eff6aa01">knncolle::LoadPrebuiltFunction</a></code>. In this function, users should call <code>load_kmknn_prebuilt_types()</code> to figure out the saved index's <code>KMKNNDistance_</code>, <code>KMKNNIndex</code> and <code>KMKNNData_</code>. Then, they should call <code><a class="el" href="#a86696b7cfcea4769e6d5115f358f160e">load_kmknn_prebuilt()</a></code> with the appropriate types to return a pointer to a <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Prebuilt.html">knncolle::Prebuilt</a></code> object. This user-defined function should be registered in <code>load_prebuilt_registry()</code> with the key in <code>knncolle_kmknn::save_name</code>.</p>
+<p>To load an KMKNN index from disk, users are expected to define and register an KMKNN-specific <code><a class="elRef" href="https://knncolle.github.io/knncolle/namespaceknncolle.html#a0574e57c9150cb0bfe1da0e7eff6aa01">knncolle::LoadPrebuiltFunction</a></code>. In this function, users should call <code>load_kmknn_prebuilt_types()</code> to figure out the saved index's <code>KMKNNDistance_</code>, <code>KMKNNIndex</code> and <code>KMKNNData_</code>. Then, they should call <code><a class="el" href="#a90d91598dd336ae937d96153e28f56b9">load_kmknn_prebuilt()</a></code> with the appropriate types to return a pointer to a <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Prebuilt.html">knncolle::Prebuilt</a></code> object. This user-defined function should be registered in <code>load_prebuilt_registry()</code> with the key in <code>knncolle_kmknn::save_name</code>.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Index_</td><td>Integer type for the observation indices. </td></tr>
     <tr><td class="paramname">Data_</td><td>Numeric type for the input and query data. </td></tr>
-    <tr><td class="paramname">Distance_</td><td>Floating-point type for the distances.</td></tr>
+    <tr><td class="paramname">Distance_</td><td>Floating-point type for the distances. </td></tr>
+    <tr><td class="paramname">KmeansFloat_</td><td>Floating-point type of the cluster centroids.</td></tr>
   </table>
   </dd>
 </dl>
