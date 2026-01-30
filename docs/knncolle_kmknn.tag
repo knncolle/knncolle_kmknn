@@ -11,6 +11,7 @@
     <name>load_kmknn_prebuilt.hpp</name>
     <path>/github/workspace/include/knncolle_kmknn/</path>
     <filename>load__kmknn__prebuilt_8hpp.html</filename>
+    <class kind="struct">knncolle_kmknn::KmknnPrebuiltTypes</class>
     <namespace>knncolle_kmknn</namespace>
   </compound>
   <compound kind="class">
@@ -111,16 +112,42 @@
       <arglist></arglist>
     </member>
   </compound>
+  <compound kind="struct">
+    <name>knncolle_kmknn::KmknnPrebuiltTypes</name>
+    <filename>structknncolle__kmknn_1_1KmknnPrebuiltTypes.html</filename>
+    <member kind="variable">
+      <type>knncolle::NumericType</type>
+      <name>kmeansfloat</name>
+      <anchorfile>structknncolle__kmknn_1_1KmknnPrebuiltTypes.html</anchorfile>
+      <anchor>a6c7162a3f4b401f1ebe6da39940caf54</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
   <compound kind="namespace">
     <name>knncolle_kmknn</name>
     <filename>namespaceknncolle__kmknn.html</filename>
     <class kind="class">knncolle_kmknn::KmknnBuilder</class>
     <class kind="struct">knncolle_kmknn::KmknnOptions</class>
+    <class kind="struct">knncolle_kmknn::KmknnPrebuiltTypes</class>
+    <member kind="function">
+      <type>std::function&lt; void(const std::filesystem::path &amp;)&gt; &amp;</type>
+      <name>custom_save_for_kmknn_kmeansfloat</name>
+      <anchorfile>namespaceknncolle__kmknn.html</anchorfile>
+      <anchor>a4a433e904efb23db4f47567530f301e0</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>KmknnPrebuiltTypes</type>
+      <name>load_kmknn_prebuilt_types</name>
+      <anchorfile>namespaceknncolle__kmknn.html</anchorfile>
+      <anchor>a2e91a868a2c55f67bb0bf52f82f3966b</anchor>
+      <arglist>(const std::filesystem::path &amp;dir)</arglist>
+    </member>
     <member kind="function">
       <type>auto</type>
       <name>load_kmknn_prebuilt</name>
       <anchorfile>namespaceknncolle__kmknn.html</anchorfile>
-      <anchor>a90d91598dd336ae937d96153e28f56b9</anchor>
+      <anchor>abc6e3b15e3fa1d71b0d99c4a963d9863</anchor>
       <arglist>(const std::filesystem::path &amp;dir)</arglist>
     </member>
   </compound>

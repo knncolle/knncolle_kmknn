@@ -228,10 +228,11 @@ template&lt;typename Index_ , typename Data_ , typename Distance_ , class Matrix
   <table class="params">
     <tr><td class="paramname">metric_data</td><td>Pointer to a distance metric (e.g., <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1EuclideanDistance.html">knncolle::EuclideanDistance</a></code>) for computing distances between observations. </td></tr>
     <tr><td class="paramname">metric_center</td><td>Pointer to a distance metric (e.g., <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1EuclideanDistance.html">knncolle::EuclideanDistance</a></code>) for computing distances between observations and cluster centroids. </td></tr>
-    <tr><td class="paramname">options</td><td>Further options for the KMKNN algorithm. </td></tr>
+    <tr><td class="paramname">options</td><td>Further options for the KMKNN algorithm.</td></tr>
   </table>
   </dd>
 </dl>
+<p><code>metric_center</code> and <code>metric_data</code> should compute the same distance metric. Specifically, the distance computed by <code>metric_data</code> between two <code>Data_</code> arrays should be the same as the distance computed by <code>metric_center</code> between two <code>KmeansFloat_</code> arrays with the same contents, assuming that the contents can be losslessly converted from <code>Data_</code> to <code>KmeansFloat_</code>. We only accept two separate arguments here to support use cases where <code>Data_</code> and <code>KmeansFloat_</code> are different types (e.g., integer <code>Data_</code> and double-precision <code>KmeansFloat_</code>), where a more efficient calculation of the same distance may be possible with one of the types. </p>
 
 </div>
 </div>

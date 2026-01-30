@@ -102,27 +102,57 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceknncolle__kmknn.html">knncolle_kmknn</a> {</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Index_, <span class="keyword">typename</span> Data_, <span class="keyword">typename</span> Distance_, <span class="keyword">typename</span> KmeansFloat_ = Distance_&gt;</div>
-<div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="namespaceknncolle__kmknn.html#a90d91598dd336ae937d96153e28f56b9">   34</a></span><span class="keyword">auto</span> <a class="code hl_function" href="namespaceknncolle__kmknn.html#a90d91598dd336ae937d96153e28f56b9">load_kmknn_prebuilt</a>(<span class="keyword">const</span> std::filesystem::path&amp; dir) {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">return</span> <span class="keyword">new</span> KmknnPrebuilt&lt;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        Index_,</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        Data_,</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        Distance_,</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <a class="code hl_classRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1DistanceMetric.html">knncolle::DistanceMetric&lt;Data_, Distance_&gt;</a>,</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        KmeansFloat_,</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <a class="code hl_classRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1DistanceMetric.html">knncolle::DistanceMetric&lt;KmeansFloat_, Distance_&gt;</a></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    &gt;(dir);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="structknncolle__kmknn_1_1KmknnPrebuiltTypes.html">   20</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structknncolle__kmknn_1_1KmknnPrebuiltTypes.html">KmknnPrebuiltTypes</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="structknncolle__kmknn_1_1KmknnPrebuiltTypes.html#a6c7162a3f4b401f1ebe6da39940caf54">   24</a></span>    <a class="code hl_enumerationRef" href="https://knncolle.github.io/knncolle/namespaceknncolle.html#a9aa73a4ad540791a911eb9fa64b51de3">knncolle::NumericType</a> <a class="code hl_variable" href="structknncolle__kmknn_1_1KmknnPrebuiltTypes.html#a6c7162a3f4b401f1ebe6da39940caf54">kmeansfloat</a>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>};</div>
 </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="namespaceknncolle__kmknn.html#a2e91a868a2c55f67bb0bf52f82f3966b">   34</a></span><span class="keyword">inline</span> <a class="code hl_struct" href="structknncolle__kmknn_1_1KmknnPrebuiltTypes.html">KmknnPrebuiltTypes</a> <a class="code hl_function" href="namespaceknncolle__kmknn.html#a2e91a868a2c55f67bb0bf52f82f3966b">load_kmknn_prebuilt_types</a>(<span class="keyword">const</span> std::filesystem::path&amp; dir) {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_enumerationRef" href="https://knncolle.github.io/knncolle/namespaceknncolle.html#a9aa73a4ad540791a911eb9fa64b51de3">knncolle::NumericType</a> type;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_functionRef" href="https://knncolle.github.io/knncolle/namespaceknncolle.html#a1e25b966ec80b5ab45dced14fe690e6b">knncolle::quick_load</a>(dir / <span class="stringliteral">&quot;FLOAT_TYPE&quot;</span>, &amp;type, 1);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_struct" href="structknncolle__kmknn_1_1KmknnPrebuiltTypes.html">KmknnPrebuiltTypes</a> config;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    config.<a class="code hl_variable" href="structknncolle__kmknn_1_1KmknnPrebuiltTypes.html#a6c7162a3f4b401f1ebe6da39940caf54">kmeansfloat</a> = type;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">return</span> config;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
+</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keyword">template</span>&lt;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">typename</span> Index_,</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">typename</span> Data_,</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">typename</span> Distance_,</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">class </span>DistanceMetricData_ = <a class="code hl_classRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1DistanceMetric.html">knncolle::DistanceMetric&lt;Data_, Distance_&gt;</a>,</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keyword">typename</span> KmeansFloat_ = Distance_,</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keyword">class </span>DistanceMetricCenter_ = <a class="code hl_classRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1DistanceMetric.html">knncolle::DistanceMetric&lt;KmeansFloat_, Distance_&gt;</a></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>&gt;</div>
+<div class="foldopen" id="foldopen00078" data-start="{" data-end="}">
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="namespaceknncolle__kmknn.html#abc6e3b15e3fa1d71b0d99c4a963d9863">   78</a></span><span class="keyword">auto</span> <a class="code hl_function" href="namespaceknncolle__kmknn.html#abc6e3b15e3fa1d71b0d99c4a963d9863">load_kmknn_prebuilt</a>(<span class="keyword">const</span> std::filesystem::path&amp; dir) {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">return</span> <span class="keyword">new</span> KmknnPrebuilt&lt;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        Index_,</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        Data_,</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        Distance_,</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        DistanceMetricData_,</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        KmeansFloat_,</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        DistanceMetricCenter_</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    &gt;(dir);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>}</div>
+</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassknncolle_1_1DistanceMetric_html"><div class="ttname"><a href="https://knncolle.github.io/knncolle/classknncolle_1_1DistanceMetric.html">knncolle::DistanceMetric</a></div></div>
 <div class="ttc" id="aknncolle_8hpp_html"><div class="ttname"><a href="https://knncolle.github.io/knncolle/knncolle_8hpp.html">knncolle.hpp</a></div></div>
 <div class="ttc" id="anamespaceknncolle__kmknn_html"><div class="ttname"><a href="namespaceknncolle__kmknn.html">knncolle_kmknn</a></div><div class="ttdoc">Namespace for the knncolle_kmeans library.</div><div class="ttdef"><b>Definition</b> Kmknn.hpp:25</div></div>
-<div class="ttc" id="anamespaceknncolle__kmknn_html_a90d91598dd336ae937d96153e28f56b9"><div class="ttname"><a href="namespaceknncolle__kmknn.html#a90d91598dd336ae937d96153e28f56b9">knncolle_kmknn::load_kmknn_prebuilt</a></div><div class="ttdeci">auto load_kmknn_prebuilt(const std::filesystem::path &amp;dir)</div><div class="ttdef"><b>Definition</b> load_kmknn_prebuilt.hpp:34</div></div>
+<div class="ttc" id="anamespaceknncolle__kmknn_html_a2e91a868a2c55f67bb0bf52f82f3966b"><div class="ttname"><a href="namespaceknncolle__kmknn.html#a2e91a868a2c55f67bb0bf52f82f3966b">knncolle_kmknn::load_kmknn_prebuilt_types</a></div><div class="ttdeci">KmknnPrebuiltTypes load_kmknn_prebuilt_types(const std::filesystem::path &amp;dir)</div><div class="ttdef"><b>Definition</b> load_kmknn_prebuilt.hpp:34</div></div>
+<div class="ttc" id="anamespaceknncolle__kmknn_html_abc6e3b15e3fa1d71b0d99c4a963d9863"><div class="ttname"><a href="namespaceknncolle__kmknn.html#abc6e3b15e3fa1d71b0d99c4a963d9863">knncolle_kmknn::load_kmknn_prebuilt</a></div><div class="ttdeci">auto load_kmknn_prebuilt(const std::filesystem::path &amp;dir)</div><div class="ttdef"><b>Definition</b> load_kmknn_prebuilt.hpp:78</div></div>
+<div class="ttc" id="anamespaceknncolle_html_a1e25b966ec80b5ab45dced14fe690e6b"><div class="ttname"><a href="https://knncolle.github.io/knncolle/namespaceknncolle.html#a1e25b966ec80b5ab45dced14fe690e6b">knncolle::quick_load</a></div><div class="ttdeci">void quick_load(const std::filesystem::path &amp;path, Input_ *const contents, const Length_ length)</div></div>
+<div class="ttc" id="anamespaceknncolle_html_a9aa73a4ad540791a911eb9fa64b51de3"><div class="ttname"><a href="https://knncolle.github.io/knncolle/namespaceknncolle.html#a9aa73a4ad540791a911eb9fa64b51de3">knncolle::NumericType</a></div><div class="ttdeci">NumericType</div></div>
+<div class="ttc" id="astructknncolle__kmknn_1_1KmknnPrebuiltTypes_html"><div class="ttname"><a href="structknncolle__kmknn_1_1KmknnPrebuiltTypes.html">knncolle_kmknn::KmknnPrebuiltTypes</a></div><div class="ttdoc">Template types of a saved KMKNN index.</div><div class="ttdef"><b>Definition</b> load_kmknn_prebuilt.hpp:20</div></div>
+<div class="ttc" id="astructknncolle__kmknn_1_1KmknnPrebuiltTypes_html_a6c7162a3f4b401f1ebe6da39940caf54"><div class="ttname"><a href="structknncolle__kmknn_1_1KmknnPrebuiltTypes.html#a6c7162a3f4b401f1ebe6da39940caf54">knncolle_kmknn::KmknnPrebuiltTypes::kmeansfloat</a></div><div class="ttdeci">knncolle::NumericType kmeansfloat</div><div class="ttdef"><b>Definition</b> load_kmknn_prebuilt.hpp:24</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

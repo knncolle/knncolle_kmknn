@@ -91,6 +91,7 @@ $(function(){ initResizable(false); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">load_kmknn_prebuilt.hpp File Reference</div></div>
@@ -104,6 +105,12 @@ $(function(){ initResizable(false); });
 </div>
 <p><a href="load__kmknn__prebuilt_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structknncolle__kmknn_1_1KmknnPrebuiltTypes.html">knncolle_kmknn::KmknnPrebuiltTypes</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template types of a saved KMKNN index.  <a href="structknncolle__kmknn_1_1KmknnPrebuiltTypes.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceknncolle__kmknn.html">knncolle_kmknn</a></td></tr>
@@ -112,9 +119,11 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a90d91598dd336ae937d96153e28f56b9" id="r_a90d91598dd336ae937d96153e28f56b9"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , typename KmeansFloat_  = Distance_&gt; </td></tr>
-<tr class="memitem:a90d91598dd336ae937d96153e28f56b9"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceknncolle__kmknn.html#a90d91598dd336ae937d96153e28f56b9">knncolle_kmknn::load_kmknn_prebuilt</a> (const std::filesystem::path &amp;dir)</td></tr>
-<tr class="separator:a90d91598dd336ae937d96153e28f56b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e91a868a2c55f67bb0bf52f82f3966b" id="r_a2e91a868a2c55f67bb0bf52f82f3966b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structknncolle__kmknn_1_1KmknnPrebuiltTypes.html">KmknnPrebuiltTypes</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceknncolle__kmknn.html#a2e91a868a2c55f67bb0bf52f82f3966b">knncolle_kmknn::load_kmknn_prebuilt_types</a> (const std::filesystem::path &amp;dir)</td></tr>
+<tr class="separator:a2e91a868a2c55f67bb0bf52f82f3966b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc6e3b15e3fa1d71b0d99c4a963d9863" id="r_abc6e3b15e3fa1d71b0d99c4a963d9863"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , class DistanceMetricData_  = knncolle::DistanceMetric&lt;Data_, Distance_&gt;, typename KmeansFloat_  = Distance_, class DistanceMetricCenter_  = knncolle::DistanceMetric&lt;KmeansFloat_, Distance_&gt;&gt; </td></tr>
+<tr class="memitem:abc6e3b15e3fa1d71b0d99c4a963d9863"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceknncolle__kmknn.html#abc6e3b15e3fa1d71b0d99c4a963d9863">knncolle_kmknn::load_kmknn_prebuilt</a> (const std::filesystem::path &amp;dir)</td></tr>
+<tr class="separator:abc6e3b15e3fa1d71b0d99c4a963d9863"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Load a prebuilt KMKNN index from disk. </p>

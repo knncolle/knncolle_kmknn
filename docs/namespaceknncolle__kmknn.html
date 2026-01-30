@@ -104,23 +104,59 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structknncolle__kmknn_1_1KmknnOptions.html">KmknnOptions</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Options for <code><a class="el" href="classknncolle__kmknn_1_1KmknnBuilder.html" title="Perform a nearest neighbor search based on k-means clustering.">KmknnBuilder</a></code> construction.  <a href="structknncolle__kmknn_1_1KmknnOptions.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structknncolle__kmknn_1_1KmknnPrebuiltTypes.html">KmknnPrebuiltTypes</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Template types of a saved KMKNN index.  <a href="structknncolle__kmknn_1_1KmknnPrebuiltTypes.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a90d91598dd336ae937d96153e28f56b9" id="r_a90d91598dd336ae937d96153e28f56b9"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , typename KmeansFloat_  = Distance_&gt; </td></tr>
-<tr class="memitem:a90d91598dd336ae937d96153e28f56b9"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a90d91598dd336ae937d96153e28f56b9">load_kmknn_prebuilt</a> (const std::filesystem::path &amp;dir)</td></tr>
-<tr class="separator:a90d91598dd336ae937d96153e28f56b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a433e904efb23db4f47567530f301e0" id="r_a4a433e904efb23db4f47567530f301e0"><td class="memTemplParams" colspan="2">template&lt;class KmeansFloat_ &gt; </td></tr>
+<tr class="memitem:a4a433e904efb23db4f47567530f301e0"><td class="memTemplItemLeft" align="right" valign="top">std::function&lt; void(const std::filesystem::path &amp;)&gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a4a433e904efb23db4f47567530f301e0">custom_save_for_kmknn_kmeansfloat</a> ()</td></tr>
+<tr class="separator:a4a433e904efb23db4f47567530f301e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e91a868a2c55f67bb0bf52f82f3966b" id="r_a2e91a868a2c55f67bb0bf52f82f3966b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structknncolle__kmknn_1_1KmknnPrebuiltTypes.html">KmknnPrebuiltTypes</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e91a868a2c55f67bb0bf52f82f3966b">load_kmknn_prebuilt_types</a> (const std::filesystem::path &amp;dir)</td></tr>
+<tr class="separator:a2e91a868a2c55f67bb0bf52f82f3966b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc6e3b15e3fa1d71b0d99c4a963d9863" id="r_abc6e3b15e3fa1d71b0d99c4a963d9863"><td class="memTemplParams" colspan="2">template&lt;typename Index_ , typename Data_ , typename Distance_ , class DistanceMetricData_  = knncolle::DistanceMetric&lt;Data_, Distance_&gt;, typename KmeansFloat_  = Distance_, class DistanceMetricCenter_  = knncolle::DistanceMetric&lt;KmeansFloat_, Distance_&gt;&gt; </td></tr>
+<tr class="memitem:abc6e3b15e3fa1d71b0d99c4a963d9863"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#abc6e3b15e3fa1d71b0d99c4a963d9863">load_kmknn_prebuilt</a> (const std::filesystem::path &amp;dir)</td></tr>
+<tr class="separator:abc6e3b15e3fa1d71b0d99c4a963d9863"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Namespace for the <b>knncolle_kmeans</b> library. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a90d91598dd336ae937d96153e28f56b9" name="a90d91598dd336ae937d96153e28f56b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90d91598dd336ae937d96153e28f56b9">&#9670;&#160;</a></span>load_kmknn_prebuilt()</h2>
+<a id="a4a433e904efb23db4f47567530f301e0" name="a4a433e904efb23db4f47567530f301e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a433e904efb23db4f47567530f301e0">&#9670;&#160;</a></span>custom_save_for_kmknn_kmeansfloat()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Index_ , typename Data_ , typename Distance_ , typename KmeansFloat_  = Distance_&gt; </div>
+template&lt;class KmeansFloat_ &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::function&lt; void(const std::filesystem::path &amp;)&gt; &amp; knncolle_kmknn::custom_save_for_kmknn_kmeansfloat </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Define a global function to preserve <code>KmeansFloat_</code> type information when saving a prebuilt KMKNN index in <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Prebuilt.html#add21dc74e08a6ad495c6e241fa3d5968">knncolle::Prebuilt::save()</a></code>. Users should define their own function here to handle an <code>KmeansFloat_</code> type that is unknown to <code><a class="elRef" href="https://knncolle.github.io/knncolle/namespaceknncolle.html#a84e640363d9246c58008c93166021f26">knncolle::get_numeric_type()</a></code>. The action of setting/unsetting the global function is not thread-safe and should be done in a serial section.</p>
+<p>The sole argument of the global function is the same <code>dir</code> provided to <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Prebuilt.html#add21dc74e08a6ad495c6e241fa3d5968">knncolle::Prebuilt::save()</a></code>. If set, the global function is generally expected to write information about <code>KmeansFloat_</code> to files inside <code>dir</code>. It is recommended that the names of such files should not start with an upper-case letter to avoid conflicts with files generated by <code>save()</code>.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">KmeansFloat_</td><td>Floating-point type of the cluster centroids.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Reference to a global function for saving information about <code>KmeansFloat_</code>. By default, the global function is not set. If set, the global function will be called by the <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Prebuilt.html#add21dc74e08a6ad495c6e241fa3d5968">knncolle::Prebuilt::save()</a></code> method for the KMKNN <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Prebuilt.html">knncolle::Prebuilt</a></code> subclass. </dd></dl>
+
+</div>
+</div>
+<a id="abc6e3b15e3fa1d71b0d99c4a963d9863" name="abc6e3b15e3fa1d71b0d99c4a963d9863"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc6e3b15e3fa1d71b0d99c4a963d9863">&#9670;&#160;</a></span>load_kmknn_prebuilt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Index_ , typename Data_ , typename Distance_ , class DistanceMetricData_  = knncolle::DistanceMetric&lt;Data_, Distance_&gt;, typename KmeansFloat_  = Distance_, class DistanceMetricCenter_  = knncolle::DistanceMetric&lt;KmeansFloat_, Distance_&gt;&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">auto knncolle_kmknn::load_kmknn_prebuilt </td>
@@ -131,13 +167,16 @@ template&lt;typename Index_ , typename Data_ , typename Distance_ , typename Kme
       </table>
 </div><div class="memdoc">
 <p>Helper function to define a <code><a class="elRef" href="https://knncolle.github.io/knncolle/namespaceknncolle.html#a0574e57c9150cb0bfe1da0e7eff6aa01">knncolle::LoadPrebuiltFunction</a></code> for KMKNN in <code><a class="elRef" href="https://knncolle.github.io/knncolle/namespaceknncolle.html#a2157dec9e895be903278fc6903c793e0">knncolle::load_prebuilt_raw()</a></code>.</p>
-<p>To load an KMKNN index from disk, users are expected to define and register an KMKNN-specific <code><a class="elRef" href="https://knncolle.github.io/knncolle/namespaceknncolle.html#a0574e57c9150cb0bfe1da0e7eff6aa01">knncolle::LoadPrebuiltFunction</a></code>. In this function, users should call <code>load_kmknn_prebuilt_types()</code> to figure out the saved index's <code>KMKNNDistance_</code>, <code>KMKNNIndex</code> and <code>KMKNNData_</code>. Then, they should call <code><a class="el" href="#a90d91598dd336ae937d96153e28f56b9">load_kmknn_prebuilt()</a></code> with the appropriate types to return a pointer to a <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Prebuilt.html">knncolle::Prebuilt</a></code> object. This user-defined function should be registered in <code>load_prebuilt_registry()</code> with the key in <code>knncolle_kmknn::save_name</code>.</p>
+<p>To load an KMKNN index from disk, users are expected to define and register an KMKNN-specific <code><a class="elRef" href="https://knncolle.github.io/knncolle/namespaceknncolle.html#a0574e57c9150cb0bfe1da0e7eff6aa01">knncolle::LoadPrebuiltFunction</a></code>. In this function, users should call <code><a class="el" href="#a2e91a868a2c55f67bb0bf52f82f3966b">load_kmknn_prebuilt_types()</a></code> to figure out the saved index's <code>KmknnFloat_</code>. Then, they should call <code><a class="el" href="#abc6e3b15e3fa1d71b0d99c4a963d9863">load_kmknn_prebuilt()</a></code> with the appropriate types to return a pointer to a <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Prebuilt.html">knncolle::Prebuilt</a></code> object. This user-defined function should be registered in <code>load_prebuilt_registry()</code> with the key in <code>knncolle_kmknn::kmknn_prebuilt_save_name</code>.</p>
+<p>For unknown types, users can set <code><a class="el" href="#a4a433e904efb23db4f47567530f301e0">custom_save_for_kmknn_kmeansfloat()</a></code>. Each custom function saves additional information about its type to disk during a <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Prebuilt.html#add21dc74e08a6ad495c6e241fa3d5968">knncolle::Prebuilt::save()</a></code> call. That information can then be parsed in the user-defined <code><a class="elRef" href="https://knncolle.github.io/knncolle/namespaceknncolle.html#a0574e57c9150cb0bfe1da0e7eff6aa01">knncolle::LoadPrebuiltFunction</a></code> to recover an KMKNN index with the appropriate template types.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Index_</td><td>Integer type for the observation indices. </td></tr>
     <tr><td class="paramname">Data_</td><td>Numeric type for the input and query data. </td></tr>
     <tr><td class="paramname">Distance_</td><td>Floating-point type for the distances. </td></tr>
-    <tr><td class="paramname">KmeansFloat_</td><td>Floating-point type of the cluster centroids.</td></tr>
+    <tr><td class="paramname">DistanceMetricData_</td><td>Class implementing the calculation of distances between observations. This should satisfy the <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1DistanceMetric.html">knncolle::DistanceMetric</a></code> interface. </td></tr>
+    <tr><td class="paramname">KmeansFloat_</td><td>Floating-point type of the cluster centroids. </td></tr>
+    <tr><td class="paramname">DistanceMetricCenter_</td><td>Class implementing the calculation of distances between an observation and a cluster centroid. This should satisfy the <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1DistanceMetric.html">knncolle::DistanceMetric</a></code> interface.</td></tr>
   </table>
   </dd>
 </dl>
@@ -148,6 +187,38 @@ template&lt;typename Index_ , typename Data_ , typename Distance_ , typename Kme
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to a <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Prebuilt.html">knncolle::Prebuilt</a></code> KMKNN index. </dd></dl>
+
+</div>
+</div>
+<a id="a2e91a868a2c55f67bb0bf52f82f3966b" name="a2e91a868a2c55f67bb0bf52f82f3966b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e91a868a2c55f67bb0bf52f82f3966b">&#9670;&#160;</a></span>load_kmknn_prebuilt_types()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structknncolle__kmknn_1_1KmknnPrebuiltTypes.html">KmknnPrebuiltTypes</a> knncolle_kmknn::load_kmknn_prebuilt_types </td>
+          <td>(</td>
+          <td class="paramtype">const std::filesystem::path &amp;</td>          <td class="paramname"><span class="paramname"><em>dir</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir</td><td>Path to a directory in which a prebuilt KMKNN index was saved. An Kmknn index would typically be saved by calling the <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Prebuilt.html#add21dc74e08a6ad495c6e241fa3d5968">knncolle::Prebuilt::save()</a></code> method of the Kmknn subclass instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Template types of the saved instance of a <code><a class="elRef" href="https://knncolle.github.io/knncolle/classknncolle_1_1Prebuilt.html">knncolle::Prebuilt</a></code> KMKNN subclass. This is typically used to choose template parameters for <code><a class="el" href="#abc6e3b15e3fa1d71b0d99c4a963d9863">load_kmknn_prebuilt()</a></code>. </dd></dl>
 
 </div>
 </div>

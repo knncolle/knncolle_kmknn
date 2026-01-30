@@ -13,6 +13,7 @@ var searchData=
   ['consecutiveaccessextractor_10',['ConsecutiveAccessExtractor',['https://ltla.github.io/CppKmeans/classkmeans_1_1ConsecutiveAccessExtractor.html',1,'kmeans']]],
   ['convergence_5fhistory_11',['convergence_history',['https://ltla.github.io/CppKmeans/structkmeans_1_1RefineMiniBatchOptions.html#a93b37ae839d05eeaed1a9685f6d9112a',1,'kmeans::RefineMiniBatchOptions']]],
   ['count_5fall_5fneighbors_5fwithout_5fself_12',['count_all_neighbors_without_self',['https://knncolle.github.io/knncolle/namespaceknncolle.html#ab636bced615a3a669ef0e207b5d848cc',1,'knncolle']]],
-  ['custom_5fsave_5ffor_5fl2normalized_5fnormalized_13',['custom_save_for_l2normalized_normalized',['https://knncolle.github.io/knncolle/namespaceknncolle.html#addf5942d7b462be001619860d8b4b158',1,'knncolle']]],
-  ['customizing_20the_20search_14',['Customizing the search',['../index.html#autotoc_md3',1,'']]]
+  ['custom_5fsave_5ffor_5fkmknn_5fkmeansfloat_13',['custom_save_for_kmknn_kmeansfloat',['../namespaceknncolle__kmknn.html#a4a433e904efb23db4f47567530f301e0',1,'knncolle_kmknn']]],
+  ['custom_5fsave_5ffor_5fl2normalized_5fnormalized_14',['custom_save_for_l2normalized_normalized',['https://knncolle.github.io/knncolle/namespaceknncolle.html#addf5942d7b462be001619860d8b4b158',1,'knncolle']]],
+  ['customizing_20the_20search_15',['Customizing the search',['../index.html#autotoc_md3',1,'']]]
 ];
