@@ -598,6 +598,9 @@ public:
  * The advantage of the KMKNN approach is its simplicity and minimal overhead,
  * resulting in performance improvements over conventional tree-based methods for high-dimensional data where most points need to be searched anyway.
  *
+ * Note that the KMKNN search is theoretically "exact" but the behavior of the implementation will be affected by round-off error for floating-point inputs.
+ * See the related discussion in `knncolle::VptreeBuilder` for more details.
+ *
  * @tparam Index_ Integer type for the observation indices.
  * @tparam Data_ Numeric type for the input and query data.
  * @tparam Distance_ Floating-point type for the distances.
