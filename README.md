@@ -28,7 +28,7 @@ knncolle::SimpleMatrix<int, double> mat(ndim, nobs, matrix.data());
 
 // Build an KMKNN index. 
 auto dist = std::make_shared<knncolle_kmknn::EuclideanDistance<double, double> >();
-knncolle_kmknn::KmknnBuilder<int, double, double> kbuilder(dist);
+knncolle_kmknn::KmknnBuilder<int, double, double> kbuilder(dist, dist);
 auto kindex = kbuilder.build_unique(mat);
 
 // Find 10 nearest neighbors of every element.
@@ -51,7 +51,7 @@ auto kindex2 = kbuilder.build_unique(mat);
 // Alternatively we can pass some options directly to the KmknnBuilder's constructor.
 knncolle_kmknn::KmknnOptions<int, double, double> new_options;
 new_options.power = 0.8;
-knncolle_kmknn::KmknnBuilder<int, double, double> kbuilder(dist, new_options);
+knncolle_kmknn::KmknnBuilder<int, double, double> kbuilder(dist, dist, new_options);
 ```
 
 We can also pass in a different distance metric, if so desired.
@@ -60,7 +60,7 @@ But a different distance metric will still give the correct results:
 
 ```cpp
 auto man_dist = std::make_shared<knncolle_kmknn::ManhattanDistance<double, double> >();
-knncolle_kmknn::KmknnBuilder<int, double, double> man_kbuilder(man_dist);
+knncolle_kmknn::KmknnBuilder<int, double, double> man_kbuilder(man_dist, man_dist);
 ```
 
 As with other **knncolle** classes, advanced users can choose their own types via different template parametrizations.
@@ -73,7 +73,7 @@ knncolle_kmknn::KmknnBuilder<
     /* distance type */ double,
     /* input matrix representation */ knncolle::SimpleMatrix<size_t, float>,
     /* distance metric */ knncolle_kmknn::EuclideanDistance<double, double>
-> kbuilder_typed(dist);
+> kbuilder_typed(dist, dist);
 ```
 
 ## Saving and loading to/from disk

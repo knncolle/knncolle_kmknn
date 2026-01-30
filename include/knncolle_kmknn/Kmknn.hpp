@@ -653,6 +653,13 @@ public:
      * @param metric_data  Pointer to a distance metric (e.g., `knncolle::EuclideanDistance`) for computing distances between observations.
      * @param metric_center Pointer to a distance metric (e.g., `knncolle::EuclideanDistance`) for computing distances between observations and cluster centroids.
      * @param options Further options for the KMKNN algorithm.
+     *
+     * `metric_center` and `metric_data` should compute the same distance metric. 
+     * Specifically, the distance computed by `metric_data` between two `Data_` arrays should be the same as
+     * the distance computed by `metric_center` between two `KmeansFloat_` arrays with the same contents,
+     * assuming that the contents can be losslessly converted from `Data_` to `KmeansFloat_`.
+     * We only accept two separate arguments here to support use cases where `Data_` and `KmeansFloat_` are different types (e.g., integer `Data_` and double-precision `KmeansFloat_`),
+     * where a more efficient calculation of the same distance may be possible with one of the types.
      */
     KmknnBuilder(
         std::shared_ptr<const DistanceMetricData_> metric_data,
