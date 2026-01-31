@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 
 project(knncolle_kmknn
-    VERSION 0.1.1
+    VERSION 0.2.0
     DESCRIPTION "knncolle bindings for KMKNN"
     LANGUAGES CXX)
 
@@ -22,11 +22,12 @@ option(KNNCOLLE_KMKNN_FETCH_EXTERN "Automatically fetch knncolle_kmknn's externa
 if(KNNCOLLE_KMKNN_FETCH_EXTERN)
     add_subdirectory(extern)
 else()
-    find_package(knncolle_knncolle 3.0.0 CONFIG REQUIRED)
-    find_package(ltla_kmeans 4.0.0 CONFIG REQUIRED)
+    find_package(knncolle_knncolle 3.1.0 CONFIG REQUIRED)
+    find_package(ltla_kmeans 4.0.6 CONFIG REQUIRED)
+    find_package(ltla_sanisizer 0.1.5 CONFIG REQUIRED)
 endif()
 
-target_link_libraries(knncolle_kmknn INTERFACE knncolle::knncolle ltla::kmeans)
+target_link_libraries(knncolle_kmknn INTERFACE knncolle::knncolle ltla::kmeans ltla::sanisizer)
 
 # Tests
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)

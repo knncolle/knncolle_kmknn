@@ -687,7 +687,8 @@ public:
      * Specifically, the distance computed by `metric_data` between two `Data_` arrays should be the same as
      * the distance computed by `metric_center` between two `KmeansFloat_` arrays with the same contents,
      * assuming that the contents can be losslessly converted from `Data_` to `KmeansFloat_`.
-     * We only accept two separate arguments here to support use cases where `Data_` and `KmeansFloat_` are different types (e.g., integer `Data_` and double-precision `KmeansFloat_`),
+     * This might seem redundant but we accept two separate arguments here to support use cases
+     * where `Data_` and `KmeansFloat_` are different types (e.g., integer `Data_` and double-precision `KmeansFloat_`),
      * where a more efficient calculation of the same distance may be possible with one of the types.
      */
     KmknnBuilder(
