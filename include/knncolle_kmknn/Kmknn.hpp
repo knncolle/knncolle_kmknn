@@ -195,7 +195,7 @@ private:
                  * All points (if any) within this cluster with distances at or below 'upper_bd' are potentially countable.
                  *
                  * If the maximum distance between a subject and the center is less than or equal to 'upper_bd', we can just skip the search.
-                 * No subjects will a distance-to-center greater than 'upper_bd' so we know that we have to examine all subjects. 
+                 * No subjects will have a distance-to-center greater than 'upper_bd' so we know that we have to examine all subjects. 
                  *
                  * We could also skip this center altogther if the minimum subject-to-center distance is greater than 'upper_bd'.
                  * However, this seems too unlikely to warrant a special clause.
