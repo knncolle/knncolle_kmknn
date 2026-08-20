@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 3.14)
 
-project(knncolle_kmknn
-    VERSION 0.2.0
+project(
+    knncolle_kmknn
+    VERSION 0.2.1
     DESCRIPTION "knncolle bindings for KMKNN"
-    LANGUAGES CXX)
+    LANGUAGES CXX
+)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
@@ -24,7 +26,7 @@ if(KNNCOLLE_KMKNN_FETCH_EXTERN)
 else()
     find_package(knncolle_knncolle 3.1.0 CONFIG REQUIRED)
     find_package(ltla_kmeans 4.0.6 CONFIG REQUIRED)
-    find_package(ltla_sanisizer 0.1.5 CONFIG REQUIRED)
+    find_package(ltla_sanisizer 0.2.0 CONFIG REQUIRED)
 endif()
 
 target_link_libraries(knncolle_kmknn INTERFACE knncolle::knncolle ltla::kmeans ltla::sanisizer)
